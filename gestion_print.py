@@ -13,7 +13,7 @@ def print_score(score):
 
 
 # affichage d'une matrice (liste de liste)
-def print_propre(mat, seqA, seqB):
+'''def print_propre(mat, seqA, seqB):
     i = 0
     print('\t', end='')
     while i < len(seqA):
@@ -27,41 +27,41 @@ def print_propre(mat, seqA, seqB):
             print(' ', '|', end=' ')
         for y in range(len(mat[x])):
             print(mat[x][y][0], '|', end=' ')
-        print('')
+        print('')'''
 
 
 def print_propre_str(mat, seqA, seqB):
     i = 0
-    print('\t', end='')
+    print('\t', end='\t')
     while i < len(seqA):
-        print(seqA[i], '|', end=' ')
+        print(seqA[i].center(3), '|',sep = '', end='')
         i += 1
-    print('')
+    print()
     for x in range(len(mat)):
         if x >= 1:
-            print(seqB[x-1], '|', end=' ')
+            print(seqB[x-1].center(3), '|',sep = '',end='')
         else:
-            print(' ', '|', end=' ')
+            print(''.center(3), '|', sep ='', end='')
         for y in range(len(mat[x])):
-            print(mat[x][y], '|', end=' ')
+            print(mat[x][y].center(3),'|', sep = '', end='')
         print('')
 
 
 # affichage d'une matrice de liste (liste de liste de liste)
 def print_propre_list(mat, seqA, seqB):
     i = 0
-    print('\t', end='')
+    print('\t', end='\t')
     while i < len(seqA):
-        print(seqA[i], '|', end=' ')
+        print(str(seqA[i]).center(3), '|', sep ='', end='')
         i += 1
     print('')
     for x in range(len(mat)):
         if x >= 1:
-            print(seqB[x-1], '|', end=' ')
+            print(str(seqB[x-1]).center(3), '|', sep= '',end='')
         else:
-            print(' ', '|', end=' ')
+            print(''.center(3), '|', sep='', end='')
         for y in range(len(mat[x])):
-            print(mat[x][y][0], '|', end=' ')
+            print(str(mat[x][y][0]).center(3), '|',sep= '', end='')
         print('')
 
 
