@@ -39,7 +39,7 @@ $ cd Needleman_wunch_l3
 # Lancer le programme d'alignement avec 
 $ python3 NW_main.py
 ```
-Note : Si vous decidez de prendre des sequence stockées dans des fichiers fasta. Les fichiers doivent se trouver dans le
+**Note** : Si vous decidez de prendre des sequence stockées dans des fichiers fasta. Les fichiers doivent se trouver dans le
 meme dossier que le programme.
 
 ## Fonctionement 
@@ -60,12 +60,12 @@ Pour l'exemple suivant on utilise les sequence suivante :
 > ATGGCGT  
 > ATGAGT  
 
-Et le score par defaut 
+Et le score par defaut :
 1) Creation des matrice de score et de traceback sous cette forme 
 
-|   |   | A | T | G | G | C | G | T |
+|   | ㅤ | A | T | G | G | C | G | T |
 |---|---|---|---|---|---|---|---|---|  
-|   |   |   |   |   |   |   |   |   |
+| ㅤ|   |   |   |   |   |   |   |   |
 | A |   |   |   |   |   |   |   |   |
 | T |   |   |   |   |   |   |   |   |
 | G |   |   |   |   |   |   |   |   |
@@ -92,17 +92,17 @@ for x in range(ligne):
 | A |-10| X | Y |
 | T |-11| Z |   |  
 
-X maximum de :  
+Score de X depuis :  
 - dessu : -10 + extention de gap(=-10) = - 11
 - gauche : 1 + extention de gap(=-1) = - 11
 - diagonale : 0 + match(=2) = 2  
   
 Ici le score maximum est 2 et il est obtenu lors d'un deplacement depuis la case en diagonale. 
 la case X dans le tableau de score sera donc égale a 2. 
-Cette même case dans le tableau de traceback sera rempli avec une fleche ↘, car le "chemin" depuis la case en 
+Cette même case dans le tableau de traceback sera rempli avec une fleche `↘`, car le "chemin" depuis la case en 
 diagonale apporte le meilleur score.  
 
-Y maximum de :
+Score de Y depuis :
 - dessu : -11 + extention de gap(=-1) =  - 12
 - gauche : X(=2) + ouverture de gap(=-10) = - 8 
   - Lors d'un deplacement depuis la case de gauche on cree 
@@ -111,8 +111,11 @@ Y maximum de :
 
 Ici le score maximum est - 8 et il est obtenu lors d'un deplacement depuis la case de gauche. 
 la case y dans le tableau de score sera donc égale a - 8. 
-Cette même case dans le tableau de traceback sera rempli avec une fleche →, car le "chemin" depuis la case 
+Cette même case dans le tableau de traceback sera rempli avec une fleche `→`, car le "chemin" depuis la case 
 a gauche apporte le meilleur score. 
+
+**Note** : Dans le cas ou deux chemin sont egaux les deux fleche sont ajouté. 
+(avec `.append()` dans la liste qui correspond a la case) 
 
 
 
