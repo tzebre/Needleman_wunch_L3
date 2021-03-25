@@ -117,6 +117,8 @@ a gauche apporte le meilleur score.
 **Note** : Dans le cas ou deux chemin sont egaux les deux fleche sont ajouté. 
 (avec `.append()` dans la liste qui correspond a la case) 
 
+### Smith et Waterman 
+
 
 
 

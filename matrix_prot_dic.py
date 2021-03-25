@@ -1,3 +1,12 @@
+def custom_dic_genomique(liste_score):
+    liste_char = ['A','T','G','C', 'U']
+    genodic = dict(
+        A={'A': liste_score[0], 'T': liste_score[3], 'G': liste_score[1], 'C': liste_score[2], 'U': liste_score[3]},
+        T={'T': liste_score[0], 'G': liste_score[3], 'C': liste_score[2], 'U': liste_score[0]},
+        G={'G': liste_score[0], 'C': liste_score[3], 'U': liste_score[3]},
+        C={'C': liste_score[0], 'U': liste_score[2]},
+        U={'U': liste_score[0]})
+    return genodic, liste_char
 def BLOSUM62():
     list_char = ['A', 'R', 'N', 'D', 'C', 'Q', 'E', 'G', 'H', 'I', 'L', 'K', 'M', 'F', 'P', 'S', 'T', 'W', 'Y', 'V']
     blo62 = dict(

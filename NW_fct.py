@@ -50,9 +50,9 @@ def sep_mat_max_traceback(lenA, lenB, mat_max_alignement):
     list_max_alignement.append(matrice_max)
     return list_max_alignement
 
-
+# voir si on peut pas supp
 # compare deux nucleotique a aligner et retourne le score associé
-def nt_score_compare(a, b, score_list):
+def symbole_compare(a, b, score_list):
     pu = ['A', 'G']
     py = ['C', 'T', 'U']
     if a == '-' or b == '-':
@@ -91,39 +91,18 @@ def rempli_symbole(i, j, diag, down, right, matrice_score, mat_max):
         matrice_score[i][j][1] = 0
     return matrice_score, mat_max
 
-
-# rempli la matrice de score pour un aligenemnt genomique
-def rempli_score_genomique(lenA, lenB, seqA, seqB, matrice_score, mat_max, liste_score):
-    for i in range(1, lenB + 1):
-        for j in range(1, lenA + 1):
-            # declage diagonale bas
-            down = int
-            right = int
-            diag = matrice_score[i - 1][j - 1][0] + nt_score_compare(seqA[j - 1], seqB[i - 1], liste_score)
-            if matrice_score[i - 1][j][1] == 1:  # precedent superieur est un gap
-                down = matrice_score[i - 1][j][0] + liste_score[5]  # decalage en dessous extention gap
-            elif matrice_score[i - 1][j][1] == 0:  # precedement non gap
-                down = matrice_score[i - 1][j][0] + liste_score[4]  # decalage en dessous ouverture gap
-            else:
-                print("erreur down")
-            if matrice_score[i][j - 1][1] == 1:  # precedent gauche est un gap
-                right = matrice_score[i][j - 1][0] + liste_score[5]  # decalage a droite extention gap
-            elif matrice_score[i][j - 1][1] == 0:  # precedent non gap
-                right = matrice_score[i][j - 1][0] + liste_score[4]  # decalage a droite ouverture gap
-            else:
-                print("erreur right")
-            matrice_score, mat_max = rempli_symbole(i, j, diag, down, right, matrice_score, mat_max)
-    return matrice_score, mat_max
-
-
-# rempli la matrice de score pour un alignement proteique
-def rempli_score_proteique(lenA, lenB, seqA, seqB, matrice_score, mat_max, liste_score):
+# modif ya pas longtemps a verifier avec d'autre test
+def rempli_score(lenA, lenB, seqA, seqB, matrice_score, mat_max, liste_score, alignement):
+    if alignement is True:
+        dico_score, liste_char = mpd.custom_dic_genomique(liste_score)
+    else:
+        dico_score, liste_char = mpd.BLOSUM62()
     for i in range(1, lenB + 1):
         for j in range(1, lenA+1):
-            AA = mpd.sort_char(seqA[j-1], seqB[i-1], liste_char_blo62)
+            AA = mpd.sort_char(seqA[j-1], seqB[i-1], liste_char)
             down = int
             right = int
-            diag = matrice_score[i - 1][j - 1][0] + int(blo62[AA[0]][AA[1]])
+            diag = matrice_score[i - 1][j - 1][0] + int(dico_score[AA[0]][AA[1]])
             if matrice_score[i - 1][j][1] == 1:  # precedent superieur est un gap
                 down = matrice_score[i - 1][j][0] + liste_score[5]  # decalage en dessous extention gap
             elif matrice_score[i - 1][j][1] == 0:  # precedement non gap
@@ -258,7 +237,7 @@ def sw_aligne(seqA, seqB, lenA, lenB, matrice_traceback, matrice_score):
 def symbole_alignement_fct(align1, align2, liste_symbole):
     symbole = ""
     for i in range(0, len(align1)):
-        comparaison = nt_score_compare(align1[i], align2[i], [0, 1, 2, 3, 4])
+        comparaison = symbole_compare(align1[i], align2[i], [0, 1, 2, 3, 4])
         symbole += liste_symbole[comparaison]
     return symbole
 
@@ -296,11 +275,9 @@ def matrix(seqA, seqB, liste_score, liste_symbole, type_alignement, algo_type):
     dico_x_aligne, traceback_liste_mat = creation_alignement(lenA, lenB, nb_alignement, liste_score)
     score = dico_x_aligne[str(nb_alignement)]["matrice score"]
     if type_alignement is True:
-        score, mat_max_traceback = rempli_score_genomique(lenA, lenB, seqA, seqB,
-                                                          score, traceback_liste_mat, liste_score)
+        score, mat_max_traceback = rempli_score(lenA, lenB, seqA, seqB,score, traceback_liste_mat, liste_score, True)
     else:
-        score, mat_max_traceback = rempli_score_proteique(lenA, lenB, seqA, seqB,
-                                                          score, traceback_liste_mat, liste_score)
+        score, mat_max_traceback = rempli_score(lenA, lenB, seqA, seqB,score, traceback_liste_mat, liste_score, False)
     dico_x_aligne[str(nb_alignement)]["matrice score"] = score
     list_traceback = sep_mat_max_traceback(lenA, lenB, mat_max_traceback)
     for traceback2 in list_traceback:
