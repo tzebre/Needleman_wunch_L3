@@ -50,6 +50,7 @@ def sep_mat_max_traceback(lenA, lenB, mat_max_alignement):
     list_max_alignement.append(matrice_max)
     return list_max_alignement
 
+
 # voir si on peut pas supp
 # compare deux nucleotique a aligner et retourne le score associé
 def symbole_compare(a, b, score_list):
@@ -70,6 +71,8 @@ def symbole_compare(a, b, score_list):
 
 # rempli la matrice de score et la matrice avec toute les direction posssible ordre d'ajout si 3 possibilité → | ↘ | ↓
 def rempli_symbole(i, j, diag, down, right, matrice_score, mat_max):
+    # voir si on  passe pas dans la fct d'en dessous peut etre plsu logique
+
     max_val = max(diag, down, right)
     matrice_score[i][j][0] = max_val  # retourne le max des 3 possibilité d'alignement
     if matrice_score[i][j][0] == right:
