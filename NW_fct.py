@@ -86,8 +86,10 @@ def rempli_symbole(i, j, diag, down, right, matrice_score, mat_max):
         mat_max[i][j] += '↘'
         if diag == down:
             mat_max[i][j] += '↓'
-    else:
+    elif matrice_score[i][j] == down:
         mat_max[i][j] += '↓'
+    else:
+        mat_max[i][j] += ' '
     # si on a creer un gap ou mets 1 comme deuxiemme indice de liste sinon 0
     if max(diag, down, right) == down or max(diag, down, right) == right:
         matrice_score[i][j][1] = 1
@@ -169,13 +171,15 @@ def nw_aligne(seqA, seqB, trace):
     align2 = align2[::-1]
     return align1, align2
 
-# marche pas 
+# marche pas
 def sw_aligne(seqA, seqB, i, j, trace):
-    lenA = len(seqA)
-    lenB = len(seqB)
-    score_final = 0
-    while i >= 0 and j >= 0:
-        s_current = matrice_traceback[i][j]
+    t = 0
+    align1 = ""
+    align2 = ""
+    while i > 0 and j > 0:
+        if t == len(trace):
+            break
+        s_current = trace[t]
         if s_current == '↘':
             align1 += seqA[j - 1]
             align2 += seqB[i - 1]
@@ -191,17 +195,24 @@ def sw_aligne(seqA, seqB, i, j, trace):
             j -= 1
         else:
             break
+        t += 1
     while j > 0:
+        if t == len(trace):
+            break
         align1 += seqA[j - 1]
         align2 += '-'
         j -= 1
+        t+=1
     while i > 0:
+        if t == len(trace):
+            break
         align1 += '-'
         align2 += seqB[i - 1]
         i -= 1
+        t+=1
     align1 = align1[::-1]
     align2 = align2[::-1]
-    return align1, align2, score_final
+    return align1, align2
 
 
 # retourne un string composé des symbole pour l'alignement
@@ -276,13 +287,14 @@ def matrix(seqA, seqB, liste_score, liste_symbole, type_alignement, algo_type):
     else:
         depart_max = liste_depart_max(score,seqA,seqB)
         for i,dep in enumerate(depart_max):
-            list_traceback = []
-            list_traceback.append([])
+            if i == 0:
+                list_traceback = []
+                list_traceback.append(traverse_recursive(mat_max_traceback, dep[1], dep[0], liste_des_traces, trace))
+            else:
+                list_traceback.append(traverse_recursive(mat_max_traceback, dep[1], dep[0], liste_des_traces, trace))
             liste_des_traces= []
-            print(traverse_recursive(mat_max_traceback, dep[1], dep[0], liste_des_traces, trace))
-            list_traceback[i-1] = (traverse_recursive(mat_max_traceback, dep[1], dep[0], liste_des_traces, trace)[0])
     dico_x_aligne[str(nb_alignement)]["matrice score"] = score
-    for traceback2 in list_traceback:
+    for i, traceback2 in enumerate(list_traceback):
         dico_x_aligne[str(nb_alignement)] = dico_x_aligne['0'].copy()
         dico_x_aligne[str(nb_alignement)]["liste traceback"] = traceback2
         if algo_type is True:
@@ -290,8 +302,8 @@ def matrix(seqA, seqB, liste_score, liste_symbole, type_alignement, algo_type):
             dico_x_aligne[str(nb_alignement)]["score final"] = \
                 dico_x_aligne[str(nb_alignement)]["matrice score"][lenB][lenA][0]
         else:
-            seqA_aligne, seqB_align, dico_x_aligne[str(nb_alignement)]["score final"] = \
-                sw_aligne(seqA, seqB,traceback2)
+            for trace in traceback2:
+                seqA_aligne, seqB_align= sw_aligne(seqA, seqB,depart_max[i][0],depart_max[i][1], trace)
         dico_x_aligne[str(nb_alignement)]["seqA aligne"] = seqA_aligne
         dico_x_aligne[str(nb_alignement)]["seqB aligne"] = seqB_align
         seq_symbole = symbole_alignement_fct(seqA_aligne, seqB_align, liste_symbole)
