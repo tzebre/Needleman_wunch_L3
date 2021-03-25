@@ -71,7 +71,8 @@ Et le score par defaut
 | G |   |   |   |   |   |   |   |   |
 | A |   |   |   |   |   |   |   |   |  
 | G |   |   |   |   |   |   |   |   |
-| T |   |   |   |   |   |   |   |   | 
+| T |   |   |   |   |   |   |   |   |  
+
 **Note** : les matrices en python son codée comme des listes de listes de liste. 
 C'est a dire que chaque ligne est une liste replie avec une liste par colone, et chaque colone 
 est remplie par une liste qui represente la case.  
@@ -89,7 +90,8 @@ for x in range(ligne):
 |---|---|---|---|
 |   | 0 |-10|-11|
 | A |-10| X | Y |
-| T |-11| Z |   |
+| T |-11| Z |   |  
+
 X maximum de :  
 - dessu : -10 + extention de gap(=-10) = - 11
 - gauche : 1 + extention de gap(=-1) = - 11
