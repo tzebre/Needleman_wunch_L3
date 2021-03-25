@@ -1,4 +1,4 @@
-mat_max = [[[' '], ['→'], ['→'], ['→'], ['→'], ['→'], ['→'], ['→']],
+'''mat_max = [[[' '], ['→'], ['→'], ['→'], ['→'], ['→'], ['→'], ['→']],
            [['↓'], ['↘'], ['→'], ['→'], ['→'], ['→', '↘'], ['→'], ['→']],
            [['↓'], ['↓'], ['↘'], ['↘'], ['→'], ['→'], ['→'], ['→']],
            [['↓'], ['↓'], ['↘', '↓'], ['↓'], ['↘'], ['→'], ['→'], ['→', '↘']],
@@ -82,4 +82,30 @@ for i in test:
     print(a)
     print(b)
 
-print(len(seqA))
+print(len(seqA))'''
+
+def liste_depart_max(mat_score,seqA,seqB):
+    depart_max = []
+    max_score = 0
+    i = 0
+    j = 0
+    while i < len(seqB)+1:
+        while j < len(seqA)+1:
+            if mat_score[i][j][0] == max_score:
+                depart_max.append([])
+                x = len(depart_max)
+                depart_max[x-1].append(i)
+                depart_max[x-1].append(j)
+            if mat_score[i][j][0] > max_score:
+                x = len(depart_max)
+                max_score = mat_score[i][j]
+                depart_max[x-1].append(i)
+                depart_max[x-1].append(j)
+            j += 1
+        i += 1
+    return depart_max
+seqA = "gcatgcu"
+seqB = "gattaca"
+score_mat = [[[0, 0], [-1, 1], [-2, 1], [-3, 1], [-4, 1], [-5, 1], [-6, 1], [-7, 1]], [[-1, 1], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]], [[-2, 1], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]], [[-3, 1], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]], [[-4, 1], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]], [[-5, 1], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]], [[-6, 1], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]], [[-7, 1], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]]]
+test = liste_depart_max(score_mat,seqA,seqB)
+print(test)

@@ -50,42 +50,22 @@ def print_propre(mat, seqA, seqB, type):
         print('')
 
 
-# affichage d'une matrice de liste (liste de liste de liste)
-def print_propre_list(mat, seqA, seqB):
-    i = 0
-    print('\t', end='\t')
-    while i < len(seqA):
-        print(str(seqA[i]).center(3), '|', sep ='', end='')
-        i += 1
-    print('')
-    for x in range(len(mat)):
-        if x >= 1:
-            print(str(seqB[x-1]).center(3), '|', sep= '',end='')
-        else:
-            print(''.center(3), '|', sep='', end='')
-        for y in range(len(mat[x])):
-            print(str(mat[x][y][0]).center(3), '|',sep= '', end='')
-        print('')
-
-
 # print les different alignement
 def print_final(dico_x_aligne, seqA, seqB, mat_traceback):
     print("==============================================================")
     print("Matrice de score : ")
     print_propre(dico_x_aligne['1']["matrice score"], seqA, seqB, True)
     print("Matrice de traceback :")
-    print_propre(mat_traceback, seqA, seqB,False)
+    print_propre(mat_traceback, seqA, seqB, False)
     print("==============================================================")
     deja_vue = ""
     for dico in dico_x_aligne:
-        if deja_vue != dico_x_aligne[dico]["seq symbole"]:
-            print("alignement possible n°", int(dico) + 1, sep='')
-            print("Score total de l'alignement : ", dico_x_aligne[dico]["score final"], sep='')
-            print("liste de traceback : ")
-            print(dico_x_aligne[dico]["liste traceback"][::-1])
-            print(dico_x_aligne[dico]["seqA aligne"])
-            print(dico_x_aligne[dico]["seq symbole"])
-            print(dico_x_aligne[dico]["seqB aligne"])
-            print_score(dico_x_aligne[dico]["score"])
-            print("-------------------------------------------------------")
-            deja_vue = dico_x_aligne[dico]["seq symbole"]
+        print("alignement possible n°", int(dico) + 1, sep='')
+        print("Score total de l'alignement : ", dico_x_aligne[dico]["score final"], sep='')
+        print("liste de traceback : ")
+        print(dico_x_aligne[dico]["liste traceback"][::-1])
+        print(dico_x_aligne[dico]["seqA aligne"])
+        print(dico_x_aligne[dico]["seq symbole"])
+        print(dico_x_aligne[dico]["seqB aligne"])
+        print_score(dico_x_aligne[dico]["score"])
+        print("-------------------------------------------------------")
