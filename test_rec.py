@@ -77,7 +77,9 @@ def nw_aligne(seqA, seqB, trace):
 seqA = "gcatgcu"
 seqB = "gattaca"
 for i in test:
-    print(i)
+    print(i[::-1])
     a,b = nw_aligne(seqA,seqB,i)
     print(a)
     print(b)
+
+print(len(seqA))

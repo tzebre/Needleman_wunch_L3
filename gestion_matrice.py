@@ -7,12 +7,12 @@ def matrix_zero_list(col, ligne):
     return matrice
 
 
-def matrix_list_list(col, ligne):
+def matrix_str(col, ligne):
     matrice = []
     for x in range(ligne):
         matrice.append([])
         for y in range(col):
-            matrice[x].append([])
+            matrice[x].append('')
     return matrice
 
 

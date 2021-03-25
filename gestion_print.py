@@ -30,7 +30,7 @@ def print_propre(mat, seqA, seqB):
         print('')
 
 
-def print_propre_list_test(mat, seqA, seqB):
+def print_propre_str(mat, seqA, seqB):
     i = 0
     print('\t', end='')
     while i < len(seqA):
@@ -66,21 +66,23 @@ def print_propre_list(mat, seqA, seqB):
 
 
 # print les different alignement
-def print_final(dico_x_aligne, seqA, seqB):
+def print_final(dico_x_aligne, seqA, seqB, mat_traceback):
     print("==============================================================")
     print("Matrice de score : ")
     print_propre_list(dico_x_aligne['1']["matrice score"], seqA, seqB)
+    print("Matrice de traceback :")
+    print_propre_str(mat_traceback, seqA, seqB)
     print("==============================================================")
     deja_vue = ""
     for dico in dico_x_aligne:
         if deja_vue != dico_x_aligne[dico]["seq symbole"]:
             print("alignement possible n°", int(dico) + 1, sep='')
             print("Score total de l'alignement : ", dico_x_aligne[dico]["score final"], sep='')
+            print("liste de traceback : ")
+            print(dico_x_aligne[dico]["liste traceback"][::-1])
             print(dico_x_aligne[dico]["seqA aligne"])
             print(dico_x_aligne[dico]["seq symbole"])
             print(dico_x_aligne[dico]["seqB aligne"])
-            print("matrice de traceback : ")
-            print_propre(dico_x_aligne[dico]["matrice traceback"], seqA, seqB)
             print_score(dico_x_aligne[dico]["score"])
             print("-------------------------------------------------------")
             deja_vue = dico_x_aligne[dico]["seq symbole"]
