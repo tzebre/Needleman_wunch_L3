@@ -30,7 +30,7 @@ def print_score(score):
         print('')'''
 
 
-def print_propre_str(mat, seqA, seqB):
+def print_propre(mat, seqA, seqB, type):
     i = 0
     print('\t', end='\t')
     while i < len(seqA):
@@ -43,7 +43,10 @@ def print_propre_str(mat, seqA, seqB):
         else:
             print(''.center(3), '|', sep ='', end='')
         for y in range(len(mat[x])):
-            print(mat[x][y].center(3),'|', sep = '', end='')
+            if type is True:
+                print(str(mat[x][y][0]).center(3),'|', sep = '', end='')
+            else:
+                print(mat[x][y].center(3), '|', sep='', end='')
         print('')
 
 
@@ -69,9 +72,9 @@ def print_propre_list(mat, seqA, seqB):
 def print_final(dico_x_aligne, seqA, seqB, mat_traceback):
     print("==============================================================")
     print("Matrice de score : ")
-    print_propre_list(dico_x_aligne['1']["matrice score"], seqA, seqB)
+    print_propre(dico_x_aligne['1']["matrice score"], seqA, seqB, True)
     print("Matrice de traceback :")
-    print_propre_str(mat_traceback, seqA, seqB)
+    print_propre(mat_traceback, seqA, seqB,False)
     print("==============================================================")
     deja_vue = ""
     for dico in dico_x_aligne:
