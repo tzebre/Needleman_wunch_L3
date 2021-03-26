@@ -4,34 +4,61 @@ import gestion_matrice as gm
 
 
 # initialisation des premieres ligne et colone de la matrice
-def matrice_initialise(lenA, lenB, liste_score):
+def matrice_initialise(lenA, lenB, liste_score, type_algorithme):
     score_mat = gm.matrix_zero_list(lenA + 1, lenB + 1)
     traceback_mat = gm.matrix_str(lenA + 1, lenB + 1)
     traceback_mat[0][0] = ' '
-    score_mat[0][1][0] = liste_score[4]
-    score_mat[0][1][1] = 1
-    traceback_mat[0][1] = '→'
-    score_mat[1][0][0] = liste_score[4]
-    score_mat[1][0][1] = 1
-    traceback_mat[1][0] = '↓'
+    if type_algorithme is True:
+        score_mat[0][1][0] = liste_score[4]
+        score_mat[0][1][1] = 1
+        traceback_mat[0][1] = '→'
+        score_mat[1][0][0] = liste_score[4]
+        score_mat[1][0][1] = 1
+        traceback_mat[1][0] = '↓'
+    else:
+        max_val = max(liste_score[4],0)
+        score_mat[0][1][0] = max_val
+        score_mat[0][1][1] = 1
+        score_mat[1][0][0] = max_val
+        score_mat[1][0][1] = 1
+        if max_val == liste_score[4]:
+            traceback_mat[0][1] = '→'
+            traceback_mat[1][0] = '↓'
+        else:
+            traceback_mat[0][1] = ' '
+            traceback_mat[1][0] = ' '
     for i in range(2, lenA + 1):
-        score_mat[0][i][0] = score_mat[0][i - 1][0] + liste_score[5]
+        if type_algorithme is True:
+            score_mat[0][i][0] = score_mat[0][i - 1][0] + liste_score[5]
+            traceback_mat[0][i] = '→'
+        else:
+            max_val = max((score_mat[0][i - 1][0] + liste_score[5]), 0)
+            if max_val == (score_mat[0][i - 1][0] + liste_score[5]):
+                traceback_mat[0][i] = '→'
+            else:
+                traceback_mat[0][i] = ' '
         score_mat[0][i][1] = 1
-        traceback_mat[0][i] = '→'
     for j in range(2, lenB + 1):
-        score_mat[j][0][0] = score_mat[j - 1][0][0] + liste_score[5]
+        if type_algorithme is True:
+            score_mat[j][0][0] = score_mat[j - 1][0][0] + liste_score[5]
+            traceback_mat[j][0] = '↓'
+        else:
+            max_val = max((score_mat[j - 1][0][0] + liste_score[5]), 0)
+            if max_val == (score_mat[j - 1][0][0] + liste_score[5]):
+                traceback_mat[0][j] = '↓'
+            else:
+                traceback_mat[j][0] = ' '
         score_mat[j][0][1] = 1
-        traceback_mat[j][0] = '↓'
     return score_mat, traceback_mat
 
 
 # creation d'un indice dans un dictionaire qui regroupe les alignement
-def creation_alignement(lenA, lenB, nb_alignement, liste_score):
+def creation_alignement(lenA, lenB, nb_alignement, liste_score, type_algorithme):
     dico_x_aligne = {}
     dico_aligne = {"seqA aligne": "", "seqB aligne": "", "score final": int, "score": list, "seq symbole": "",
                    "matrice score": [], "liste traceback": []}
     dico_x_aligne[str(nb_alignement)] = dico_aligne
-    dico_x_aligne[str(nb_alignement)]["matrice score"], traceback_mat = matrice_initialise(lenA, lenB, liste_score)
+    dico_x_aligne[str(nb_alignement)]["matrice score"], traceback_mat = matrice_initialise(lenA, lenB, liste_score, type_algorithme)
     return dico_x_aligne, traceback_mat
 
 
@@ -286,7 +313,7 @@ def matrix(seqA, seqB, liste_score, liste_symbole, type_alignement, type_algorit
     trace = ""
     seqA_align = ""
     seqB_align = ""
-    dico_x_aligne, traceback_mat = creation_alignement(lenA, lenB, nb_alignement, liste_score)
+    dico_x_aligne, traceback_mat = creation_alignement(lenA, lenB, nb_alignement, liste_score, type_algorithme)
     score_mat = dico_x_aligne[str(nb_alignement)]["matrice score"]
     score_mat, traceback_mat = rempli_score(lenA, lenB, seqA, seqB, score_mat,
                                             traceback_mat, liste_score, type_alignement, type_algorithme)
