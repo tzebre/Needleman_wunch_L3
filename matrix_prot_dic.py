@@ -1,3 +1,4 @@
+# dictionaire de score genomqiue
 def custom_dic_genomique(liste_score):
     liste_char = ['A', 'T', 'G', 'C', 'U']
     genodic = dict(
@@ -9,6 +10,7 @@ def custom_dic_genomique(liste_score):
     return genodic, liste_char
 
 
+# dictionaire de score proteique
 def blosum62():
     list_char = ['A', 'R', 'N', 'D', 'C', 'Q', 'E', 'G', 'H', 'I', 'L', 'K', 'M', 'F', 'P', 'S', 'T', 'W', 'Y', 'V']
     blo62 = dict(
@@ -56,6 +58,7 @@ def blosum62():
     return blo62, list_char
 
 
+# classement des caractere a comparer pour etre dans le bon ordre de recherche dans le dictionnaire
 def sort_char(c1, c2, liste_char):
     c1_index = liste_char.index(c1)
     c2_index = liste_char.index(c2)

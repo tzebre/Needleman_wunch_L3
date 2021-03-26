@@ -12,7 +12,8 @@ def print_score(score):
     print("Nombre de gap total :", score[4] + score[5])
 
 
-def print_propre(mat, seqA, seqB, type_matrice):
+# print des matrice de score et de traceback type matrice True = score False = traceback
+def print_matrice(mat, seqA, seqB, type_matrice):
     i = 0
     print('\t', end='\t')
     while i < len(seqA):
@@ -36,10 +37,10 @@ def print_propre(mat, seqA, seqB, type_matrice):
 def print_final(dico_x_aligne, seqA, seqB, mat_traceback):
     print("==============================================================")
     print("Matrice de score : ")
-    print_propre(dico_x_aligne['1']["matrice score"], seqA, seqB, True)
+    print_matrice(dico_x_aligne['0']["matrice score"], seqA, seqB, True)
     print('---------------------------------------------------------------')
     print("Matrice de traceback :")
-    print_propre(mat_traceback, seqA, seqB, False)
+    print_matrice(mat_traceback, seqA, seqB, False)
     print("==============================================================")
     for dico in dico_x_aligne:
         print("alignement possible n°", int(dico) + 1, sep='')
