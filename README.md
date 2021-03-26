@@ -63,7 +63,7 @@ Pour l'exemple suivant on utilise les sequence suivante :
 Et le score par defaut :
 1) Creation des matrice de score et de traceback sous cette forme 
 
-|   | ㅤ | A | T | G | G | C | G | T |
+|   |ㅤ  | A | T | G | G | C | G | T |
 |---|---|---|---|---|---|---|---|---|  
 |ㅤ  |   |   |   |   |   |   |   |   |
 | A |   |   |   |   |   |   |   |   |
