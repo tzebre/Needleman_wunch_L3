@@ -12,41 +12,23 @@ def print_score(score):
     print("Nombre de gap total :", score[4] + score[5])
 
 
-# affichage d'une matrice (liste de liste)
-'''def print_propre(mat, seqA, seqB):
-    i = 0
-    print('\t', end='')
-    while i < len(seqA):
-        print(seqA[i], '|', end=' ')
-        i += 1
-    print('')
-    for x in range(len(mat)):
-        if x >= 1:
-            print(seqB[x-1], '|', end=' ')
-        else:
-            print(' ', '|', end=' ')
-        for y in range(len(mat[x])):
-            print(mat[x][y][0], '|', end=' ')
-        print('')'''
-
-
-def print_propre(mat, seqA, seqB, type):
+def print_propre(mat, seqA, seqB, type_matrice):
     i = 0
     print('\t', end='\t')
     while i < len(seqA):
-        print(seqA[i].center(3), '|',sep = '', end='')
+        print(seqA[i].center(3), '|', sep='', end='')
         i += 1
     print()
-    for x in range(len(mat)):
-        if x >= 1:
-            print(seqB[x-1].center(3), '|',sep = '',end='')
+    for row in range(len(mat)):
+        if row >= 1:
+            print(seqB[row - 1].center(3), '|', sep='', end='')
         else:
-            print(''.center(3), '|', sep ='', end='')
-        for y in range(len(mat[x])):
-            if type is True:
-                print(str(mat[x][y][0]).center(3),'|', sep = '', end='')
+            print(''.center(3), '|', sep='', end='')
+        for col in range(len(mat[row])):
+            if type_matrice is True:  # score
+                print(str(mat[row][col][0]).center(3), '|', sep='', end='')
             else:
-                print(mat[x][y].center(3), '|', sep='', end='')
+                print(mat[row][col].center(3), '|', sep='', end='')
         print('')
 
 
@@ -55,10 +37,10 @@ def print_final(dico_x_aligne, seqA, seqB, mat_traceback):
     print("==============================================================")
     print("Matrice de score : ")
     print_propre(dico_x_aligne['1']["matrice score"], seqA, seqB, True)
+    print('---------------------------------------------------------------')
     print("Matrice de traceback :")
     print_propre(mat_traceback, seqA, seqB, False)
     print("==============================================================")
-    deja_vue = ""
     for dico in dico_x_aligne:
         print("alignement possible n°", int(dico) + 1, sep='')
         print("Score total de l'alignement : ", dico_x_aligne[dico]["score final"], sep='')

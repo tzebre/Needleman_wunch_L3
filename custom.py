@@ -69,7 +69,6 @@ def custom_symbol(liste_symbole, custom_type):
 # retourne les sequences, les liste de score/symbole et le type d'alignement
 def custom_input(seqA, seqB, liste_score, liste_symbole):
     input_ok = False
-    custom_score = bool
     custom_seq_fasta = bool
     while input_ok is False:  # temps que tout au moin un input n'est pas ok (peut etre modif pour les verifier tous ?)
         custom_type_input = input("alignement genomique ou proteique ? y/n : ").lower().strip()
@@ -80,7 +79,7 @@ def custom_input(seqA, seqB, liste_score, liste_symbole):
         custom_seq, input_ok = true_false(custom_seq_input)
         custom_score_input = input("custom scores ? y/n : ").lower().strip()
         custom_score, input_ok = true_false(custom_score_input)
-        custom_algo_input= input("type d'algorithme Needleman-Wunsch/Smith-Waterman ? y/n : ").lower().strip()
+        custom_algo_input = input("type d'algorithme Needleman-Wunsch/Smith-Waterman ? y/n : ").lower().strip()
         custom_algo, input_ok = true_false(custom_algo_input)
         if custom_seq is True:  # si customisation des sequence est True on demande si on import depuis un fasta
             custom_seq_fasta_input = input("from fasta ? y/n : ").lower().strip()

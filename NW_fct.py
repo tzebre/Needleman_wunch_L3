@@ -1,7 +1,6 @@
 # import des different fichier de fonction
 import matrix_prot_dic as mpd
 import gestion_matrice as gm
-blo62, liste_char_blo62 = mpd.BLOSUM62()
 
 
 # initialisation des premieres ligne et colone de la matrice
@@ -11,15 +10,15 @@ def matrice_initialise(lenA, lenB, liste_score):
     traceback_liste_mat[0][0] = ' '
     score_mat[0][1][0] = liste_score[4]
     score_mat[0][1][1] = 1
-    traceback_liste_mat[0][1] ='→'
+    traceback_liste_mat[0][1] = '→'
     score_mat[1][0][0] = liste_score[4]
     score_mat[1][0][1] = 1
     traceback_liste_mat[1][0] = '↓'
-    for i in range(2, lenA+1):
+    for i in range(2, lenA + 1):
         score_mat[0][i][0] = score_mat[0][i - 1][0] + liste_score[5]
         score_mat[0][i][1] = 1
         traceback_liste_mat[0][i] = '→'
-    for j in range(2, lenB+1):
+    for j in range(2, lenB + 1):
         score_mat[j][0][0] = score_mat[j - 1][0][0] + liste_score[5]
         score_mat[j][0][1] = 1
         traceback_liste_mat[j][0] = '↓'
@@ -43,17 +42,17 @@ def traverse_recursive(matrice_traces, col, row, liste_des_traces, trace):
             liste_des_traces.append(trace[1:])
         else:
             liste_des_traces.append(trace)
-        trace =''
+        trace = ''
     for symbole in matrice_traces[row][col]:
         if symbole == '↘':
             trace += '↘'
-            liste_des_traces = traverse_recursive(matrice_traces,col-1,row-1,liste_des_traces,trace)
+            liste_des_traces = traverse_recursive(matrice_traces, col - 1, row - 1, liste_des_traces, trace)
         if symbole == '↓':
             trace += '↓'
-            liste_des_traces = traverse_recursive(matrice_traces,col,row-1,liste_des_traces,trace)
-        if symbole == '→' :
-            trace+='→'
-            liste_des_traces = traverse_recursive(matrice_traces,col-1,row,liste_des_traces,trace)
+            liste_des_traces = traverse_recursive(matrice_traces, col, row - 1, liste_des_traces, trace)
+        if symbole == '→':
+            trace += '→'
+            liste_des_traces = traverse_recursive(matrice_traces, col - 1, row, liste_des_traces, trace)
     return liste_des_traces
 
 
@@ -75,7 +74,7 @@ def symbole_compare(a, b, score_list):
 
 
 # rempli la matrice de score et la matrice avec toute les direction posssible ordre d'ajout si 3 possibilité → | ↘ | ↓
-def rempli_symbole(i, j, diag, down, right, matrice_score, mat_max):
+def rempli_symbole(i, j, diag, down, right, matrice_score, mat_max,nw):
     if matrice_score[i][j][0] == right:
         mat_max[i][j] += '→'
         if right == diag:
@@ -89,7 +88,10 @@ def rempli_symbole(i, j, diag, down, right, matrice_score, mat_max):
     elif matrice_score[i][j] == down:
         mat_max[i][j] += '↓'
     else:
-        mat_max[i][j] += ' '
+        if nw is True:
+            mat_max[i][j] += '↓'
+        else:
+            mat_max[i][j] += ' '
     # si on a creer un gap ou mets 1 comme deuxiemme indice de liste sinon 0
     if max(diag, down, right) == down or max(diag, down, right) == right:
         matrice_score[i][j][1] = 1
@@ -97,15 +99,16 @@ def rempli_symbole(i, j, diag, down, right, matrice_score, mat_max):
         matrice_score[i][j][1] = 0
     return matrice_score, mat_max
 
+
 # modif ya pas longtemps a verifier avec d'autre test
 def rempli_score(lenA, lenB, seqA, seqB, matrice_score, mat_max, liste_score, alignement, nw):
     if alignement is True:
         dico_score, liste_char = mpd.custom_dic_genomique(liste_score)
     else:
-        dico_score, liste_char = mpd.BLOSUM62()
+        dico_score, liste_char = mpd.blosum62()
     for i in range(1, lenB + 1):
-        for j in range(1, lenA+1):
-            AA = mpd.sort_char(seqA[j-1], seqB[i-1], liste_char)
+        for j in range(1, lenA + 1):
+            AA = mpd.sort_char(seqA[j - 1], seqB[i - 1], liste_char)
             down = int
             right = int
             diag = matrice_score[i - 1][j - 1][0] + int(dico_score[AA[0]][AA[1]])
@@ -121,12 +124,13 @@ def rempli_score(lenA, lenB, seqA, seqB, matrice_score, mat_max, liste_score, al
                 right = matrice_score[i][j - 1][0] + liste_score[4]  # decalage a droite ouverture gap
             else:
                 print("erreur right")
+            # bug sur max ca sort pas 1 des 3 seul solution trouvé fire symbole down dans se cas 
             if nw is True:
                 max_val = max(diag, down, right)
             else:
                 max_val = max(diag, down, right, 0)
             matrice_score[i][j][0] = max_val
-            matrice_score, mat_max = rempli_symbole(i, j, diag, down, right, matrice_score, mat_max)
+            matrice_score, mat_max = rempli_symbole(i, j, diag, down, right, matrice_score, mat_max, nw)
     return matrice_score, mat_max
 
 
@@ -161,17 +165,17 @@ def nw_aligne(seqA, seqB, trace):
         align1 += seqA[j - 1]
         align2 += '-'
         j -= 1
-        t+=1
+        t += 1
     while i > 0:
         align1 += '-'
         align2 += seqB[i - 1]
         i -= 1
-        t+=1
+        t += 1
     align1 = align1[::-1]
     align2 = align2[::-1]
     return align1, align2
 
-# marche pas
+
 def sw_aligne(seqA, seqB, i, j, trace):
     t = 0
     align1 = ""
@@ -202,14 +206,14 @@ def sw_aligne(seqA, seqB, i, j, trace):
         align1 += seqA[j - 1]
         align2 += '-'
         j -= 1
-        t+=1
+        t += 1
     while i > 0:
         if t == len(trace):
             break
         align1 += '-'
         align2 += seqB[i - 1]
         i -= 1
-        t+=1
+        t += 1
     align1 = align1[::-1]
     align2 = align2[::-1]
     return align1, align2
@@ -249,26 +253,26 @@ def calcul_score_match_gap_mismatch(liste_symbole, symbole_alignement):
     return score
 
 
-def liste_depart_max(mat_score,seqA,seqB):
-    depart_max = []
-    max_score = 0
-    i = 0
-    j = 0
-    while i < len(seqB)+1:
-        while j < len(seqA)+1:
-            if mat_score[i][j][0] == max_score:
-                depart_max.append([])
-                x = len(depart_max)
-                depart_max[x-1].append(i)
-                depart_max[x-1].append(j)
-            if int(mat_score[i][j][0]) > max_score:
-                depart_max = []
-                max_score = int(mat_score[i][j][0])
-                depart_max.append([i, j])
-            j += 1
-        j = 0
-        i += 1
-    return depart_max
+def liste_depart_max(mat_score, seqA, seqB):
+    co_score_max = []
+    score_maximal = 0
+    row = 0
+    col = 0
+    while row < len(seqB) + 1:
+        while col < len(seqA) + 1:
+            if mat_score[row][col][0] == score_maximal:
+                co_score_max.append([])
+                x = len(co_score_max)
+                co_score_max[x - 1].append(row)
+                co_score_max[x - 1].append(col)
+            if int(mat_score[row][col][0]) > score_maximal:
+                co_score_max = []
+                score_maximal = int(mat_score[row][col][0])
+                co_score_max.append([row, col])
+            col += 1
+        col = 0
+        row += 1
+    return co_score_max
 
 
 # creation d'alignement selon l'algorithme de needleman et wunsh
@@ -280,33 +284,32 @@ def matrix(seqA, seqB, liste_score, liste_symbole, type_alignement, algo_type):
     trace = ""
     dico_x_aligne, traceback_liste_mat = creation_alignement(lenA, lenB, nb_alignement, liste_score)
     score = dico_x_aligne[str(nb_alignement)]["matrice score"]
-    score, mat_max_traceback = rempli_score(lenA, lenB, seqA, seqB,score,
-                                                traceback_liste_mat, liste_score, type_alignement, algo_type)
+    score, mat_max_traceback = rempli_score(lenA, lenB, seqA, seqB, score,
+                                            traceback_liste_mat, liste_score, type_alignement, algo_type)
     if algo_type is True:
         list_traceback = traverse_recursive(mat_max_traceback, lenA, lenB, liste_des_traces, trace)
     else:
-        depart_max = liste_depart_max(score,seqA,seqB)
-        for i,dep in enumerate(depart_max):
+        depart_max = liste_depart_max(score, seqA, seqB)
+        for i, dep in enumerate(depart_max):
             if i == 0:
-                list_traceback = []
-                list_traceback.append(traverse_recursive(mat_max_traceback, dep[1], dep[0], liste_des_traces, trace))
+                list_traceback = [traverse_recursive(mat_max_traceback, dep[1], dep[0], liste_des_traces, trace)]
             else:
                 list_traceback.append(traverse_recursive(mat_max_traceback, dep[1], dep[0], liste_des_traces, trace))
-            liste_des_traces= []
+            liste_des_traces = []
     dico_x_aligne[str(nb_alignement)]["matrice score"] = score
     for i, traceback2 in enumerate(list_traceback):
         dico_x_aligne[str(nb_alignement)] = dico_x_aligne['0'].copy()
         dico_x_aligne[str(nb_alignement)]["liste traceback"] = traceback2
         if algo_type is True:
-            seqA_aligne, seqB_align = nw_aligne(seqA, seqB, traceback2)
+            seqA_align, seqB_align = nw_aligne(seqA, seqB, traceback2)
             dico_x_aligne[str(nb_alignement)]["score final"] = \
                 dico_x_aligne[str(nb_alignement)]["matrice score"][lenB][lenA][0]
         else:
             for trace in traceback2:
-                seqA_aligne, seqB_align= sw_aligne(seqA, seqB,depart_max[i][0],depart_max[i][1], trace)
-        dico_x_aligne[str(nb_alignement)]["seqA aligne"] = seqA_aligne
+                seqA_align, seqB_align = sw_aligne(seqA, seqB, depart_max[i][0], depart_max[i][1], trace)
+        dico_x_aligne[str(nb_alignement)]["seqA aligne"] = seqA_align
         dico_x_aligne[str(nb_alignement)]["seqB aligne"] = seqB_align
-        seq_symbole = symbole_alignement_fct(seqA_aligne, seqB_align, liste_symbole)
+        seq_symbole = symbole_alignement_fct(seqA_align, seqB_align, liste_symbole)
         dico_x_aligne[str(nb_alignement)]["seq symbole"] = seq_symbole
         dico_x_aligne[str(nb_alignement)]["score"] = calcul_score_match_gap_mismatch(liste_symbole, seq_symbole)
         nb_alignement += 1
