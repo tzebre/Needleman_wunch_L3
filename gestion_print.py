@@ -15,7 +15,7 @@ def print_score(score):
 # print des matrice de score et de traceback type matrice True = score False = traceback
 def print_matrice(mat, seqA, seqB, type_matrice):
     i = 0
-    print('\t', end='\t')
+    print('\t', end='')
     while i < len(seqA):
         print(seqA[i].center(3), '|', sep='', end='')
         i += 1

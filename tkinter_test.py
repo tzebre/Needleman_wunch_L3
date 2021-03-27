@@ -71,9 +71,6 @@ def valid_final():
         Label(fenetre_scoreLF, text=dico_x_aligne['0']["matrice score"][i]).pack()
         Label(fenetre_traceLF, text = mat_max_traceback[i]).pack()
         i+=1
-    for i,dico in enumerate(dico_x_aligne):
-        dico = Tk()
-        aligne = Frame(str(i), text=dico_x_aligne[dico]["liste traceback"][::-1])
 
     fenetre.mainloop()
     gpt.print_final(dico_x_aligne, seqA, seqB, mat_max_traceback)
