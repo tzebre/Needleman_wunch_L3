@@ -315,6 +315,7 @@ def matrix(seqA, seqB, liste_score, liste_symbole, type_alignement, type_algorit
     seqB_align = ""
     dico_x_aligne, traceback_mat = creation_alignement(lenA, lenB, nb_alignement, liste_score, type_algorithme)
     score_mat = dico_x_aligne[str(nb_alignement)]["matrice score"]
+    print(type_alignement)
     score_mat, traceback_mat = rempli_score(lenA, lenB, seqA, seqB, score_mat,
                                             traceback_mat, liste_score, type_alignement, type_algorithme)
     if type_algorithme is True:

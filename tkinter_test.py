@@ -42,11 +42,11 @@ def total():
     value_algo = BooleanVar()
     value_ali = BooleanVar()
     Label(algo_aliLF, text="type d'alignement").pack()
-    Radiobutton(algo_aliLF, text="genomique", variable=value_algo, indicatoron=0, value=True).pack()
-    Radiobutton(algo_aliLF, text="proteique", variable=value_algo, indicatoron=0, value=False).pack()
+    Radiobutton(algo_aliLF, text="genomique", variable=value_ali, indicatoron=0, value=True).pack()
+    Radiobutton(algo_aliLF, text="proteique", variable=value_ali, indicatoron=0, value=False).pack()
     Label(algo_aliLF, text="choix de l'algorithme").pack()
-    Radiobutton(algo_aliLF, text="Needleman et Wunch", variable=value_ali, indicatoron=0, value=True).pack()
-    Radiobutton(algo_aliLF, text="Smith et Waterman", variable=value_ali, indicatoron=0, value=False).pack()
+    Radiobutton(algo_aliLF, text="Needleman et Wunch", variable=value_algo, indicatoron=0, value=True).pack()
+    Radiobutton(algo_aliLF, text="Smith et Waterman", variable=value_algo, indicatoron=0, value=False).pack()
     valide = Button(algo_aliLF, text="APPLIQUER", command=choix_val, default = 'disable')
     valide.pack()
     valide_fin = Button(fenetre_validation, text="ALLIGNER", command=valid_final, default='disable')
@@ -55,6 +55,7 @@ def total():
     fenetre.mainloop()
 
 def valid_final():
+    valide_fin.config(state ='disable')
     global haut
     global bas
     global resultat
@@ -78,8 +79,14 @@ def valid_final():
     fenetre_traceLF = LabelFrame(fenetre_trace, text="matrice de trace ", labelanchor='n')
     fenetre_traceLF.pack()
     i=0
+    mat_score = []
+    for row in range(len(seqB)+1):
+        mat_score.append([])
+        for col in range(len(seqA)+1):
+            mat_score[row].append(str(dico_x_aligne['0']["matrice score"][row][col][0]).center(3)+'|')
     while i < len(seqB)+1:
-        Label(fenetre_scoreLF, text=dico_x_aligne['0']["matrice score"][i]).pack()
+        print(mat_score[i])
+        Label(fenetre_scoreLF, text=mat_score[i]).pack()
         Label(fenetre_traceLF, text = mat_max_traceback[i]).pack()
         i+=1
     Label(fenetre, text="Copyright © 2021 MATHIEU Theo - Tous droits réservés").pack(side='bottom')
@@ -88,8 +95,8 @@ def valid_final():
         no = ('alignement n°'+ str(int(dic)+1))
         no = LabelFrame(alignement, text = no, labelanchor='n')
         no.pack()
-        total = ('score total :' + str(dico_x_aligne['0']["score final"]))
-        Label(no, text = total ).pack()
+        total = ('score total : ' + str(dico_x_aligne['0']["score final"]))
+        Label(no, text = str(total)).pack()
         Label(no, text = dico_x_aligne[dic]["liste traceback"][::-1]).pack()
         Label(no, text = dico_x_aligne[dic]["seqA aligne"]).pack()
         Label(no, text = dico_x_aligne[dic]["seq symbole"]).pack()
@@ -271,9 +278,10 @@ def choix_val():
     type_ali = value_ali.get()
     dico['algo'] = type_algo
     dico['alignement'] = type_ali
-    if type_algo == True:
+    if type_ali == True:
         geno()
     else :
+        print("prot")
         prot()
 
 total()
