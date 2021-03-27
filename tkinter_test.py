@@ -5,6 +5,7 @@ import NW_fct as fct
 import gestion_print as gpt
 
 dico = {'liste_score':[], 'liste_symbole':[],'score_prot': "","seqA" :"", "seqB":"",'algo': bool, 'alignement':bool, }
+
 def total():
     fenetre = Tk()
     global value_algo
@@ -13,10 +14,13 @@ def total():
     global fenetre_symbole
     global fenetre_sequence
     global fenetre_validation
+    global fenetre_algo_ali
     global valide_fin
     global valide
     global score
     global symb
+    global prms_score
+    global prms_symb
     fenetre_bas = Frame(fenetre)
     fenetre_bas.pack(side= "bottom")
     fenetre_algo_ali = Frame(fenetre, borderwidth=2, relief=GROOVE)
@@ -31,6 +35,10 @@ def total():
     fenetre_validation.pack()
     algo_aliLF = LabelFrame(fenetre_algo_ali, text="customisation des algorithme/alignement", labelanchor='n')
     algo_aliLF.pack()
+    parametres = LabelFrame(fenetre_algo_ali, text="parametres", labelanchor='n')
+    parametres.pack()
+    prms_score = Label(parametres, text="")
+    prms_symb = Label(parametres, text="")
     value_algo = BooleanVar()
     value_ali = BooleanVar()
     Label(algo_aliLF, text="type d'alignement").pack()
@@ -43,6 +51,7 @@ def total():
     valide.pack()
     valide_fin = Button(fenetre_validation, text="ALLIGNER", command=valid_final, default='disable')
     valide_fin.pack()
+    Label(fenetre_validation, text = "Copyright © 2021 MATHIEU Theo - Tous droits réservés").pack(side = 'bottom')
     fenetre.mainloop()
 
 def valid_final():
@@ -52,7 +61,9 @@ def valid_final():
     type_alignement = dico['alignement']
     type_algorithme = dico['algo']
     seqA = cst.lecture_fasta(dico['seqA'])
+    seqA , bool= cst.netoyage_seq(seqA, type_alignement)
     seqB = cst.lecture_fasta(dico['seqB'])
+    seqB, bool = cst.netoyage_seq(seqB, type_alignement)
     dico_x_aligne, mat_max_traceback = fct.matrix(seqA, seqB, dico['liste_score'], dico['liste_symbole'],
                                                   type_alignement, type_algorithme)
     fenetre = Tk()
@@ -71,7 +82,29 @@ def valid_final():
         Label(fenetre_scoreLF, text=dico_x_aligne['0']["matrice score"][i]).pack()
         Label(fenetre_traceLF, text = mat_max_traceback[i]).pack()
         i+=1
-
+    Label(fenetre, text="Copyright © 2021 MATHIEU Theo - Tous droits réservés").pack(side='bottom')
+    alignement = Tk()
+    for dic in dico_x_aligne:
+        no = ('alignement n°'+ str(int(dic)+1))
+        no = LabelFrame(alignement, text = no, labelanchor='n')
+        no.pack()
+        total = ('score total :' + str(dico_x_aligne['0']["score final"]))
+        Label(no, text = total ).pack()
+        Label(no, text = dico_x_aligne[dic]["liste traceback"][::-1]).pack()
+        Label(no, text = dico_x_aligne[dic]["seqA aligne"]).pack()
+        Label(no, text = dico_x_aligne[dic]["seq symbole"]).pack()
+        Label(no, text = dico_x_aligne[dic]["seqB aligne"]).pack()
+        score = dico_x_aligne[dic]['score']
+        Label(no, text = ("Nombre de match :"+ str(score[0]))).pack()
+        if type_alignement is True:
+            Label(no, text = ("Nombre de mismatch purine :" + str(score[1])))
+            Label(no, text = ("Nombre de mismatch pyrimidine :"+ str(score[2]))).pack()
+        Label(no, text = ("Nombre de mismatch autre :"+ str(score[3])))
+        Label(no, text = ("Nombre de gap ouvert "+str(score[4]))).pack()
+        Label(no, text = ("Nombre de gap étendu :" + str(score[5]))).pack()
+        Label(no, text = ("Nombre de gap total :"+ str(score[4] + score[5]))).pack()
+    Label(alignement, text="Copyright © 2021 MATHIEU Theo - Tous droits réservés").pack(side='bottom')
+    alignement.mainloop()
     fenetre.mainloop()
     gpt.print_final(dico_x_aligne, seqA, seqB, mat_max_traceback)
 
@@ -93,7 +126,7 @@ def geno():
     sc_ouv = IntVar()
     sc_ext = IntVar()
     Label(scoreLF, text="match").pack()
-    sc_match = Spinbox(scoreLF, from_= -50, to = 50, width=5)
+    sc_match = Spinbox(scoreLF,from_ = -50, to=50,  width=5)
     sc_match.pack()
     Label(scoreLF, text="pu/pu").pack()
     sc_pu = Spinbox(scoreLF, from_=-50, to=50, width=5)
@@ -140,7 +173,6 @@ def geno():
 
 
 def recup_score_geno():
-    valide_score_geno.config(state ='disable')
     score = []
     score.append(int(sc_match.get()))
     score.append(int(sc_pu.get()))
@@ -149,10 +181,11 @@ def recup_score_geno():
     score.append(int(sc_ouv.get()))
     score.append(int(sc_ext.get()))
     dico['liste_score'] = score
+    prms_score['text'] = score
+    prms_score.pack()
 
 
 def recup_symb_geno():
-    valide_symb_geno.config(state ='disable')
     symb = []
     symb.append(sy_match.get())
     symb.append(sy_pu.get())
@@ -160,17 +193,19 @@ def recup_symb_geno():
     symb.append(sy_mis.get())
     symb.append(sy_gap.get())
     dico['liste_symbole'] = symb
+    prms_symb['text'] = symb
+    prms_symb.pack()
 
 def recup_score_prot():
-    valide_score_prot.config(state ='disable')
     score =[0,0,0,0]
     score.append(int(sc_ouv.get()))
     score.append(int(sc_ext.get()))
     dico['liste_score'] = score
     dico['score_prot'] = mat_score.get()
+    prms_score['text'] = (str(score[4])+ '  '+str(score[5]) +'  '+dico['score_prot'])
+    prms_score.pack()
 
 def recup_symb_prot():
-    valide_symb_prot.config(state ='disable')
     symb = []
     symb.append(sy_match.get())
     symb.append(' ')
@@ -178,6 +213,8 @@ def recup_symb_prot():
     symb.append(sy_mis.get())
     symb.append(sy_gap.get())
     dico['liste_symbole'] = symb
+    prms_symb['text'] = (symb[0]+ '  '+ symb[3]+'  '+symb[4])
+    prms_symb.pack()
 
 def prot():
     global valide_score_prot
@@ -217,14 +254,12 @@ def prot():
     seq()
 
 def seq():
-    seqLF = LabelFrame(fenetre_sequence, text="Sequence", labelanchor='n')
-    seqLF.pack()
     filepath_seqA = askopenfilename(title="Ouvrir un fichier fasta pour la sequence A",filetypes=[('all files', '.*')])
-    Label(seqLF, text = 'Path seqA :').pack()
-    Label(seqLF, text = filepath_seqA).pack()
+    Label(fenetre_algo_ali, text = 'Path seqA :').pack()
+    Label(fenetre_algo_ali, text = filepath_seqA).pack()
     filepath_seqB = askopenfilename(title="Ouvrir un fichier fasta pour la sequence B", filetypes=[('all files', '.*')])
-    Label(seqLF, text='Path seqB :').pack()
-    Label(seqLF, text = filepath_seqB).pack()
+    Label(fenetre_algo_ali, text='Path seqB :').pack()
+    Label(fenetre_algo_ali, text = filepath_seqB).pack()
     dico['seqA']=filepath_seqA
     dico['seqB']=filepath_seqB
 
