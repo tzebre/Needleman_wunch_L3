@@ -21,6 +21,7 @@ def total():
     global symb
     global prms_score
     global prms_symb
+    global quiter
     fenetre_bas = Frame(fenetre)
     fenetre_bas.pack(side= "bottom")
     fenetre_algo_ali = Frame(fenetre, borderwidth=2, relief=GROOVE)
@@ -50,8 +51,8 @@ def total():
     valide = Button(algo_aliLF, text="APPLIQUER", command=choix_val, default = 'disable')
     valide.pack()
     valide_fin = Button(fenetre_validation, text="ALLIGNER", command=valid_final, default='disable')
-    valide_fin.pack()
-    Label(fenetre_validation, text = "Copyright © 2021 MATHIEU Theo - Tous droits réservés").pack(side = 'bottom')
+    valide_fin.pack(side = "left")
+    Label(fenetre_bas, text = "Copyright © 2021 MATHIEU Theo - Tous droits réservés").pack(side = "bottom")
     fenetre.mainloop()
 
 def valid_final():
@@ -85,7 +86,6 @@ def valid_final():
         for col in range(len(seqA)+1):
             mat_score[row].append(str(dico_x_aligne['0']["matrice score"][row][col][0]).center(3)+'|')
     while i < len(seqB)+1:
-        print(mat_score[i])
         Label(fenetre_scoreLF, text=mat_score[i]).pack()
         Label(fenetre_traceLF, text = mat_max_traceback[i]).pack()
         i+=1
@@ -104,16 +104,16 @@ def valid_final():
         score = dico_x_aligne[dic]['score']
         Label(no, text = ("Nombre de match :"+ str(score[0]))).pack()
         if type_alignement is True:
-            Label(no, text = ("Nombre de mismatch purine :" + str(score[1])))
-            Label(no, text = ("Nombre de mismatch pyrimidine :"+ str(score[2]))).pack()
-        Label(no, text = ("Nombre de mismatch autre :"+ str(score[3])))
-        Label(no, text = ("Nombre de gap ouvert "+str(score[4]))).pack()
-        Label(no, text = ("Nombre de gap étendu :" + str(score[5]))).pack()
-        Label(no, text = ("Nombre de gap total :"+ str(score[4] + score[5]))).pack()
+            Label(no, text = ("Nombre de mismatch purine : " + str(score[1])))
+            Label(no, text = ("Nombre de mismatch pyrimidine : "+ str(score[2]))).pack()
+        Label(no, text = ("Nombre de mismatch autre : "+ str(score[3])))
+        Label(no, text = ("Nombre de gap ouvert : "+str(score[4]))).pack()
+        Label(no, text = ("Nombre de gap étendu : " + str(score[5]))).pack()
+        Label(no, text = ("Nombre de gap total : "+ str(score[4] + score[5]))).pack()
     Label(alignement, text="Copyright © 2021 MATHIEU Theo - Tous droits réservés").pack(side='bottom')
+    gpt.print_final(dico_x_aligne, seqA, seqB, mat_max_traceback)
     alignement.mainloop()
     fenetre.mainloop()
-    gpt.print_final(dico_x_aligne, seqA, seqB, mat_max_traceback)
 
 def geno():
     global valide_score_geno
