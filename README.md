@@ -6,8 +6,10 @@ Programe realisé en python dans le cadre de la L3 BISM pour l'UE bioinformatiqu
  - [x] Alignement selon l'algotihme de Needleman-wunch ou Smith-Waterman 
     - De sequence proteique ou genomique 
     - Depuis un fichier fasta ou un entrée manuelle de la séquence 
-    - Choix des score et des symbole d'alignement possible  
+    - Choix des score et des symbole d'alignement possible
     
+ - [x] Utilisation en fenetre graphique grace a tkinter ou en commande console 
+
 ## Principe d'alignement 
 ### Needleman et wunch 
 >L'algorithme Needleman – Wunsch est un algorithme utilisé en bioinformatique pour aligner des séquences protéiques ou 
@@ -35,9 +37,19 @@ $ git clone https://github.com/tzebre/Needleman_wunch_L3.git
 
 # Se placer dans le repository 
 $ cd Needleman_wunch_l3
-
+``` 
+- Utilisation du programme en ligne de commande 
+```
 # Lancer le programme d'alignement avec 
 $ python3 NW_main.py
+```
+- Utilisation du programme avec des fenetre graphique
+```
+# Instaler la librarie tkinter pour python3
+$ sudo apt-get install python3-tk
+
+# Lancer le programme d'alignement avec 
+$ python3 tkinter_test.py
 ```
 **Note** : Si vous decidez de prendre des sequence stockées dans des fichiers fasta. Les fichiers doivent se trouver dans le
 meme dossier que le programme.
@@ -46,7 +58,7 @@ meme dossier que le programme.
 ### Needleman et wunch 
 L'algorithme prend en entrée: 
   - 2 sequence genomique ou proteique.
-    - Entrée a la main ou depuis un fichier fasta
+    - Entrée a la main (seulement en utilisation ligne de commande) ou depuis un fichier fasta
   - Alignement genomique   
       - Des score (match, mismatch purine/putine, mismatch pyrimidine/pyrimidine, autre mismatch, 
         ouverture de gap, extention de gap), par defaut (2, 1, 1, -1, -10, -1)
@@ -54,13 +66,19 @@ L'algorithme prend en entrée:
         
   - Alignement proteique 
       - Une matrice de score (Blosum62)
-      - Ainsi que des symbole associé, par defaut (match : '|', mismatch : '!', gap : ' ')
+      - Ainsi que des symboles associé, par défaut (match : '|', mismatch : '!', gap : ' ')
     
 Pour l'exemple suivant on utilise les sequence suivante :
 > ATGGCGT  
 > ATGAGT  
 
-Et le score par defaut :
+Et les scores :
+> Match : 2  
+> Mismatch purine : 1  
+> Mismatch pyrimidine : 1  
+> Mismatch : -1  
+> Ouverture de gap : -10  
+> Extention de gap : -1
 1) Creation des matrice de score et de traceback sous cette forme 
 
 |   |ㅤ  | A | T | G | G | C | G | T |
@@ -117,7 +135,29 @@ a gauche apporte le meilleur score.
 **Note** : Dans le cas ou deux chemin sont egaux les deux fleche sont ajouté. 
 (avec `.append()` dans la liste qui correspond a la case) 
 
+Pour trouver le ou les alignement optimaux selon l'algorithme de Needleman et Wunch. 
+On remonte le tableau de trace depuis la case en bas a droite en suivant le sens des fleches.
+
+**Note** : Afin de trouver tout les alignement optimaux on remonte les case du tableau grace a de 
+la programation recursive.
+
 ### Smith et Waterman 
+L'algorithme fonction de la meme maniere que le precedent. Cependant la case prend le sore maximale entre 
+les 3 direction possible et 0. Dans le cas ou la case a un score de 0 aucune fleche est inseré
+
+Pour trouver le ou les alignement optimaux on remonte les case du tableau a partir de ou des case avec le score maximal.
+On arrete l'alignement quand on trouve un score de 0 (il n'y aura donc pas de fleche).
+
+## Resultats
+### Utilisation en mode graphique 
+- Une fenetre pour les matrice de score et de trace
+  ![fenetre_score](mettre)
+- une fenetre pour les alignements ex-aequo
+  ![fenetre_alignement](mettre)
+### Utilisation en ligne de commande 
+- Matrice de score et de trace 
+- alignement ex-aequo
+
 
 
 
