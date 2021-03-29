@@ -13,3 +13,4 @@ seqA, seqB, liste_score, liste_symbole, type_alignement, type_algorithme = \
 dico_x_aligne, mat_max_traceback = fct.matrix(seqA, seqB, liste_score, liste_symbole, type_alignement, type_algorithme)
 # Print des resultat
 gpt.print_final(dico_x_aligne, seqA, seqB, mat_max_traceback)
+

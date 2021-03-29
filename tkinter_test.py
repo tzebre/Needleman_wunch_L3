@@ -4,8 +4,7 @@ import custom as cst
 import NW_fct as fct
 import gestion_print as gpt
 
-dico = {'liste_score':[], 'liste_symbole':[],'score_prot': "","seqA" :"", "seqB":"",'algo': bool, 'alignement':bool, }
-
+dico = {'liste_score':[], 'liste_symbole':[],'score_prot': "","seqA" :"", "seqB":"",'algo': bool, 'alignement':bool }
 def total():
     fenetre = Tk()
     global value_algo
@@ -23,35 +22,35 @@ def total():
     global prms_symb
     global quiter
     fenetre_bas = Frame(fenetre)
-    fenetre_bas.pack(side= "bottom")
+    fenetre_bas.pack(side= "bottom", fill = BOTH)
     fenetre_algo_ali = Frame(fenetre, borderwidth=2, relief=GROOVE)
-    fenetre_algo_ali.pack(side = "left")
+    fenetre_algo_ali.pack(side = "left", fill = BOTH)
     fenetre_score = Frame(fenetre, borderwidth=2, relief=GROOVE)
-    fenetre_score.pack(side ="left")
+    fenetre_score.pack(side ="left", fill = BOTH)
     fenetre_symbole = Frame(fenetre, borderwidth=2, relief=GROOVE)
-    fenetre_symbole.pack(side = "left")
+    fenetre_symbole.pack(side = "left", fill = BOTH)
     fenetre_sequence = Frame(fenetre_bas,borderwidth=2, relief=GROOVE)
-    fenetre_sequence.pack(side = "bottom")
+    fenetre_sequence.pack(side = "bottom", fill = BOTH)
     fenetre_validation = Frame(fenetre_bas,borderwidth=2, relief=GROOVE)
-    fenetre_validation.pack()
-    algo_aliLF = LabelFrame(fenetre_algo_ali, text="customisation des algorithme/alignement", labelanchor='n')
-    algo_aliLF.pack()
-    parametres = LabelFrame(fenetre_algo_ali, text="parametres", labelanchor='n')
-    parametres.pack()
+    fenetre_validation.pack(fill = BOTH)
+    algo_aliLF = LabelFrame(fenetre_algo_ali, text="Customisation des algorithme/alignement", labelanchor='n')
+    algo_aliLF.pack(fill = BOTH)
+    parametres = LabelFrame(fenetre_algo_ali, text="Parametres", labelanchor='n')
+    parametres.pack(fill = BOTH)
     prms_score = Label(parametres, text="")
     prms_symb = Label(parametres, text="")
     value_algo = BooleanVar()
     value_ali = BooleanVar()
-    Label(algo_aliLF, text="type d'alignement").pack()
-    Radiobutton(algo_aliLF, text="genomique", variable=value_ali, indicatoron=0, value=True).pack()
-    Radiobutton(algo_aliLF, text="proteique", variable=value_ali, indicatoron=0, value=False).pack()
-    Label(algo_aliLF, text="choix de l'algorithme").pack()
+    Label(algo_aliLF, text="Type d'alignement").pack(fill = BOTH)
+    Radiobutton(algo_aliLF, text="Genomique", variable=value_ali, indicatoron=0, value=True).pack()
+    Radiobutton(algo_aliLF, text="Proteique", variable=value_ali, indicatoron=0, value=False).pack()
+    Label(algo_aliLF, text="Choix de l'algorithme").pack(fill = BOTH)
     Radiobutton(algo_aliLF, text="Needleman et Wunch", variable=value_algo, indicatoron=0, value=True).pack()
     Radiobutton(algo_aliLF, text="Smith et Waterman", variable=value_algo, indicatoron=0, value=False).pack()
     valide = Button(algo_aliLF, text="APPLIQUER", command=choix_val, default = 'disable')
     valide.pack()
     valide_fin = Button(fenetre_validation, text="ALLIGNER", command=valid_final, default='disable')
-    valide_fin.pack(side = "left")
+    valide_fin.pack()
     Label(fenetre_bas, text = "Copyright © 2021 MATHIEU Theo - Tous droits réservés").pack(side = "bottom")
     fenetre.mainloop()
 
@@ -69,11 +68,18 @@ def valid_final():
     dico_x_aligne, mat_max_traceback = fct.matrix(seqA, seqB, dico['liste_score'], dico['liste_symbole'],
                                                   type_alignement, type_algorithme)
     fenetre = Tk()
+    fenetre_haut = Frame(fenetre)
+    fenetre_haut.pack(fill =BOTH)
     fenetre_bas = Frame(fenetre)
-    fenetre_bas.pack(side="bottom")
-    fenetre_score = Frame(fenetre, borderwidth=2, relief=GROOVE)
+    fenetre_bas.pack(side="bottom",fill = BOTH)
+    Label(fenetre_bas, text="Copyright © 2021 MATHIEU Theo - Tous droits réservés").pack()
+    matrice = Frame(fenetre_haut)
+    matrice.pack(side= 'left')
+    alignement = Frame(fenetre_haut)
+    alignement.pack()
+    fenetre_score = Frame(matrice, borderwidth=2, relief=GROOVE)
     fenetre_score.pack()
-    fenetre_trace = Frame(fenetre, borderwidth=2, relief=GROOVE)
+    fenetre_trace = Frame(matrice, borderwidth=2, relief=GROOVE)
     fenetre_trace.pack()
     fenetre_scoreLF = LabelFrame(fenetre_score, text="matrice de score ", labelanchor='n')
     fenetre_scoreLF.pack()
@@ -89,12 +95,21 @@ def valid_final():
         Label(fenetre_scoreLF, text=mat_score[i]).pack()
         Label(fenetre_traceLF, text = mat_max_traceback[i]).pack()
         i+=1
-    Label(fenetre, text="Copyright © 2021 MATHIEU Theo - Tous droits réservés").pack(side='bottom')
-    alignement = Tk()
+    ali = Frame(alignement)
+    ali.pack()
+    alibis = Frame(alignement)
+    alibis.pack()
+    aliter = Frame(alignement)
+    aliter.pack()
     for dic in dico_x_aligne:
         no = ('alignement n°'+ str(int(dic)+1))
-        no = LabelFrame(alignement, text = no, labelanchor='n')
-        no.pack()
+        if 3 < int(dic) < 6:
+            no = LabelFrame(alibis, text=no, labelanchor='n')
+        elif int(dic) > 6:
+            no = LabelFrame(aliter, text=no, labelanchor='n')
+        else :
+            no = LabelFrame(ali, text=no, labelanchor='n')
+        no.pack(side = 'left')
         total = ('score total : ' + str(dico_x_aligne['0']["score final"]))
         Label(no, text = str(total)).pack()
         Label(no, text = dico_x_aligne[dic]["liste traceback"][::-1]).pack()
@@ -102,18 +117,16 @@ def valid_final():
         Label(no, text = dico_x_aligne[dic]["seq symbole"]).pack()
         Label(no, text = dico_x_aligne[dic]["seqB aligne"]).pack()
         score = dico_x_aligne[dic]['score']
-        Label(no, text = ("Nombre de match :"+ str(score[0]))).pack()
+        Label(no, text = ("Nombre de match : "+ str(score[0]))).pack()
         if type_alignement is True:
-            Label(no, text = ("Nombre de mismatch purine : " + str(score[1])))
-            Label(no, text = ("Nombre de mismatch pyrimidine : "+ str(score[2]))).pack()
+            Label(no, text = ("Nombre de mismatch purine : " + str(score[1]))).pack()
+            Label(no, text = ("Nombre de mismatch pyrimidine : " + str(score[2]))).pack()
         Label(no, text = ("Nombre de mismatch autre : "+ str(score[3])))
         Label(no, text = ("Nombre de gap ouvert : "+str(score[4]))).pack()
         Label(no, text = ("Nombre de gap étendu : " + str(score[5]))).pack()
         Label(no, text = ("Nombre de gap total : "+ str(score[4] + score[5]))).pack()
-    Label(alignement, text="Copyright © 2021 MATHIEU Theo - Tous droits réservés").pack(side='bottom')
     gpt.print_final(dico_x_aligne, seqA, seqB, mat_max_traceback)
-    alignement.mainloop()
-    fenetre.mainloop()
+    matrice.mainloop()
 
 def geno():
     global valide_score_geno
