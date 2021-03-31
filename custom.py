@@ -7,7 +7,7 @@ def true_false(rep):
     elif rep == 'n':
         return False, True
     else:
-        print("la reponsse doit etre True ou False")
+        print("la reponsse doit etre y ou n")
         return 'erreur', False
 
 
