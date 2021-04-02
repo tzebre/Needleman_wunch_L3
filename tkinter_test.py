@@ -87,13 +87,16 @@ def valid_final():
     fenetre_traceLF.pack()
     i=0
     mat_score = []
+    mat_trace = []
     for row in range(len(seqB)+1):
         mat_score.append([])
+        mat_trace.append([])
         for col in range(len(seqA)+1):
-            mat_score[row].append(str(dico_x_aligne['0']["matrice score"][row][col][0]).center(3)+'|')
+            mat_score[row] += (str(dico_x_aligne['0']["matrice score"][row][col][0]).center(3)+'|')
+            mat_trace[row] += (str(mat_max_traceback[row][col]).center(3)+'|')
     while i < len(seqB)+1:
         Label(fenetre_scoreLF, text=mat_score[i]).pack()
-        Label(fenetre_traceLF, text = mat_max_traceback[i]).pack()
+        Label(fenetre_traceLF, text = mat_trace[i]).pack()
         i+=1
     ali = Frame(alignement)
     ali.pack()
