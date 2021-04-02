@@ -113,11 +113,11 @@ def rempli_symbole(row, col, diag, down, right, matrice_score, mat_max, nw):
             mat_max[row][col] += '↓'
     elif matrice_score[row][col][0] == down:
         mat_max[row][col] += '↓'
-    elif matrice_score[row][col][0]:
+    else :
         if nw is True:
             mat_max[row][col] += '↓'
         else:
-            mat_max[row][col] += '↓'
+            mat_max[row][col] += ' '
     # si on a creer un gap ou mets 1 comme deuxiemme indice de liste sinon 0
     if max(diag, down, right) == down or max(diag, down, right) == right:
         matrice_score[row][col][1] = 1
