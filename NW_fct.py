@@ -111,13 +111,13 @@ def rempli_symbole(row, col, diag, down, right, matrice_score, mat_max, nw):
         mat_max[row][col] += '↘'
         if diag == down:
             mat_max[row][col] += '↓'
-    elif matrice_score[row][col] == down:
+    elif matrice_score[row][col][0] == down:
         mat_max[row][col] += '↓'
-    elif matrice_score[row][col]:
+    elif matrice_score[row][col][0]:
         if nw is True:
             mat_max[row][col] += '↓'
         else:
-            mat_max[row][col] += ' '
+            mat_max[row][col] += '↓'
     # si on a creer un gap ou mets 1 comme deuxiemme indice de liste sinon 0
     if max(diag, down, right) == down or max(diag, down, right) == right:
         matrice_score[row][col][1] = 1
@@ -158,6 +158,8 @@ def rempli_score(lenA, lenB, seqA, seqB, matrice_score, traceback_mat, liste_sco
             matrice_score[row][col][0] = max_val
             matrice_score, traceback_mat = rempli_symbole(row, col, diag, down, right,
                                                           matrice_score, traceback_mat, nw)
+    for i in traceback_mat:
+        print(i)
     return matrice_score, traceback_mat
 
 
