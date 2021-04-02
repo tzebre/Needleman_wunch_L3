@@ -299,7 +299,7 @@ def liste_depart_max(mat_score, seqA, seqB):
             col += 1
         col = 0
         row += 1
-    return co_score_max
+    return co_score_max, score_maximal
 
 
 # creation d'alignement selon l'algorithme de needleman et wunsh
@@ -321,7 +321,7 @@ def matrix(seqA, seqB, liste_score, liste_symbole, type_alignement, type_algorit
     if type_algorithme is True:
         liste_traceback = traverse_recursive(traceback_mat, lenA, lenB, liste_des_traces, trace)
     else:
-        depart_max = liste_depart_max(score_mat, seqA, seqB)
+        depart_max, score_max = liste_depart_max(score_mat, seqA, seqB)
         for i, dep in enumerate(depart_max):
             if i == 0:
                 liste_traceback = [traverse_recursive(traceback_mat, dep[1], dep[0], liste_des_traces, trace)]
@@ -336,6 +336,7 @@ def matrix(seqA, seqB, liste_score, liste_symbole, type_alignement, type_algorit
             dico_x_aligne[str(nb_alignement)]["score final"] = \
                 dico_x_aligne[str(nb_alignement)]["matrice score"][lenB][lenA][0]
         else:
+            dico_x_aligne[str(nb_alignement)]["score final"] = score_max
             for trace in traceback:
                 seqA_align, seqB_align = sw_aligne(seqA, seqB, depart_max[i][0], depart_max[i][1], trace)
         dico_x_aligne[str(nb_alignement)]["seqA aligne"] = seqA_align
