@@ -1,14 +1,14 @@
 # Needleman_Wunch/Smith_Waterman
 **Auteur : MATHIEU Theo**  
-Programe realisé en python dans le cadre de la L3 BISM pour l'UE bioinformatique.
+Programme realisé en python dans le cadre de la L3 BISM pour l'UE bioinformatique.
 
 ## Fonctionalité  
  - [x] Alignement selon l'algotihme de Needleman-wunch ou Smith-Waterman 
-    - De sequence proteique ou genomique 
-    - Depuis un fichier fasta ou un entrée manuelle de la séquence 
+    - De sequence protéique ou génomique 
+    - Depuis un fichier FASTA ou en entrant manuellement la séquence 
     - Choix des score et des symbole d'alignement possible
     
- - [x] Utilisation en fenetre graphique grace a tkinter ou en commande console 
+ - [x] Utilisation en fenetre graphique grace a tkinter ou en commande dans la console
 
 ## Principe d'alignement 
 ### Needleman et wunch 
@@ -51,20 +51,25 @@ $ sudo apt-get install python3-tk
 # Lancer le programme d'alignement avec 
 $ python3 tkinter_test.py
 ```
-**Note** : Si vous decidez de prendre des sequence stockées dans des fichiers fasta. Les fichiers doivent se trouver dans le
-meme dossier que le programme.
+**Note** : Si vous decidez de prendre des sequences stockées dans des fichiers fasta. 
+Les fichiers doivent se trouver dans le meme dossier que le programme.  
+Et les fichiers doivent respecter le format : 
+```
+>Nom de la sequence
+ATGC...(sequence nucleique ou proteique)
+```
 
-## Fonctionement 
+## Fonctionement general
 ### Needleman et wunch 
-L'algorithme prend en entrée: 
-  - 2 sequence genomique ou proteique.
+L'algorithme prend en entré: 
+  - 2 sequence génomique ou protéique.
     - Entrée a la main (seulement en utilisation ligne de commande) ou depuis un fichier fasta
-  - Alignement genomique   
-      - Des score (match, mismatch purine/putine, mismatch pyrimidine/pyrimidine, autre mismatch, 
+  - Alignement génomique   
+      - Des scores (match, mismatch purine/purine, mismatch pyrimidine/pyrimidine, autre mismatch, 
         ouverture de gap, extention de gap), par defaut (2, 1, 1, -1, -10, -1)
       - Ainsi que les symboles associés, par defaut ('|',':',':','!','')   
         
-  - Alignement proteique 
+  - Alignement protéique 
       - Une matrice de score (Blosum62)
       - Ainsi que des symboles associé, par défaut (match : '|', mismatch : '!', gap : ' ')
     
@@ -79,7 +84,7 @@ Et les scores :
 > Mismatch : -1  
 > Ouverture de gap : -10  
 > Extention de gap : -1
-1) Creation des matrice de score et de traceback sous cette forme 
+1) Creation des matrices de score et de traceback sous cette forme 
 
 |   |ㅤ  | A | T | G | G | C | G | T |
 |---|---|---|---|---|---|---|---|---|  
@@ -111,9 +116,9 @@ for x in range(ligne):
 | T |-11| Z |   |  
 
 Score de X depuis :  
-- dessu : -10 + extention de gap(=-10) = - 11
-- gauche : 1 + extention de gap(=-1) = - 11
-- diagonale : 0 + match(=2) = 2  
+- Haut : -10 + extention de gap(=-10) = - 11
+- Gauche : 1 + extention de gap(=-1) = - 11
+- Diagonale : 0 + match(=2) = 2  
   
 Ici le score maximum est 2 et il est obtenu lors d'un deplacement depuis la case en diagonale. 
 la case X dans le tableau de score sera donc égale a 2. 
@@ -121,39 +126,40 @@ Cette même case dans le tableau de traceback sera rempli avec une fleche `↘`,
 diagonale apporte le meilleur score.  
 
 Score de Y depuis :
-- dessu : -11 + extention de gap(=-1) =  - 12
-- gauche : X(=2) + ouverture de gap(=-10) = - 8 
-  - Lors d'un deplacement depuis la case de gauche on cree 
-    un gap. La case gauche n'etant pas un gap, ici on ouvre donc un nouveau gap. 
-- diagonale : -10 + autre mismatch(=-1) = - 11  
+- Haut : -11 + extention de gap(=-1) = - 12
+- Gauche : X(=2) + ouverture de gap(=-10) = - 8 
+  - Lors d'un déplacement depuis la case de gauche on cree 
+    un gap. La case gauche n'étant pas un gap, ici on ouvre donc un nouveau gap. 
+- Diagonale : -10 + autre mismatch(=-1) = - 11  
 
 Ici le score maximum est - 8 et il est obtenu lors d'un deplacement depuis la case de gauche. 
-la case y dans le tableau de score sera donc égale a - 8. 
+La case Y dans le tableau de score sera donc égale a - 8. 
 Cette même case dans le tableau de traceback sera rempli avec une fleche `→`, car le "chemin" depuis la case 
 a gauche apporte le meilleur score. 
 
-**Note** : Dans le cas ou deux chemin sont egaux les deux fleche sont ajouté. 
+**Note** : Dans le cas ou deux chemins sont egaux les deux fléches sont ajoutées. 
 (avec `.append()` dans la liste qui correspond a la case) 
 
-Pour trouver le ou les alignement optimaux selon l'algorithme de Needleman et Wunch. 
-On remonte le tableau de trace depuis la case en bas a droite en suivant le sens des fleches.
+Pour trouver le ou les alignements optimaux selon l'algorithme de Needleman et Wunch. 
+On remonte le tableau de trace depuis la case en bas à droite en suivant le sens des fleches.
 
-**Note** : Afin de trouver tout les alignement optimaux on remonte les case du tableau grace a de 
+**Note** : Afin de trouver tout les alignements optimaux on remonte les case du tableau grace a de 
 la programation recursive.
 
 ### Smith et Waterman 
-L'algorithme fonction de la meme maniere que le precedent. Cependant la case prend le sore maximale entre 
-les 3 direction possible et 0. Dans le cas ou la case a un score de 0 aucune fleche est inseré
+L'algorithme fonction de la meme maniére que le precedent. Cependant la case prend le sore maximale entre 
+les 3 diréction possible et 0. Dans le cas ou la case a un score de 0 aucune fleche est inserée.
 
-Pour trouver le ou les alignement optimaux on remonte les case du tableau a partir de ou des case avec le score maximal.
+Pour trouver le ou les alignements optimaux on remonte les case du tableau a partir de ou des cases avec le score maximal.
 On arrete l'alignement quand on trouve un score de 0 (il n'y aura donc pas de fleche).
 
 ## Resultats
 ### Utilisation en mode graphique 
-- Une fenetre pour les matrice de score et de trace
-  ![fenetre_score](mettre)
-- une fenetre pour les alignements ex-aequo
-  ![fenetre_alignement](mettre)
+- Lancement du programme 
+- Une remplir les champs de la fenetre de customisation (il est possible de changer les scores et les symboles tant 
+  qu'il n'y a pas eu de clique sur le bouton d'alignement)
+- La fenetre de resultat présente à gauche les matrices de score et de traceback, à droite les alignements ex-aequo.
+- Les resultats s'affichent aussi dans la console comme lors d'une utilisation sans fenetre graphique.
 ### Utilisation en ligne de commande 
 - Matrice de score et de trace 
 - alignement ex-aequo
