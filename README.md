@@ -1,18 +1,18 @@
 # Needleman_Wunch/Smith_Waterman
 **Auteur : MATHIEU Theo**  
-Programe realisé en python dans le cadre de la L3 BISM pour l'UE bioinformatique.
+Programme réalisé en Python dans le cadre de la L3 B.I.S.M. pour l'U.E. bio-informatique.
 
 ## Fonctionalité  
- - [x] Alignement selon l'algotihme de Needleman-wunch ou Smith-Waterman 
-    - De sequence proteique ou genomique 
-    - Depuis un fichier fasta ou un entrée manuelle de la séquence 
-    - Choix des score et des symbole d'alignement possible
+ - [x] Alignement selon l'algorithme de Needleman-Wunch ou Smith-Waterman 
+    - De séquences protéiques ou génomique 
+    - Depuis un fichier Fasta ou une entrée manuelle de la séquence 
+    - Choix des scores et des symboles d'alignement possible
     
- - [x] Utilisation en fenetre graphique grace a tkinter ou en commande console 
+ - [x] Utilisation en fenêtre graphique gràce a tkinter ou en commande console 
 
 ## Principe d'alignement 
 ### Needleman et wunch 
->L'algorithme Needleman – Wunsch est un algorithme utilisé en bioinformatique pour aligner des séquences protéiques ou 
+>L'algorithme Needleman – Wunsch est un algorithme utilisé en bio-informatique pour aligner des séquences protéiques ou 
 nucléotidiques. C'était l'une des premières applications de la programmation dynamique pour comparer des séquences 
 biologiques. L'algorithme a été développé par Saul B. Needleman et Christian D. Wunsch et publié en 1970.  Il est
 également parfois appelé algorithme de correspondance optimal et technique d'alignement global.L'algorithme attribue un score à chaque alignement
@@ -51,24 +51,24 @@ $ sudo apt-get install python3-tk
 # Lancer le programme d'alignement avec 
 $ python3 tkinter_test.py
 ```
-**Note** : Si vous decidez de prendre des sequence stockées dans des fichiers fasta. Les fichiers doivent se trouver dans le
-meme dossier que le programme.
+**Note** : Si vous décidez de prendre des sequences stockées dans des fichiers Fasta. Les fichiers doivent se trouver dans le
+même dossier que le programme.
 
 ## Fonctionement 
 ### Needleman et wunch 
-L'algorithme prend en entrée: 
-  - 2 sequence genomique ou proteique.
-    - Entrée a la main (seulement en utilisation ligne de commande) ou depuis un fichier fasta
-  - Alignement genomique   
-      - Des score (match, mismatch purine/putine, mismatch pyrimidine/pyrimidine, autre mismatch, 
-        ouverture de gap, extention de gap), par defaut (2, 1, 1, -1, -10, -1)
-      - Ainsi que les symboles associés, par defaut ('|',':',':','!','')   
+L'algorithme prend en entrée : 
+  - 2 séquences génomique ou protéique.
+    - Entrée à la main (seulement en utilisation ligne de commande) ou depuis un fichier Fasta
+  - Alignement génomique   
+      - Des scores (match, mismatch purine/putine, mismatch pyrimidine/pyrimidine, autre mismatch, 
+        ouverture de gap, extention de gap), par défaut (2, 1, 1, -1, -10, -1)
+      - Des symboles associés, par défaut ('|',':',':','!','')   
         
-  - Alignement proteique 
+  - Alignement protéique 
       - Une matrice de score (Blosum62)
-      - Ainsi que des symboles associé, par défaut (match : '|', mismatch : '!', gap : ' ')
+      - Des symboles associés, par défaut (match : '|', mismatch : '!', gap : ' ')
     
-Pour l'exemple suivant on utilise les sequence suivante :
+Pour l'exemple suivant, on utilise les séquences suivantes :
 > ATGGCGT  
 > ATGAGT  
 
@@ -79,7 +79,7 @@ Et les scores :
 > Mismatch : -1  
 > Ouverture de gap : -10  
 > Extention de gap : -1
-1) Creation des matrice de score et de traceback sous cette forme 
+1) Création des matrices de score et de traceback sous cette forme :  
 
 |   |ㅤ  | A | T | G | G | C | G | T |
 |---|---|---|---|---|---|---|---|---|  
@@ -91,9 +91,9 @@ Et les scores :
 | G |   |   |   |   |   |   |   |   |
 | T |   |   |   |   |   |   |   |   |  
 
-**Note** : les matrices en python son codée comme des listes de listes de liste. 
-C'est a dire que chaque ligne est une liste replie avec une liste par colone, et chaque colone 
-est remplie par une liste qui represente la case.  
+**Note** : Les matrices en Python sont codées comme des listes de listes de liste. 
+C'est à dire que chaque ligne est une liste remplie avec une liste par colonne. Chaque colonne 
+est remplie par une liste qui représente la case.  
 ```py 
 # tableau de 6 ligne et 5 colone
 ligne = 6
@@ -111,62 +111,51 @@ for x in range(ligne):
 | T |-11| Z |   |  
 
 Score de X depuis :  
-- dessu : -10 + extention de gap(=-10) = - 11
-- gauche : 1 + extention de gap(=-1) = - 11
-- diagonale : 0 + match(=2) = 2  
+- Dessus : -10 + extention de gap(=-10) = - 11
+- Gauche : 1 + extention de gap(=-1) = - 11
+- Diagonale : 0 + match(=2) = 2  
   
-Ici le score maximum est 2 et il est obtenu lors d'un deplacement depuis la case en diagonale. 
-la case X dans le tableau de score sera donc égale a 2. 
-Cette même case dans le tableau de traceback sera rempli avec une fleche `↘`, car le "chemin" depuis la case en 
+Ici, le score maximum est 2. Il est obtenu lors d'un déplacement depuis la case en diagonale. 
+La case X dans le tableau de score sera donc égale à 2. 
+Cette même case dans le tableau de traceback sera remplie avec une flêche `↘` car le "chemin" depuis la case en 
 diagonale apporte le meilleur score.  
 
 Score de Y depuis :
-- dessu : -11 + extention de gap(=-1) =  - 12
-- gauche : X(=2) + ouverture de gap(=-10) = - 8 
-  - Lors d'un deplacement depuis la case de gauche on cree 
-    un gap. La case gauche n'etant pas un gap, ici on ouvre donc un nouveau gap. 
-- diagonale : -10 + autre mismatch(=-1) = - 11  
+- Dessus : -11 + extention de gap(=-1) =  - 12
+- Gauche : X(=2) + ouverture de gap(=-10) = - 8 
+  - Lors d'un déplacement depuis la case de gauche, on crée 
+    un gap. La case de gauche n'étant pas un gap, ici on ouvre donc un nouveau gap. 
+- Diagonale : -10 + autre mismatch(=-1) = - 11  
 
-Ici le score maximum est - 8 et il est obtenu lors d'un deplacement depuis la case de gauche. 
-la case y dans le tableau de score sera donc égale a - 8. 
-Cette même case dans le tableau de traceback sera rempli avec une fleche `→`, car le "chemin" depuis la case 
-a gauche apporte le meilleur score. 
+Ici le score maximum est - 8. Il est obtenu lors d'un déplacement depuis la case de gauche. 
+La case Y dans le tableau de score sera donc égale a - 8. 
+Cette même case dans le tableau de traceback sera remplie avec une flêche `→` car le "chemin" depuis la case 
+à gauche apporte le meilleur score. 
 
-**Note** : Dans le cas ou deux chemin sont egaux les deux fleche sont ajouté. 
-(avec `.append()` dans la liste qui correspond a la case) 
+**Note** : Dans le cas où deux chemins sont égaux, les deux flêches sont ajoutées. 
+(avec `.append()` dans la liste qui correspond à la case) 
 
-Pour trouver le ou les alignement optimaux selon l'algorithme de Needleman et Wunch. 
-On remonte le tableau de trace depuis la case en bas a droite en suivant le sens des fleches.
+Pour trouver le ou les alignements optimaux selon l'algorithme de Needleman et Wunch,  
+On remonte le tableau de trace depuis la case en bas à droite en suivant le sens des flêches.
 
-**Note** : Afin de trouver tout les alignement optimaux on remonte les case du tableau grace a de 
-la programation recursive.
+**Note** : Afin de trouver tout les alignements optimaux, on remonte les cases du tableau grâce à de 
+la programmation récursive.
 
 ### Smith et Waterman 
-L'algorithme fonction de la meme maniere que le precedent. Cependant la case prend le sore maximale entre 
-les 3 direction possible et 0. Dans le cas ou la case a un score de 0 aucune fleche est inseré
+L'algorithme fonctionne de la même manière que le précédent. Cependant la case, prend le score maximal entre 
+les trois directions possibles et 0. Dans le cas où la case à un score de 0, aucune flêche est inserée.  
 
-Pour trouver le ou les alignement optimaux on remonte les case du tableau a partir de ou des case avec le score maximal.
-On arrete l'alignement quand on trouve un score de 0 (il n'y aura donc pas de fleche).
+Pour trouver le ou les alignements optimaux, on remonte les cases du tableau à partir de ou des cases avec le score maximal.  
+On arrête l'alignement quand on trouve un score de 0 (il n'y aura donc pas de flêche).
 
 ## Resultats
 ### Utilisation en mode graphique 
-- Une fenetre pour les matrice de score et de trace
+- Une fenêtre pour les matrices de score et de trace.
   ![fenetre_score](mettre)
-- une fenetre pour les alignements ex-aequo
+- Une fenêtre pour les alignements ex-aequo
   ![fenetre_alignement](mettre)
 ### Utilisation en ligne de commande 
-- Matrice de score et de trace 
-- alignement ex-aequo
-
-
-
-
-
-
-
-
-    
-
-    
+- Matrices de score et de trace 
+- Alignement ex-aequo
 
 
