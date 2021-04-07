@@ -3,22 +3,23 @@
 Programme réalisé en Python dans le cadre de la L3 B.I.S.M. pour l'U.E. bio-informatique.
 
 ## Table des matières
-1. [Fonctionalité](#tionalité)
+1. [Fonctionalité](#fonc)
 2. [Principe d'alignement](#principe)  
     1. [Needleman et Wunch](#NE)  
     2. [Smith et WAterman](#SW)  
     
 3. [Notice d'utilisation](#notice)
 4. [Fonctionement](#fonctionement)   
-    1. [Needleman et Wunch](#NE)  
-    2. [Smith et WAterman](#SW)    
+    1. [Needleman et Wunch](#fNE)  
+    2. [Smith et WAterman](#fSW)    
     
 5. [Résultats](#resultats)  
    1. [Fenêtre graphique](#graph)
     2. [Ligne de comande](#cmd)  
     
 6. [Améliorations](#amelioration)
-## Fonctionalité  <a id="fonctionalité"></a>
+
+## Fonctionalité  <a id="fonc"></a>
  - [x] Alignement selon l'algorithme de Needleman-Wunch ou Smith-Waterman 
     - De séquences protéiques ou génomiques 
     - Depuis un fichier Fasta ou une entrée manuelle de la séquence 
@@ -26,7 +27,7 @@ Programme réalisé en Python dans le cadre de la L3 B.I.S.M. pour l'U.E. bio-in
     
  - [x] Utilisation en fenêtre graphique gràce a tkinter ou en commande console 
 
-## Principe d'alignement <a id="nprincipe"></a>
+## Principe d'alignement <a id="principe"></a>
 ### Needleman et wunch <a id="NE"></a>
 >L'algorithme Needleman – Wunsch est un algorithme utilisé en bio-informatique pour aligner des séquences protéiques ou 
 nucléotidiques. C'était l'une des premières applications de la programmation dynamique pour comparer des séquences 
