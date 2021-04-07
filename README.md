@@ -6,11 +6,11 @@ Programme réalisé en Python dans le cadre de la L3 B.I.S.M. pour l'U.E. bio-in
 1. [Fonctionalité](#fonc)
 2. [Principe d'alignement](#principe)
     1. [Needleman et Wunch](#NE)
-    2. [Smith et WAterman](#SW)
+    2. [Smith et Waterman](#SW)
 3. [Notice d'utilisation](#notice)
 4. [Fonctionement](#fonctionement)
     1. [Needleman et Wunch](#fNE)
-    2. [Smith et WAterman](#fSW)
+    2. [Smith et Waterman](#fSW)
 5. [Résultats](#resultats)
    1. [Fenêtre graphique](#graph)
     2. [Ligne de comande](#cmd)
@@ -166,12 +166,13 @@ On arrête l'alignement quand on trouve un score de 0 (il n'y aura donc pas de f
 ### Utilisation en mode graphique <a id="graph"></a>
 Une fenêtre :
 - Sur la partie gauche les matrices de score et de trace.
-  ![fenetre_score](mettre)
-- Sur la partie droite les alignements ex-aequo
-  ![fenetre_alignement](mettre)
+- Sur la partie droite les alignements ex-aequo  
+
+**Note** : Même en utilisation graphique les résultats seront affichés dans la console (Pour être copiable)
 ### Utilisation en ligne de commande <a id="cmd"></a>
 - Matrices de score et de trace 
 - Alignement ex-aequo
+
 
 ## Amélioration <a id="amelioration"></a>
 - Amélioration de l'utilisation graphique (web?)  
