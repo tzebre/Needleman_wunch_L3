@@ -132,17 +132,17 @@ La case Y dans le tableau de score sera donc égale a - 8.
 Cette même case dans le tableau de traceback sera remplie avec une flêche `→` car le "chemin" depuis la case 
 à gauche apporte le meilleur score. 
 
-**Note** : Dans le cas où deux chemins sont égaux, les deux flêches sont ajoutées. 
+**Note** : Dans le cas où deux chemins sont égaux, les deux flêches sont ajoutées
 (avec `.append()` dans la liste qui correspond à la case) 
 
-Pour trouver le ou les alignements optimaux selon l'algorithme de Needleman et Wunch,  
-On remonte le tableau de trace depuis la case en bas à droite en suivant le sens des flêches.
+Pour trouver le ou les alignements optimaux selon l'algorithme de Needleman et Wunch,
+on remonte le tableau de trace depuis la case en bas à droite en suivant le sens des flêches.
 
-**Note** : Afin de trouver tout les alignements optimaux, on remonte les cases du tableau grâce à de 
+**Note** : Afin de trouver tous les alignements optimaux, on remonte les cases du tableau grâce à de 
 la programmation récursive.
 
 ### Smith et Waterman 
-L'algorithme fonctionne de la même manière que le précédent. Cependant la case, prend le score maximal entre 
+L'algorithme fonctionne de la même manière que le précédent. Cependant la case prend le score maximal entre 
 les trois directions possibles et 0. Dans le cas où la case à un score de 0, aucune flêche est inserée.  
 
 Pour trouver le ou les alignements optimaux, on remonte les cases du tableau à partir de ou des cases avec le score maximal.  
