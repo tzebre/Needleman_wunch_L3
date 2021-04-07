@@ -2,7 +2,23 @@
 **Auteur : MATHIEU Theo**  
 Programme réalisé en Python dans le cadre de la L3 B.I.S.M. pour l'U.E. bio-informatique.
 
-## Fonctionalité  
+## Table des matières
+1. [Fonctionalité](#tionalité)
+2. [Principe d'alignement](#principe)  
+    1. [Needleman et Wunch](#NE)  
+    2. [Smith et WAterman](#SW)  
+    
+3. [Notice d'utilisation](#notice)
+4. [Fonctionement](#fonctionement)   
+    1. [Needleman et Wunch](#NE)  
+    2. [Smith et WAterman](#SW)    
+    
+5. [Résultats](#resultats)  
+   1. [Fenêtre graphique](#graph)
+    2. [Ligne de comande](#cmd)  
+    
+6. [Améliorations](#amelioration)
+## Fonctionalité  <a id="fonctionalité"></a>
  - [x] Alignement selon l'algorithme de Needleman-Wunch ou Smith-Waterman 
     - De séquences protéiques ou génomiques 
     - Depuis un fichier Fasta ou une entrée manuelle de la séquence 
@@ -10,15 +26,15 @@ Programme réalisé en Python dans le cadre de la L3 B.I.S.M. pour l'U.E. bio-in
     
  - [x] Utilisation en fenêtre graphique gràce a tkinter ou en commande console 
 
-## Principe d'alignement 
-### Needleman et wunch 
+## Principe d'alignement <a id="nprincipe"></a>
+### Needleman et wunch <a id="NE"></a>
 >L'algorithme Needleman – Wunsch est un algorithme utilisé en bio-informatique pour aligner des séquences protéiques ou 
 nucléotidiques. C'était l'une des premières applications de la programmation dynamique pour comparer des séquences 
 biologiques. L'algorithme a été développé par Saul B. Needleman et Christian D. Wunsch et publié en 1970.  Il est
 également parfois appelé algorithme de correspondance optimal et technique d'alignement global.L'algorithme attribue un score à chaque alignement
 possible, et le but de l'algorithme est de trouver tous les alignements possibles ayant le score le plus élevé.
 [Source: Wikipedia](https://en.wikipedia.org/wiki/Needleman%E2%80%93Wunsch_algorithm)
-### Smith et Waterman 
+### Smith et Waterman <a id="SW"></a>
 >L'algorithme de Smith – Waterman effectue l'alignement des séquences locales; c'est-à-dire pour déterminer des régions 
 similaires entre deux chaînes de séquences d'acide nucléique ou de séquences protéiques. 
 Au lieu de regarder la séquence entière, l'algorithme de Smith – Waterman compare des segments de toutes les 
@@ -30,7 +46,7 @@ qu'une cellule avec un score zéro soit rencontrée, ce qui donne l'alignement l
 complexité quadratique dans le temps et dans l'espace, il ne peut souvent pas être appliqué en pratique à des 
 problèmes à grande échelle et est remplacé par des alternatives moins générales.
 [Source: Wikipedia](https://en.wikipedia.org/wiki/Smith%E2%80%93Waterman_algorithm)
-## Notice d'utilisation
+## Notice d'utilisation <a id="notice"></a>
 ```
 # cloner le repository 
 $ git clone https://github.com/tzebre/Needleman_wunch_L3.git
@@ -54,8 +70,8 @@ $ python3 tkinter_test.py
 **Note** : Si vous décidez de prendre des séquences stockées dans des fichiers Fasta, les fichiers doivent se trouver dans le
 même dossier que le programme. Ou donner leur PATH.
 
-## Fonctionnement 
-### Needleman et Wunch 
+## Fonctionnement <a id="fonctionement"></a>
+### Needleman et Wunch <a id="fNE"></a>
 L'algorithme prend en entrée : 
   - 2 séquences génomiques ou protéiques.
     - Entrée à la main (seulement en utilisation ligne de commande) ou depuis un fichier Fasta
@@ -141,21 +157,26 @@ On remonte le tableau de trace depuis la case en bas à droite en suivant le sen
 **Note** : Afin de trouver tout les alignements optimaux, on remonte les cases du tableau grâce à de 
 la programmation récursive.
 
-### Smith et Waterman 
+### Smith et Waterman <a id="fSW"></a>
 L'algorithme fonctionne de la même manière que le précédent. Cependant la case, prend le score maximal entre 
 les trois directions possibles et 0. Dans le cas où la case à un score de 0, aucune flêche est inserée.  
 
 Pour trouver le ou les alignements optimaux, on remonte les cases du tableau à partir de ou des cases avec le score maximal.  
 On arrête l'alignement quand on trouve un score de 0 (il n'y aura donc pas de flêche).
 
-## Resultats
-### Utilisation en mode graphique 
+## Resultats <a id="resultats"></a>
+### Utilisation en mode graphique <a id="graph"></a>
 - Une fenêtre pour les matrices de score et de trace.
   ![fenetre_score](mettre)
 - Une fenêtre pour les alignements ex-aequo
   ![fenetre_alignement](mettre)
-### Utilisation en ligne de commande 
+### Utilisation en ligne de commande <a id="cmd"></a>
 - Matrices de score et de trace 
 - Alignement ex-aequo
+
+## Amélioration <a id="amelioration"></a>
+- Amélioration de l'utilisation graphique (web?)  
+- Alignement en double par moment   
+- Enregistrer les résultats dans un fichier   
 
 
