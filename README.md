@@ -3,21 +3,18 @@
 Programme réalisé en Python dans le cadre de la L3 B.I.S.M. pour l'U.E. bio-informatique.
 
 ## Table des matières
-1. [Fonctionalité](#fonc)
+1. [Fonctionalité](#fonc)  
 2. [Principe d'alignement](#principe)  
     1. [Needleman et Wunch](#NE)  
     2. [Smith et WAterman](#SW)  
-    
-3. [Notice d'utilisation](#notice)
-4. [Fonctionement](#fonctionement)   
-    1. [Needleman et Wunch](#fNE)  
-    2. [Smith et WAterman](#fSW)    
-    
-5. [Résultats](#resultats)  
-   1. [Fenêtre graphique](#graph)
+3. [Notice d'utilisation](#notice)  
+4. [Fonctionement](#fonctionement)     
+    1. [Needleman et Wunch](#fNE)      
+    2. [Smith et WAterman](#fSW)  
+5. [Résultats](#resultats)    
+   1. [Fenêtre graphique](#graph)    
     2. [Ligne de comande](#cmd)  
-    
-6. [Améliorations](#amelioration)
+6. [Améliorations](#amelioration)  
 
 ## Fonctionalité  <a id="fonc"></a>
  - [x] Alignement selon l'algorithme de Needleman-Wunch ou Smith-Waterman 
