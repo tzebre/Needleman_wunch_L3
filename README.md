@@ -4,7 +4,7 @@ Programme réalisé en Python dans le cadre de la L3 B.I.S.M. pour l'U.E. bio-in
 
 ## Fonctionalité  
  - [x] Alignement selon l'algorithme de Needleman-Wunch ou Smith-Waterman 
-    - De séquences protéiques ou génomique 
+    - De séquences protéiques ou génomiques 
     - Depuis un fichier Fasta ou une entrée manuelle de la séquence 
     - Choix des scores et des symboles d'alignement possible
     
