@@ -1,6 +1,6 @@
-# gestion des print
+# Gestion des prints
 
-# print des different score de l'alignement
+# Print des différents score de l'alignement
 def print_score(score):
     print("Nombre de match :", score[0])
     print("Nombre de mismatch purine :", score[1])
@@ -12,7 +12,7 @@ def print_score(score):
     print("Nombre de gap total :", score[4] + score[5])
 
 
-# print des matrice de score et de traceback type matrice True = score False = traceback
+# Print des matrices de score et de traceback. Type matrice True = score False = traceback
 def print_matrice(mat, seqA, seqB, type_matrice):
     i = 0
     print('\t', end='')
@@ -26,14 +26,14 @@ def print_matrice(mat, seqA, seqB, type_matrice):
         else:
             print(''.center(3), '|', sep='', end='')
         for col in range(len(mat[row])):
-            if type_matrice is True:  # score
+            if type_matrice is True:  # Matrice de score
                 print(str(mat[row][col][0]).center(3), '|', sep='', end='')
-            else:
+            else:  # Matrice de trace
                 print(mat[row][col].center(3), '|', sep='', end='')
         print('')
 
 
-# print les different alignement
+# Print les différents alignement
 def print_final(dico_x_aligne, seqA, seqB, mat_traceback):
     print("==============================================================")
     print("Matrice de score : ")

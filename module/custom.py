@@ -1,23 +1,23 @@
-# fichier qui gère les inputs et la customisation du programme
+# Fichier qui gère les inputs et la customisation du programme
 
-# return True et True ou False pour un input y ou n et 'erreur' et False si l'input n'est pas y ou n
+# Retourne True, True/False pour un input y ou n et 'erreur', False si l'input n'est pas y ou n
 def true_false(rep):
     if rep == 'y':
         return True, True
     elif rep == 'n':
         return False, True
     else:
-        print("la reponsse doit etre y ou n")
+        print("la réponse doit être y ou n")
         return 'erreur', False
 
 
-# retourne une sequence genomique ou proteique entrée a la main
+# Retourne une séquence génomique ou protéique entrée a la main
 def custom_seq_fct():
     seq: str = input("Sequence : ")
     return seq
 
 
-# retourne une sequence lu depuis un fichier fasta
+# Retourne une séquence lue depuis un fichier Fasta
 def lecture_fasta(seq):
     fasta = open(seq, 'r')
     seq = ""
@@ -27,12 +27,12 @@ def lecture_fasta(seq):
     return seq
 
 
-# retourne la sequence proteique ou genomique en majuscule seulement avec True si elle n'a pas d'erreur
+# Retourne la séquence protéique ou génomique en majuscule et True si elle n'a pas d'erreurs
 def netoyage_seq(seq, type_alignement):
     seq = seq.upper()
     if type_alignement is True:  # cas alignement genomique
         ok = "AaCcGgTtUu"
-    else:  # cas alignement proteique
+    else:  # cas alignement protéique
         ok = "AaRrNnDdCcQqEeGgHhIiLlKkMmFfPpSsTtWwYyVv"
     for nt in seq:
         if nt not in ok:
@@ -41,83 +41,79 @@ def netoyage_seq(seq, type_alignement):
     return seq, True
 
 
-# retourne la liste score_list avec les input des different score possible dans un alignement genomique ou proteique
+# Retourne la liste score_list avec les inputs des différents scores possibles de l'alignement
 def custom_score_fct(score_list, type_alignement):
-    if type_alignement is True:  # seulement pour un aligenemnt génomique
+    if type_alignement is True:  # Pour un alignement génomique
         score_list[0] = int(input("score match : "))
         score_list[1] = int(input("score mismatch purine/purine : "))
         score_list[2] = int(input("score mismatch pyrimidine/pyrimidine : "))
         score_list[3] = int(input("score autre mismatch : "))
-    else:
-        print("choix de la matrice : que blosum62 pour l'instant")
+    else:  # Pour un alignement protéique
+        print("choix de la matrice : que BLOSUM62 pour l'instant")
     score_list[4] = int(input("score ouverture de gap : "))
     score_list[5] = int(input("score extension de gap : "))
     return score_list
 
 
-# retourne la liste liste_symbole avec les input des different symbole d'alignement possible
+# Retourne la liste liste_symbole avec les inputs des différents symbole d'alignement possible
 def custom_symbol(liste_symbole, custom_type):
     liste_symbole[0] = input("symbole de match : ")
     liste_symbole[4] = input("symbole gap : ")
-    if custom_type is True:  # seuelement en cas d'alignement genomique
+    if custom_type is True:  # Seulement pour les d'alignements génomiques
         liste_symbole[1] = input("symbole mismatch purine/purine : ")
-        liste_symbole[2] = input("symbole mismatch pyrimidine/pirymidine : ")
+        liste_symbole[2] = input("symbole mismatch pyrimidine/pyrimidine : ")
     liste_symbole[3] = input("symbole autre mismatch : ")
     return liste_symbole
 
 
-# retourne les sequences, les liste de score/symbole et le type d'alignement
+# Retourne les séquences, les listes de score/symbole et le type d'alignement
 def custom_input(seqA, seqB, liste_score, liste_symbole):
     type_alignement, type_algorithme = True, True
     custom_seq_fasta = bool
     input_ok = False
-    while input_ok is False:  # temps que l'input n'est pas bon
-        custom_type_input = input("alignement genomique(y) ou proteique(n) ? : ").lower().strip()
-        type_alignement, input_ok = true_false(custom_type_input)  # True = genomique False = proteique
+    while input_ok is False:  # Temps que l'input n'est pas bon
+        custom_type_input = input("alignement génomique (y) ou protéique (n) ? : ").lower().strip()
+        type_alignement, input_ok = true_false(custom_type_input)  # True = génomique False = protéique
+    input_ok = False
+    while input_ok is False:
+        custom_algo_input = input("type d'algorithme Needleman-Wunsch (y) ou Smith-Waterman (n) ? : ").lower().strip()
+        type_algorithme, input_ok = true_false(custom_algo_input)  # True = Needleman False = Smith
 
     input_ok = False
     while input_ok is False:
-        custom_algo_input = input("type d'algorithme Needleman-Wunsch(y) ou Smith-Waterman(n) ? : ").lower().strip()
-        type_algorithme, input_ok = true_false(custom_algo_input) # True = Needleman Famse = Smith
-
-    input_ok = False
-    while input_ok is False:
-        custom_seq_input = input("custom sequences ? y/n : ").lower().strip()
+        custom_seq_input = input("Custom séquences ? y/n : ").lower().strip()
         custom_seq, input_ok = true_false(custom_seq_input)
-        if custom_seq is True:  # si customisation des sequence est True on demande si on import depuis un fasta
-            custom_seq_fasta_input = input("from fasta ? y/n : ").lower().strip()
+        if custom_seq is True:  # Si customisation des séquence True on demande si on importe depuis un fichier Fasta
+            custom_seq_fasta_input = input("Depuis un fichier Fasta ? y/n : ").lower().strip()
             custom_seq_fasta, input_ok = true_false(custom_seq_fasta_input)
-        if custom_seq is True:  # customisation des sequences
+        if custom_seq is True:  # Customisation des séquences
             seqA = ""
             seqB = ""
             impA = False
             impB = False
-            while impA is False:  # recommence tant que la sequence est tronqué
+            while impA is False:  # Recommence tant que la séquence est tronqué
                 seqA = custom_seq_fct()
-                if custom_seq_fasta is True:  # lecture fasta
+                if custom_seq_fasta is True:  # Lecture Fasta
                     seqA = lecture_fasta(seqA)
                 seqA, impA = netoyage_seq(seqA, type_alignement)
-            while impB is False:  # recommence tant que la sequence est tronqué
+            while impB is False:  # Recommence tant que la séquence est tronquée
                 seqB = custom_seq_fct()
-                if custom_seq_fasta is True:  # lecture fasta
+                if custom_seq_fasta is True:  # Lecture Fasta
                     seqB = lecture_fasta(seqB)
                 seqB, impB = netoyage_seq(seqB, type_alignement)
         else:
             seqA, impA = netoyage_seq(seqA, type_alignement)
             seqB, impB = netoyage_seq(seqB, type_alignement)
-
     input_ok = False
     while input_ok is False:
-        custom_score_input = input("custom scores ? y/n : ").lower().strip()
+        custom_score_input = input("Custom scores ? y/n : ").lower().strip()
         custom_score, input_ok = true_false(custom_score_input)
-        if custom_score is True:  # si le choix de customisation des score est True
+        if custom_score is True:  # Si le choix de customisation des score est True
             liste_score = custom_score_fct(liste_score, type_alignement)
-
     input_ok = False
     while input_ok is False:
-        custom_symb_input = input("custom symbole ? y/n : ").lower().strip()
+        custom_symb_input = input("Custom symboles ? y/n : ").lower().strip()
         custom_symb, input_ok = true_false(custom_symb_input)
-        if custom_symb is True:  # si choix de customisation des symboles
+        if custom_symb is True:  # Si choix de customisation des symboles
             liste_symbole = custom_symbol(liste_symbole, type_alignement)
-
         return seqA, seqB, liste_score, liste_symbole, type_alignement, type_algorithme
