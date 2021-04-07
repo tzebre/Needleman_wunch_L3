@@ -1,6 +1,6 @@
-import NW_fct as fct
-import custom as cst
-import gestion_print as gpt
+import module.NW_fct as fct
+import module.custom as cst
+import module.gestion_print as gpt
 # Parametre par defaut
 seqA = "tgttacgg"
 seqB = "ggttgacta"

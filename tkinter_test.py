@@ -1,8 +1,8 @@
 from tkinter import *
 from tkinter.filedialog import *
-import custom as cst
-import NW_fct as fct
-import gestion_print as gpt
+import module.custom as cst
+import module.NW_fct as fct
+import module.gestion_print as gpt
 
 dico = {'liste_score':[], 'liste_symbole':[],'score_prot': "","seqA" :"", "seqB":"",'algo': bool, 'alignement':bool }
 def total():
