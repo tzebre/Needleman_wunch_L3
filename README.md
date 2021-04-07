@@ -43,7 +43,7 @@ $ cd Needleman_wunch_l3
 # Lancer le programme d'alignement avec 
 $ python3 NW_main.py
 ```
-- Utilisation du programme avec des fenetre graphique
+- Utilisation du programme avec des fenêtres graphiques
 ```
 # Instaler la librarie tkinter pour python3
 $ sudo apt-get install python3-tk
@@ -51,13 +51,13 @@ $ sudo apt-get install python3-tk
 # Lancer le programme d'alignement avec 
 $ python3 tkinter_test.py
 ```
-**Note** : Si vous décidez de prendre des sequences stockées dans des fichiers Fasta. Les fichiers doivent se trouver dans le
-même dossier que le programme.
+**Note** : Si vous décidez de prendre des séquences stockées dans des fichiers Fasta, les fichiers doivent se trouver dans le
+même dossier que le programme. Ou donner leur PATH.
 
-## Fonctionement 
-### Needleman et wunch 
+## Fonctionnement 
+### Needleman et Wunch 
 L'algorithme prend en entrée : 
-  - 2 séquences génomique ou protéique.
+  - 2 séquences génomiques ou protéiques.
     - Entrée à la main (seulement en utilisation ligne de commande) ou depuis un fichier Fasta
   - Alignement génomique   
       - Des scores (match, mismatch purine/putine, mismatch pyrimidine/pyrimidine, autre mismatch, 
