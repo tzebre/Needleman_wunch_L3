@@ -68,7 +68,7 @@ L'algorithme prend en entrée :
       - Une matrice de score (Blosum62)
       - Des symboles associés, par défaut (match : '|', mismatch : '!', gap : ' ')
     
-Pour l'exemple suivant, on utilise les séquences suivantes :
+Pour l'exemple suivant, on utilise les séquences ci-dessous :
 > ATGGCGT  
 > ATGAGT  
 
@@ -81,9 +81,9 @@ Et les scores :
 > Extention de gap : -1
 1) Création des matrices de score et de traceback sous cette forme :  
 
-|   |ㅤ  | A | T | G | G | C | G | T |
+|   |ㅤ   | A | T | G | G | C | G | T |
 |---|---|---|---|---|---|---|---|---|  
-|ㅤ  |   |   |   |   |   |   |   |   |
+|ㅤ   |   |   |   |   |   |   |   |   |
 | A |   |   |   |   |   |   |   |   |
 | T |   |   |   |   |   |   |   |   |
 | G |   |   |   |   |   |   |   |   |
