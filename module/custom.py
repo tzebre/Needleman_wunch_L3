@@ -72,12 +72,12 @@ def custom_input(seqA, seqB, liste_score, liste_symbole):
     custom_seq_fasta = bool
     input_ok = False
     while input_ok is False:  # temps que l'input n'est pas bon
-        custom_type_input = input("alignement genomique ou proteique ? y/n : ").lower().strip()
+        custom_type_input = input("alignement genomique(y) ou proteique(n) ? : ").lower().strip()
         type_alignement, input_ok = true_false(custom_type_input)  # True = genomique False = proteique
 
     input_ok = False
     while input_ok is False:
-        custom_algo_input = input("type d'algorithme Needleman-Wunsch/Smith-Waterman ? y/n : ").lower().strip()
+        custom_algo_input = input("type d'algorithme Needleman-Wunsch(y) ou Smith-Waterman(n) ? : ").lower().strip()
         type_algorithme, input_ok = true_false(custom_algo_input) # True = Needleman Famse = Smith
 
     input_ok = False
