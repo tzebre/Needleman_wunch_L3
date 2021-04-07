@@ -164,9 +164,10 @@ On arrête l'alignement quand on trouve un score de 0 (il n'y aura donc pas de f
 
 ## Resultats <a id="resultats"></a>
 ### Utilisation en mode graphique <a id="graph"></a>
-- Une fenêtre pour les matrices de score et de trace.
+Une fenêtre :
+- Sur la partie gauche les matrices de score et de trace.
   ![fenetre_score](mettre)
-- Une fenêtre pour les alignements ex-aequo
+- Sur la partie droite les alignements ex-aequo
   ![fenetre_alignement](mettre)
 ### Utilisation en ligne de commande <a id="cmd"></a>
 - Matrices de score et de trace 
