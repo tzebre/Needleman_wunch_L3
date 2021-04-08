@@ -181,7 +181,8 @@ Une fenêtre :
 - Enregistrer les résultats dans un fichier   
 - Ajout de matrice de substitution protéique
 - Meilleur gestion des N comme nucleotide
-- Bug non resolu : 
-    - Lors de l'utilisation de Smith et Waterman le programme ne retourne que un des alignement par point de depart 
+- Bug non résolu : 
+    - Lors de l'utilisation de Smith et Waterman le programme ne retourne que un des alignements 
+      par point de depart avec pas la bonne trace d'affiché 
 
 

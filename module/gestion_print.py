@@ -61,7 +61,7 @@ def print_final(dico_x_aligne, seqA, seqB, mat_traceback, type_alignement, type_
             print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
             print("ex_aequo n°", nb_ex)
             print("liste de traceback : ")
-            print(dico_x_aligne[dico]["liste traceback"][0][::-1])
+            print(dico_x_aligne[dico]["liste traceback"][-1][::-1])
             print(dico_x_aligne[dico]["seqA aligne"])
             print(dico_x_aligne[dico]["seq symbole"])
             print(dico_x_aligne[dico]["seqB aligne"])
