@@ -1,33 +1,35 @@
 # Import des différents fichiers de fonction
-import module.matrix_prot_dic as mpd
-import module.gestion_matrice as gm
+import module.matrix_prot_dic as mpd  # Fichier ou sont stocké les matrices de score
+import module.gestion_matrice as gm  # Fichier qui gere la creation des matrices
 
 
-# Initialisation des premieres lignes et colonnes de la matrice
+# Initialisation des premieres lignes et colonnes des matrices de trace et de score selon le type d'algorithme
 def matrice_initialise(lenA, lenB, liste_score, type_algorithme):
     score_mat = gm.matrix_zero_list(lenA + 1, lenB + 1)
     traceback_mat = gm.matrix_str(lenA + 1, lenB + 1)
     traceback_mat[0][0] = ' '
-    if type_algorithme is True:
+    #  Premieres cases correspondantes au debut des sequences en ligne et en colonne
+    if type_algorithme is True:  # Alignement génomique
+        # La matrice de score prend la valeur d'ouverture de gap et celle de trace la flèche correspondante
         score_mat[0][1][0] = liste_score[4]
         score_mat[0][1][1] = 1
         traceback_mat[0][1] = '→'
         score_mat[1][0][0] = liste_score[4]
         score_mat[1][0][1] = 1
         traceback_mat[1][0] = '↓'
-    else:
-        max_val = max(liste_score[4], 0)
+    else:  # Alignement protéique
+        max_val = max(liste_score[4], 0)  # La matrice de score la valeur maximale entre ouverture de gap et 0
         score_mat[0][1][0] = max_val
         score_mat[0][1][1] = 1
         score_mat[1][0][0] = max_val
         score_mat[1][0][1] = 1
-        if max_val == liste_score[4]:
+        if max_val == liste_score[4]:  # Si le max est l'ouverture de gap, la matrice de trace reçoit la flèche associée
             traceback_mat[0][1] = '→'
             traceback_mat[1][0] = '↓'
-        else:
+        else:  # Si le max est 0, la matrice de trace est remplie avec un caractère vide
             traceback_mat[0][1] = ' '
             traceback_mat[1][0] = ' '
-    for i in range(2, lenA + 1):
+    for i in range(2, lenA + 1):  # Reste de la première ligne
         if type_algorithme is True:
             score_mat[0][i][0] = score_mat[0][i - 1][0] + liste_score[5]
             traceback_mat[0][i] = '→'
@@ -38,7 +40,7 @@ def matrice_initialise(lenA, lenB, liste_score, type_algorithme):
             else:
                 traceback_mat[0][i] = ' '
         score_mat[0][i][1] = 1
-    for j in range(2, lenB + 1):
+    for j in range(2, lenB + 1):  # Reste de la première colonne
         if type_algorithme is True:
             score_mat[j][0][0] = score_mat[j - 1][0][0] + liste_score[5]
             traceback_mat[j][0] = '↓'
@@ -65,12 +67,14 @@ def creation_alignement(lenA, lenB, nb_alignement, liste_score, type_algorithme)
 
 # Remonte la matrice de trace et retourne une liste avec les chemins possibles
 def traverse_recursive(matrice_traces, col, row, liste_des_traces, trace):
+    # Si la case ne contient pas de fleche (arrivé au bout), on ajoute la trace a la liste de trace possible
     if matrice_traces[row][col][0] not in "↘↓→":
-        if len(liste_des_traces) >= 1:
+        if len(liste_des_traces) >= 1:  # Seul solution trouvé pour ne pas avoir une repetition de la première case
             liste_des_traces.append(trace[1:])
         else:
             liste_des_traces.append(trace)
         trace = ''
+    # Remonte la matrice de trace en rapellant la fonction apres chaque déplacement
     for symbole in matrice_traces[row][col]:
         if symbole == '↘':
             trace += '↘'
@@ -84,7 +88,7 @@ def traverse_recursive(matrice_traces, col, row, liste_des_traces, trace):
     return liste_des_traces
 
 
-# Compare deux nucleotide a aligner et retourne le score associé
+# Compare deux nucléotide a aligner et retourne le score associé
 def symbole_compare(a, b, score_list):
     pu = ['A', 'G']
     py = ['C', 'T', 'U']
@@ -101,7 +105,7 @@ def symbole_compare(a, b, score_list):
             return score_list[3]
 
 
-# Rempli la matrice de score et la matrice avec toute les direction possible ordre d'ajout si 3 possibilité → | ↘ | ↓
+# Rempli la matrice de trace avec toute les directions possibles
 def rempli_symbole(row, col, diag, down, right, matrice_score, mat_max, nw):
     if matrice_score[row][col][0] == right:
         mat_max[row][col] += '→'
@@ -121,7 +125,7 @@ def rempli_symbole(row, col, diag, down, right, matrice_score, mat_max, nw):
             mat_max[row][col] += '↓'
         else:
             mat_max[row][col] += ' '
-    # Si on a crée un gap ou mets 1 comme deuxieme indice de liste sinon 0
+    # Si on a crée un gap ou mets 1 comme deuxième indice de liste sinon 0
     if max(diag, down, right) == down or max(diag, down, right) == right:
         matrice_score[row][col][1] = 1
     else:
@@ -129,7 +133,7 @@ def rempli_symbole(row, col, diag, down, right, matrice_score, mat_max, nw):
     return matrice_score, mat_max
 
 
-# Rempli la matrice de score
+# Rempli la matrice de score et appelle la fonction de remplissage de la matrice de trace
 def rempli_score(lenA, lenB, seqA, seqB, matrice_score, traceback_mat, liste_score, alignement, nw):
     if alignement is True:
         dico_score, liste_char = mpd.custom_dic_genomique(liste_score)
@@ -163,7 +167,7 @@ def rempli_score(lenA, lenB, seqA, seqB, matrice_score, traceback_mat, liste_sco
     return matrice_score, traceback_mat
 
 
-# Alignement selon l'algorithme de Needleman et Wunch
+# Alignement selon l'algorithme de Needleman et Wunch grace a une chaine de caractère de flèche pour un chemin possible
 def nw_aligne(seqA, seqB, trace):
     lenA = len(seqA)
     lenB = len(seqB)
@@ -206,7 +210,7 @@ def nw_aligne(seqA, seqB, trace):
     return align1, align2
 
 
-# Alignement selon l'algorithme de Smith et Waterman
+# Alignement selon l'algorithme de Smith et Waterman grace a une chaine de caractère de flèche pour un chemin possible
 def sw_aligne(seqA, seqB, i, j, trace):
     t = 0
     align1 = ""
@@ -250,7 +254,7 @@ def sw_aligne(seqA, seqB, i, j, trace):
     return align1, align2
 
 
-# Retourne un string composé des symboles pour l'alignement
+# Retourne une chaine de caractère composé des symboles pour l'alignement
 def symbole_alignement_fct(align1, align2, liste_symbole):
     symbole = ""
     for i in range(0, len(align1)):
@@ -307,7 +311,7 @@ def liste_depart_max(mat_score, seqA, seqB):
     return co_score_max, score_maximal
 
 
-#  Fonction qui gére tout l'alignement en appellant les autre fonction de ce fichier
+#  Fonction qui gère tout l'alignement en appellant les autre fonction de ce fichier
 def matrix(seqA, seqB, liste_score, liste_symbole, type_alignement, type_algorithme):
     lenA = len(seqA)
     lenB = len(seqB)

@@ -116,4 +116,7 @@ def custom_input(seqA, seqB, liste_score, liste_symbole):
         custom_symb, input_ok = true_false(custom_symb_input)
         if custom_symb is True:  # Si choix de customisation des symboles
             liste_symbole = custom_symbol(liste_symbole, type_alignement)
-        return seqA, seqB, liste_score, liste_symbole, type_alignement, type_algorithme
+            if type_alignement is False:
+                liste_symbole[1] = liste_symbole[3]
+                liste_symbole[2] = liste_symbole[3]
+    return seqA, seqB, liste_score, liste_symbole, type_alignement, type_algorithme
