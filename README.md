@@ -63,7 +63,7 @@ $ python3 NW_main.py
 $ sudo apt-get install python3-tk
 
 # Lancer le programme d'alignement avec 
-$ python3 tkinter_test.py
+$ python3 NW_graphique.py
 ```
 **Note** : Si vous décidez de prendre des séquences stockées dans des fichiers Fasta, les fichiers doivent se trouver dans le
 même dossier que le programme. Ou donner leur PATH.
@@ -178,5 +178,6 @@ Une fenêtre :
 - Amélioration de l'utilisation graphique (web?)  
 - Alignement en double par moment   
 - Enregistrer les résultats dans un fichier   
+- Ajout de matrice de substitution protéique 
 
 
