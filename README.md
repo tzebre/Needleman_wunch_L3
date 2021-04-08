@@ -95,9 +95,9 @@ Et les scores :
 > Extention de gap : -1
 1) Création des matrices de score et de traceback sous cette forme :  
 
-|   |ㅤ   | A | T | G | G | C | G | T |
+|   | ㅤ | A | T | G | G | C | G | T |
 |---|---|---|---|---|---|---|---|---|  
-|ㅤ   |   |   |   |   |   |   |   |   |
+| ㅤ |   |   |   |   |   |   |   |   |
 | A |   |   |   |   |   |   |   |   |
 | T |   |   |   |   |   |   |   |   |
 | G |   |   |   |   |   |   |   |   |
