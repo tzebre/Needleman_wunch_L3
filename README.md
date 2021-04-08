@@ -178,6 +178,6 @@ Une fenêtre :
 - Amélioration de l'utilisation graphique (web?)  
 - Alignement en double par moment   
 - Enregistrer les résultats dans un fichier   
-- Ajout de matrice de substitution protéique 
+- Ajout de matrice de substitution protéique
 
 
