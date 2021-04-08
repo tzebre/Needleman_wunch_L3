@@ -37,7 +37,7 @@ def print_matrice(mat, seqA, seqB, type_matrice):
 
 
 # Print les différents alignement
-def print_final(dico_x_aligne, seqA, seqB, mat_traceback, type_alignement):
+def print_final(dico_x_aligne, seqA, seqB, mat_traceback, type_alignement, type_algorithme):
     print("==============================================================")
     print("Matrice de score : ")
     print_matrice(dico_x_aligne['0']["matrice score"], seqA, seqB, True)
@@ -48,10 +48,23 @@ def print_final(dico_x_aligne, seqA, seqB, mat_traceback, type_alignement):
     for dico in dico_x_aligne:
         print("alignement possible n°", int(dico) + 1, sep='')
         print("Score total de l'alignement : ", dico_x_aligne[dico]["score final"], sep='')
-        print("liste de traceback : ")
-        print(dico_x_aligne[dico]["liste traceback"][::-1])
-        print(dico_x_aligne[dico]["seqA aligne"])
-        print(dico_x_aligne[dico]["seq symbole"])
-        print(dico_x_aligne[dico]["seqB aligne"])
-        print_score(dico_x_aligne[dico]["score"], type_alignement)
+        if type_algorithme is True:
+            print("liste de traceback : ")
+            print(dico_x_aligne[dico]["liste traceback"][::-1])
+            print(dico_x_aligne[dico]["seqA aligne"])
+            print(dico_x_aligne[dico]["seq symbole"])
+            print(dico_x_aligne[dico]["seqB aligne"])
+            print_score(dico_x_aligne[dico]["score"], type_alignement)
+        else:
+            nb_ex = 1
+            # for trace in dico_x_aligne[dico]["liste traceback"]:
+            print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+            print("ex_aequo n°", nb_ex)
+            print("liste de traceback : ")
+            print(dico_x_aligne[dico]["liste traceback"][0][::-1])
+            print(dico_x_aligne[dico]["seqA aligne"])
+            print(dico_x_aligne[dico]["seq symbole"])
+            print(dico_x_aligne[dico]["seqB aligne"])
+            print_score(dico_x_aligne[dico]["score"], type_alignement)
+            nb_ex += 1
         print("-------------------------------------------------------")

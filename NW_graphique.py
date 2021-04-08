@@ -127,7 +127,7 @@ def valid_final():
         Label(no, text = ("Nombre de gap ouvert : "+str(score[4]))).pack()
         Label(no, text = ("Nombre de gap étendu : " + str(score[5]))).pack()
         Label(no, text = ("Nombre de gap total : "+ str(score[4] + score[5]))).pack()
-    gpt.print_final(dico_x_aligne, seqA, seqB, mat_max_traceback)
+    gpt.print_final(dico_x_aligne, seqA, seqB, mat_max_traceback, type_alignement)
     matrice.mainloop()
 
 def geno():

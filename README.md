@@ -22,7 +22,8 @@ Programme réalisé en Python dans le cadre de la L3 B.I.S.M. pour l'U.E. bio-in
     - Depuis un fichier Fasta ou une entrée manuelle de la séquence 
     - Choix des scores et des symboles d'alignement possible
     
- - [x] Utilisation en fenêtre graphique gràce a tkinter ou en commande console 
+ - [x] Utilisation en fenêtre graphique grâce à tkinter (peut lisible pour de tres longue sequences) ou en 
+   commande console 
 
 ## Principe d'alignement <a id="principe"></a>
 ### Needleman et wunch <a id="NE"></a>
@@ -179,5 +180,8 @@ Une fenêtre :
 - Alignement en double par moment   
 - Enregistrer les résultats dans un fichier   
 - Ajout de matrice de substitution protéique
+- Meilleur gestion des N comme nucleotide
+- Bug non resolu : 
+    - Lors de l'utilisation de Smith et Waterman le programme ne retourne que un des alignement par point de depart 
 
 

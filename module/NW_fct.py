@@ -335,7 +335,7 @@ def matrix(seqA, seqB, liste_score, liste_symbole, type_alignement, type_algorit
             if i == 0:
                 liste_traceback = [traverse_recursive(traceback_mat, dep[1], dep[0], liste_des_traces, trace)]
             else:
-                liste_traceback.append(traverse_recursive(traceback_mat, dep[1], dep[0], liste_des_traces, trace))
+                liste_traceback += [traverse_recursive(traceback_mat, dep[1], dep[0], liste_des_traces, trace)]
             liste_des_traces = []
     for i, traceback in enumerate(liste_traceback):
         dico_x_aligne[str(nb_alignement)] = dico_x_aligne['0'].copy()
