@@ -1,4 +1,3 @@
-from tkinter import *
 from tkinter.filedialog import *
 import module.custom as cst
 import module.NW_fct as fct
@@ -285,7 +284,6 @@ def seq():
     Label(fenetre_algo_ali, text = filepath_seqB).pack()
     dico['seqA']=filepath_seqA
     dico['seqB']=filepath_seqB
-
 
 
 def choix_val():

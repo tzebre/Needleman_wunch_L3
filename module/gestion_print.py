@@ -3,7 +3,7 @@
 # Print des différents score de l'alignement
 def print_score(score, type_alignement):
     print("Nombre de match :", score[0])
-    if type_alignement is True :
+    if type_alignement is True:
         print("Nombre de mismatch purine :", score[1])
         print("Nombre de mismatch pyrimidine :", score[2])
         print("Nombre de mismatch autre :", score[3])
@@ -20,7 +20,7 @@ def print_matrice(mat, seqA, seqB, type_matrice):
     i = 0
     print('\t', end='')
     while i < len(seqA):
-        print(seqA[i].center(3), '|', sep='', end='')
+        print(seqA[i].center(3), '|', sep='', end='')  # Permet de toujours avoir au minimum un écart de 3 entre deux |
         i += 1
     print()
     for row in range(len(mat)):

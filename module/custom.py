@@ -31,7 +31,7 @@ def lecture_fasta(seq):
 def netoyage_seq(seq, type_alignement):
     seq = seq.upper()
     if type_alignement is True:  # cas alignement genomique
-        ok = "AaCcGgTtUu"
+        ok = "AaCcGgTtUuNn"
     else:  # cas alignement protéique
         ok = "AaRrNnDdCcQqEeGgHhIiLlKkMmFfPpSsTtWwYyVv"
     for nt in seq:
@@ -78,40 +78,41 @@ def custom_input(seqA, seqB, liste_score, liste_symbole):
     while input_ok is False:
         custom_algo_input = input("type d'algorithme Needleman-Wunsch (y) ou Smith-Waterman (n) ? : ").lower().strip()
         type_algorithme, input_ok = true_false(custom_algo_input)  # True = Needleman False = Smith
-
     input_ok = False
-    while input_ok is False:
+    while input_ok is False:  # Temps que l'input n'est pas bon
         custom_seq_input = input("Custom séquences ? y/n : ").lower().strip()
         custom_seq, input_ok = true_false(custom_seq_input)
-        if custom_seq is True:  # Si customisation des séquence True on demande si on importe depuis un fichier Fasta
+    input_ok = False
+    if custom_seq is True:  # Si customisation des séquence True on demande si on importe depuis un fichier Fasta
+        while input_ok is False:  # Temps que l'input n'est pas bon
             custom_seq_fasta_input = input("Depuis un fichier Fasta ? y/n : ").lower().strip()
             custom_seq_fasta, input_ok = true_false(custom_seq_fasta_input)
-        if custom_seq is True:  # Customisation des séquences
-            seqA = ""
-            seqB = ""
-            impA = False
-            impB = False
-            while impA is False:  # Recommence tant que la séquence est tronqué
-                seqA = custom_seq_fct()
-                if custom_seq_fasta is True:  # Lecture Fasta
-                    seqA = lecture_fasta(seqA)
-                seqA, impA = netoyage_seq(seqA, type_alignement)
-            while impB is False:  # Recommence tant que la séquence est tronquée
-                seqB = custom_seq_fct()
-                if custom_seq_fasta is True:  # Lecture Fasta
-                    seqB = lecture_fasta(seqB)
-                seqB, impB = netoyage_seq(seqB, type_alignement)
-        else:
+    if custom_seq is True:  # Customisation des séquences
+        seqA = ""
+        seqB = ""
+        impA = False
+        impB = False
+        while impA is False:  # Recommence tant que la séquence est tronqué
+            seqA = custom_seq_fct()
+            if custom_seq_fasta is True:  # Lecture Fasta
+                seqA = lecture_fasta(seqA)
             seqA, impA = netoyage_seq(seqA, type_alignement)
+        while impB is False:  # Recommence tant que la séquence est tronquée
+            seqB = custom_seq_fct()
+            if custom_seq_fasta is True:  # Lecture Fasta
+                seqB = lecture_fasta(seqB)
             seqB, impB = netoyage_seq(seqB, type_alignement)
+    else:
+        seqA, impA = netoyage_seq(seqA, type_alignement)
+        seqB, impB = netoyage_seq(seqB, type_alignement)
     input_ok = False
-    while input_ok is False:
+    while input_ok is False:  # Temps que l'input n'est pas bon
         custom_score_input = input("Custom scores ? y/n : ").lower().strip()
         custom_score, input_ok = true_false(custom_score_input)
         if custom_score is True:  # Si le choix de customisation des score est True
             liste_score = custom_score_fct(liste_score, type_alignement)
     input_ok = False
-    while input_ok is False:
+    while input_ok is False:  # Temps que l'input n'est pas bon
         custom_symb_input = input("Custom symboles ? y/n : ").lower().strip()
         custom_symb, input_ok = true_false(custom_symb_input)
         if custom_symb is True:  # Si choix de customisation des symboles
