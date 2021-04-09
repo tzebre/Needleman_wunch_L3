@@ -69,10 +69,11 @@ def creation_alignement(lenA, lenB, nb_alignement, liste_score, type_algorithme)
 def traverse_recursive(matrice_traces, col, row, liste_des_traces, trace):
     # Si la case ne contient pas de fleche (arrivé au bout), on ajoute la trace a la liste de trace possible
     if matrice_traces[row][col][0] not in "↘↓→":
-        if len(liste_des_traces) >= 1:  # Seul solution trouvé pour ne pas avoir une repetition de la première case
-            liste_des_traces.append(trace[1:])
-        else:
-            liste_des_traces.append(trace)
+        if trace not in liste_des_traces:
+            if len(liste_des_traces) >= 1:  # Seul solution trouvé pour ne pas avoir une repetition de la première case
+                liste_des_traces.append(trace[1:])
+            else:
+                liste_des_traces.append(trace)
         trace = ''
     # Remonte la matrice de trace en rapellant la fonction apres chaque déplacement
     for symbole in matrice_traces[row][col]:
