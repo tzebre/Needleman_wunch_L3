@@ -362,6 +362,7 @@ def matrix(seqA, seqB, liste_score, liste_symbole, type_alignement, type_algorit
                 dico_x_aligne[str(nb_alignement)]["seq symbole"] = seq_symbole
                 dico_x_aligne[str(nb_alignement)]["score"] = calcul_score_match_gap_mismatch(liste_symbole, seq_symbole)
                 nb_alignement += 1
-                liste_dico.append(dico_x_aligne)
+                print(dico_x_aligne)
+            liste_dico.append(dico_x_aligne)
         print(liste_dico)
     return liste_dico, traceback_mat
