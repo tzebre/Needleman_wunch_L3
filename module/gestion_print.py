@@ -49,9 +49,8 @@ def print_final(liste_dico, seqA, seqB, mat_traceback, type_alignement, type_alg
             print("==============================================================")
         for nb_alignement in range(0,len(dico_x_aligne)):
             dico = str(nb_alignement)
-            if d < 1:
+            if int(dico) < 1:
                 if type_algorithme is False:
-                    print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
                     print("Depart possible n°", d + 1)
                 print("alignement possible n°", int(dico) + 1, sep='')
                 print("Score total de l'alignement : ", dico_x_aligne[dico]["score final"], sep='')
@@ -63,11 +62,11 @@ def print_final(liste_dico, seqA, seqB, mat_traceback, type_alignement, type_alg
                 print_score(dico_x_aligne[dico]["score"], type_alignement)
             else:
                 print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
-                print("Depart possible n°", d + 1)
+                print("alignement possible n°", int(dico) + 1, sep='')
                 print("liste de traceback : ")
                 print(dico_x_aligne[dico]["liste traceback"][::-1])
                 print(dico_x_aligne[dico]["seqA aligne"])
                 print(dico_x_aligne[dico]["seq symbole"])
                 print(dico_x_aligne[dico]["seqB aligne"])
                 print_score(dico_x_aligne[dico]["score"], type_alignement)
-        print("-------------------------------------------------------")
+        print("-------------------------------------------------------------------------")
