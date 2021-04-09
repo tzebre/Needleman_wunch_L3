@@ -22,7 +22,7 @@ Programme réalisé en Python dans le cadre de la L3 B.I.S.M. pour l'U.E. bio-in
     - Depuis un fichier Fasta ou une entrée manuelle de la séquence 
     - Choix des scores et des symboles d'alignement possible
     
- - [x] Utilisation en fenêtre graphique grâce à tkinter (peut lisible pour de tres longue sequences) ou en 
+ - [x] Utilisation en fenêtre graphique grâce à tkinter (peut lisible pour les longues sequences) ou en 
    commande console 
 
 ## Principe d'alignement <a id="principe"></a>
@@ -169,7 +169,8 @@ Une fenêtre :
 - Sur la partie gauche les matrices de score et de trace.
 - Sur la partie droite les alignements ex-aequo  
 
-**Note** : Même en utilisation graphique les résultats seront affichés dans la console (Pour être copiable)
+**Note** : Les matrices de score et de trace sont plus lisibles sur la console (elles s'affichent meme en utilisation graphique). 
+
 ### Utilisation en ligne de commande <a id="cmd"></a>
 - Matrices de score et de trace 
 - Alignement ex-aequo
