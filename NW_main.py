@@ -10,6 +10,6 @@ liste_score = [2, 1, 1, -1, -10, -1]
 seqA, seqB, liste_score, liste_symbole, type_alignement, type_algorithme = \
     cst.custom_input(seqA, seqB, liste_score, liste_symbole)
 # Alignement des sequences
-dico_x_aligne, mat_max_traceback = fct.matrix(seqA, seqB, liste_score, liste_symbole, type_alignement, type_algorithme)
+liste_dico, mat_max_traceback = fct.matrix(seqA, seqB, liste_score, liste_symbole, type_alignement, type_algorithme)
 # Print des résultats
-gpt.print_final(dico_x_aligne, seqA, seqB, mat_max_traceback, type_alignement, type_algorithme)
+gpt.print_final(liste_dico, seqA, seqB, mat_max_traceback, type_alignement, type_algorithme)
