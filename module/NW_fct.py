@@ -331,7 +331,7 @@ def matrix(seqA, seqB, liste_score, liste_symbole, type_alignement, type_algorit
                                             traceback_mat, liste_score, type_alignement, type_algorithme)
     if type_algorithme is True:
         liste_traceback = traverse_recursive(traceback_mat, lenA, lenB, liste_des_traces, trace)
-        for traceback in liste_traceback:
+        for traceback in liste_traceback:  # Pour chaque trace possible on ajoute un alignement dans le dictionnaire
             dico_x_aligne[str(nb_alignement)] = dico_x_aligne['0'].copy()
             dico_x_aligne[str(nb_alignement)]["liste traceback"] = traceback
             seqA_align, seqB_align = nw_aligne(seqA, seqB, traceback)
@@ -346,7 +346,7 @@ def matrix(seqA, seqB, liste_score, liste_symbole, type_alignement, type_algorit
         liste_dico.append(dico_x_aligne)
     else:
         depart_max, score_max = liste_depart_max(score_mat, seqA, seqB)
-        for i, dep in enumerate(depart_max):
+        for i, dep in enumerate(depart_max):  # On ajoute a une liste un dictionnaire par depart possible
             liste_des_traces = []
             liste_traceback = traverse_recursive(traceback_mat, dep[1], dep[0], liste_des_traces, trace)
             nb_alignement = 0

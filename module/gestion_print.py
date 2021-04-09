@@ -38,8 +38,8 @@ def print_matrice(mat, seqA, seqB, type_matrice):
 
 # Print les différents alignement
 def print_final(liste_dico, seqA, seqB, mat_traceback, type_alignement, type_algorithme):
-    for d, dico_x_aligne in enumerate(liste_dico):
-        if d < 1:
+    for d, dico_x_aligne in enumerate(liste_dico):  # Chaque dictionnaire dans cette liste est une case de depart
+        if d < 1:  # Si il s'agit du premier dictionnaire
             print("==============================================================")
             print("Matrice de score : ")
             print_matrice(dico_x_aligne['0']["matrice score"], seqA, seqB, True)
@@ -47,9 +47,9 @@ def print_final(liste_dico, seqA, seqB, mat_traceback, type_alignement, type_alg
             print("Matrice de traceback :")
             print_matrice(mat_traceback, seqA, seqB, False)
             print("==============================================================")
-        for nb_alignement in range(0,len(dico_x_aligne)):
+        for nb_alignement in range(0,len(dico_x_aligne)):  # Dico_x_aligne contient autan d'indice que de trace possible
             dico = str(nb_alignement)
-            if int(dico) < 1:
+            if int(dico) < 1:  # Si il s'agit du premier alignement
                 if type_algorithme is False:
                     print("Depart possible n°", d + 1)
                 print("alignement possible n°", int(dico) + 1, sep='')
