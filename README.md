@@ -132,7 +132,7 @@ Score de X depuis :
   
 Ici, le score maximum est 2. Il est obtenu lors d'un déplacement depuis la case en diagonale. 
 La case X dans le tableau de score sera donc égale à 2. 
-Cette même case dans le tableau de traceback sera remplie avec une flêche `↘` car le "chemin" depuis la case en 
+Cette même case dans le tableau de traceback sera remplie avec une flèche `↘` car le "chemin" depuis la case en 
 diagonale apporte le meilleur score.  
 
 Score de Y depuis :
@@ -144,24 +144,24 @@ Score de Y depuis :
 
 Ici le score maximum est - 8. Il est obtenu lors d'un déplacement depuis la case de gauche. 
 La case Y dans le tableau de score sera donc égale a - 8. 
-Cette même case dans le tableau de traceback sera remplie avec une flêche `→` car le "chemin" depuis la case 
+Cette même case dans le tableau de traceback sera remplie avec une flèche `→` car le "chemin" depuis la case 
 à gauche apporte le meilleur score. 
 
-**Note** : Dans le cas où deux chemins sont égaux, les deux flêches sont ajoutées. 
+**Note** : Dans le cas où deux chemins sont égaux, les deux flèches sont ajoutées. 
 (avec `.append()` dans la liste qui correspond à la case) 
 
-Pour trouver le ou les alignements optimaux selon l'algorithme de Needleman et Wunch,  
-On remonte le tableau de trace depuis la case en bas à droite en suivant le sens des flêches.
+Pour trouver le ou les alignements optimaux selon l'algorithme de Needleman et Wunch,
+On remonte le tableau de trace depuis la case en bas à droite en suivant le sens des flèches.
 
 **Note** : Afin de trouver tout les alignements optimaux, on remonte les cases du tableau grâce à de 
 la programmation récursive.
 
 ### Smith et Waterman <a id="fSW"></a>
 L'algorithme fonctionne de la même manière que le précédent. Cependant la case, prend le score maximal entre 
-les trois directions possibles et 0. Dans le cas où la case à un score de 0, aucune flêche est inserée.  
+les trois directions possibles et 0. Dans le cas où la case à un score de 0, aucune flèche est insérée.  
 
-Pour trouver le ou les alignements optimaux, on remonte les cases du tableau à partir de ou des cases avec le score maximal.  
-On arrête l'alignement quand on trouve un score de 0 (il n'y aura donc pas de flêche).
+Pour trouver le ou les alignements optimaux, on remonte les cases du tableau à partir de/des cases avec le score maximal.
+On arrête l'alignement quand on trouve un score de 0 (il n'y aura donc pas de flèche).
 
 ## Resultats <a id="resultats"></a>
 ### Utilisation en mode graphique <a id="graph"></a>
@@ -181,8 +181,6 @@ Une fenêtre :
 - Enregistrer les résultats dans un fichier   
 - Ajout de matrice de substitution protéique
 - Meilleur gestion des N comme nucleotide
-- Bug non résolu : 
-    - Lors de l'utilisation de Smith et Waterman le programme ne retourne que un des alignements 
-      par point de depart avec pas la bonne trace d'affiché 
+
 
 
