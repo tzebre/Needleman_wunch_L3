@@ -43,15 +43,34 @@ def netoyage_seq(seq, type_alignement):
 
 # Retourne la liste score_list avec les inputs des différents scores possibles de l'alignement
 def custom_score_fct(score_list, type_alignement):
+    diff_mis = bool
+    penalite_input = bool
     if type_alignement is True:  # Pour un alignement génomique
         score_list[0] = int(input("score match : "))
-        score_list[1] = int(input("score mismatch purine/purine : "))
-        score_list[2] = int(input("score mismatch pyrimidine/pyrimidine : "))
-        score_list[3] = int(input("score autre mismatch : "))
+        input_ok = False
+        while input_ok is False:
+            mis = input("Importance du type de mismatch ? ? y/n : ").lower().strip()
+            diff_mis, input_ok = true_false(mis)
+        if diff_mis is True:
+            score_list[1] = int(input("score mismatch purine/purine : "))
+            score_list[2] = int(input("score mismatch pyrimidine/pyrimidine : "))
+            score_list[3] = int(input("score autre mismatch : "))
+        else:
+            score_list[1] = int(input("score de mismatch : "))
+            score_list[2] = score_list[1]
+            score_list[3] = score_list[1]
     else:  # Pour un alignement protéique
         print("choix de la matrice : que BLOSUM62 pour l'instant")
-    score_list[4] = int(input("score ouverture de gap : "))
-    score_list[5] = int(input("score extension de gap : "))
+    input_ok = False
+    while input_ok is False:
+        penalite = input("Penalité de gap ouvert ? y/n : ").lower().strip()
+        penalite_input , input_ok = true_false(penalite)
+    if penalite_input is True:
+        score_list[4] = int(input("score ouverture de gap : "))
+        score_list[5] = int(input("score extension de gap : "))
+    else:
+        score_list[4] = int(input("score de gap : "))
+        score_list[5] = score_list[4]
     return score_list
 
 

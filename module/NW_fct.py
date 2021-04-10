@@ -69,23 +69,24 @@ def creation_alignement(lenA, lenB, nb_alignement, liste_score, type_algorithme)
 def traverse_recursive(matrice_traces, col, row, liste_des_traces, trace):
     # Si la case ne contient pas de fleche (arrivé au bout), on ajoute la trace a la liste de trace possible
     if matrice_traces[row][col][0] not in "↘↓→":
-        if trace not in liste_des_traces:
-            if len(liste_des_traces) >= 1:  # Seul solution trouvé pour ne pas avoir une repetition de la première case
-                liste_des_traces.append(trace[1:])
-            else:
-                liste_des_traces.append(trace)
+        liste_des_traces.append(trace)
+        print(liste_des_traces)
         trace = ''
     # Remonte la matrice de trace en rapellant la fonction apres chaque déplacement
-    for symbole in matrice_traces[row][col]:
-        if symbole == '↘':
-            trace += '↘'
-            liste_des_traces = traverse_recursive(matrice_traces, col - 1, row - 1, liste_des_traces, trace)
-        if symbole == '↓':
-            trace += '↓'
-            liste_des_traces = traverse_recursive(matrice_traces, col, row - 1, liste_des_traces, trace)
-        if symbole == '→':
-            trace += '→'
-            liste_des_traces = traverse_recursive(matrice_traces, col - 1, row, liste_des_traces, trace)
+    else:
+        for symbole in matrice_traces[row][col]:
+            if symbole == '→':
+                trace += '→'
+                liste_des_traces = traverse_recursive(matrice_traces, col - 1, row, liste_des_traces, trace)
+                trace = trace[:-1]
+            if symbole == '↘':
+                trace += '↘'
+                liste_des_traces = traverse_recursive(matrice_traces, col - 1, row - 1, liste_des_traces, trace)
+                trace = trace[:-1]
+            if symbole == '↓':
+                trace += '↓'
+                liste_des_traces = traverse_recursive(matrice_traces, col, row - 1, liste_des_traces, trace)
+                trace = trace[:-1]
     return liste_des_traces
 
 
