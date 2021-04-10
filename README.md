@@ -165,12 +165,9 @@ On arrête l'alignement quand on trouve un score de 0 (il n'y aura donc pas de f
 
 ## Resultats <a id="resultats"></a>
 ### Utilisation en mode graphique <a id="graph"></a>
-Une fenêtre :
-- Sur la partie gauche les matrices de score et de trace.
-- Sur la partie droite les alignements ex-aequo  
-
-**Note** : Les matrices de score et de trace sont plus lisibles sur la console (elles s'affichent meme en utilisation graphique). 
-
+Dans la console : 
+- Matrices de score et de trace 
+- Alignement ex-aequo
 ### Utilisation en ligne de commande <a id="cmd"></a>
 - Matrices de score et de trace 
 - Alignement ex-aequo

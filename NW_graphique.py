@@ -55,80 +55,14 @@ def total():
 
 def valid_final():
     valide_fin.config(state ='disable')
-    global haut
-    global bas
-    global resultat
     type_alignement = dico['alignement']
     type_algorithme = dico['algo']
     seqA = cst.lecture_fasta(dico['seqA'])
     seqA , bool= cst.netoyage_seq(seqA, type_alignement)
     seqB = cst.lecture_fasta(dico['seqB'])
     seqB, bool = cst.netoyage_seq(seqB, type_alignement)
-    dico_x_aligne, mat_max_traceback = fct.matrix(seqA, seqB, dico['liste_score'], dico['liste_symbole'],
-                                                  type_alignement, type_algorithme)
-    fenetre = Tk()
-    fenetre_haut = Frame(fenetre)
-    fenetre_haut.pack(fill =BOTH)
-    fenetre_bas = Frame(fenetre)
-    fenetre_bas.pack(side="bottom",fill = BOTH)
-    Label(fenetre_bas, text="Copyright © 2021 MATHIEU Theo - Tous droits réservés").pack()
-    matrice = Frame(fenetre_haut)
-    matrice.pack(side= 'left')
-    alignement = Frame(fenetre_haut)
-    alignement.pack()
-    fenetre_score = Frame(matrice, borderwidth=2, relief=GROOVE)
-    fenetre_score.pack()
-    fenetre_trace = Frame(matrice, borderwidth=2, relief=GROOVE)
-    fenetre_trace.pack()
-    fenetre_scoreLF = LabelFrame(fenetre_score, text="matrice de score ", labelanchor='n')
-    fenetre_scoreLF.pack()
-    fenetre_traceLF = LabelFrame(fenetre_trace, text="matrice de trace ", labelanchor='n')
-    fenetre_traceLF.pack()
-    i=0
-    mat_score = []
-    mat_trace = []
-    for row in range(len(seqB)+1):
-        mat_score.append([])
-        mat_trace.append([])
-        for col in range(len(seqA)+1):
-            mat_score[row] += (str(dico_x_aligne['0']["matrice score"][row][col][0]).center(3)+'|')
-            mat_trace[row] += (str(mat_max_traceback[row][col]).center(3)+'|')
-    while i < len(seqB)+1:
-        Label(fenetre_scoreLF, text=mat_score[i]).pack()
-        Label(fenetre_traceLF, text = mat_trace[i]).pack()
-        i+=1
-    ali = Frame(alignement)
-    ali.pack()
-    alibis = Frame(alignement)
-    alibis.pack()
-    aliter = Frame(alignement)
-    aliter.pack()
-    for dic in dico_x_aligne:
-        no = ('alignement n°'+ str(int(dic)+1))
-        if 3 < int(dic) < 6:
-            no = LabelFrame(alibis, text=no, labelanchor='n')
-        elif int(dic) > 6:
-            no = LabelFrame(aliter, text=no, labelanchor='n')
-        else :
-            no = LabelFrame(ali, text=no, labelanchor='n')
-        no.pack(side = 'left')
-        total = ('score total : ' + str(dico_x_aligne['0']["score final"]))
-        Label(no, text = str(total)).pack()
-        Label(no, text = dico_x_aligne[dic]["liste traceback"][::-1]).pack()
-        Label(no, text = dico_x_aligne[dic]["seqA aligne"]).pack()
-        Label(no, text = dico_x_aligne[dic]["seq symbole"]).pack()
-        Label(no, text = dico_x_aligne[dic]["seqB aligne"]).pack()
-        score = dico_x_aligne[dic]['score']
-        Label(no, text = ("Nombre de match : "+ str(score[0]))).pack()
-        if type_alignement is True:
-            Label(no, text = ("Nombre de mismatch purine : " + str(score[1]))).pack()
-            Label(no, text = ("Nombre de mismatch pyrimidine : " + str(score[2]))).pack()
-        Label(no, text = ("Nombre de mismatch autre : "+ str(score[3])))
-        Label(no, text = ("Nombre de gap ouvert : "+str(score[4]))).pack()
-        Label(no, text = ("Nombre de gap étendu : " + str(score[5]))).pack()
-        Label(no, text = ("Nombre de gap total : "+ str(score[4] + score[5]))).pack()
-    gpt.print_final(dico_x_aligne, seqA, seqB, mat_max_traceback, type_alignement)
-    matrice.mainloop()
+    liste_dico, mat_max_traceback = fct.matrix(seqA, seqB, dico['liste_score'], dico['liste_symbole'], type_alignement, type_algorithme)
+    gpt.print_final(liste_dico, seqA, seqB, mat_max_traceback, type_alignement, type_algorithme)
 
 def geno():
     global valide_score_geno
