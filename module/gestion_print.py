@@ -70,7 +70,7 @@ def print_final(liste_dico, seqA, seqB, mat_traceback, type_alignement, type_alg
             else:
                 if nb_alignement % 30 == 0 and nb_alignement >= 1:
                     print(" ")
-                    suite_input = input("appuyez sur entrée pour continuer (30 alignement suivant), quitter avec ctrl+C")
+                    suite_input = input("appuyez sur entrée pour continuer (30 alignements suivant), quitter avec ctrl+C")
                     suite_input = "  "
                     print("  ")
                 print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
