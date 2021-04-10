@@ -70,7 +70,6 @@ def traverse_recursive(matrice_traces, col, row, liste_des_traces, trace):
     # Si la case ne contient pas de fleche (arrivé au bout), on ajoute la trace a la liste de trace possible
     if matrice_traces[row][col][0] not in "↘↓→":
         liste_des_traces.append(trace)
-        print(liste_des_traces)
         trace = ''
     # Remonte la matrice de trace en rapellant la fonction apres chaque déplacement
     else:
@@ -348,7 +347,6 @@ def matrix(seqA, seqB, liste_score, liste_symbole, type_alignement, type_algorit
     else:
         depart_max, score_max = liste_depart_max(score_mat, seqA, seqB)
         for i, dep in enumerate(depart_max):  # On ajoute a une liste un dictionnaire par depart possible
-            print(dep)
             liste_des_traces = []
             liste_traceback = traverse_recursive(traceback_mat, dep[1], dep[0], liste_des_traces, trace)
             nb_alignement = 0
