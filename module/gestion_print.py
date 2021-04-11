@@ -37,20 +37,20 @@ def print_matrice(mat, seqA, seqB, type_matrice):
 
 
 # Save les different alignement dans un txt
-def print_final_fichier(liste_dico, seqA, seqB, mat_traceback, type_alignement, file_name):
+def print_final_fichier(liste_dico, seqA, seqB, mat_traceback, type_alignement, file_name, liste_score):
     sys.stdout = open(file_name, 'w')
     for d, dico_x_aligne in enumerate(liste_dico):  # Chaque dictionnaire dans cette liste est une case de depart
         if d < 1:  # Si il s'agit du premier dictionnaire
             print('Paramètres : ')
             print('Score')
-            score = dico_x_aligne['0']["score"]
             if type_alignement is True:
                 print('match    purine    pyrimidine    autre   gap ouvert    gap étendu')
-                print('{0}\t{1}\t{2}\t{3}\t{4}\t{5}'.format(str(score[0]), str(score[1]), str(score[2]), str(score[3]),
-                                                            str(score[4]), str(score[5])))
+                print('{0}\t{1}\t{2}\t{3}\t{4}\t{5}'.format(str(liste_score[0]), str(liste_score[1]),
+                                                            str(liste_score[2]), str(liste_score[3]),
+                                                            str(liste_score[4]), str(liste_score[5])))
             else:
                 print('matrice    gap ouvert    gap étendu')
-                print('BLOSUM62\t{0}\t{1}'.format(str(score[4]), str(score[5])))
+                print('BLOSUM62\t{0}\t{1}'.format(str(liste_score[4]), str(liste_score[5])))
             print("###############################################################")
             print("Matrice de score : ")
             print_matrice(dico_x_aligne['0']["matrice score"], seqA, seqB, True)
@@ -85,9 +85,20 @@ def print_final_fichier(liste_dico, seqA, seqB, mat_traceback, type_alignement, 
 
 
 # Print les différents alignement dans la console
-def print_final(liste_dico, seqA, seqB, mat_traceback, type_alignement, type_algorithme):
+def print_final(liste_dico, seqA, seqB, mat_traceback, type_alignement, type_algorithme, liste_score):
     for d, dico_x_aligne in enumerate(liste_dico):  # Chaque dictionnaire dans cette liste est une case de depart
         if d < 1:  # Si il s'agit du premier dictionnaire
+            print('Paramètres : ')
+            print('Score')
+            if type_alignement is True:
+                print('match    purine    pyrimidine    autre   gap ouvert    gap étendu')
+                print('{0}\t{1}\t{2}\t{3}\t{4}\t{5}'.format(str(liste_score[0]), str(liste_score[1]),
+                                                            str(liste_score[2]), str(liste_score[3]),
+                                                            str(liste_score[4]), str(liste_score[5])))
+            else:
+                print('matrice    gap ouvert    gap étendu')
+                print('BLOSUM62\t{0}\t{1}'.format(str(liste_score[4]), str(liste_score[5])))
+            print("###############################################################")
             print("###############################################################")
             print("Matrice de score : ")
             print_matrice(dico_x_aligne['0']["matrice score"], seqA, seqB, True)

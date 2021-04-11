@@ -14,6 +14,6 @@ seqA, seqB, liste_score, liste_symbole, type_alignement, type_algorithme, save =
 # Alignement des sequences
 liste_dico, mat_max_traceback = fct.matrix(seqA, seqB, liste_score, liste_symbole, type_alignement, type_algorithme)
 # Print des résultats
-gpt.print_final(liste_dico, seqA, seqB, mat_max_traceback, type_alignement, type_algorithme)
+gpt.print_final(liste_dico, seqA, seqB, mat_max_traceback, type_alignement, type_algorithme, liste_score)
 if save is True:
-    gpt.print_final_fichier(liste_dico, seqA, seqB, mat_max_traceback, type_alignement, file_name)
+    gpt.print_final_fichier(liste_dico, seqA, seqB, mat_max_traceback, type_alignement, file_name, liste_score)
