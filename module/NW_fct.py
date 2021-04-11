@@ -70,22 +70,28 @@ def creation_alignement(lenA, lenB, nb_alignement, liste_score, type_algorithme)
 # Remonte la matrice de trace et retourne une liste avec les chemins possibles
 def traverse_recursive(matrice_traces, col, row, liste_des_traces, trace):
     # Si la case ne contient pas de fleche (arrivé au bout), on ajoute la trace a la liste de trace possible
-    if matrice_traces[row][col][0] not in "↘↓→":
+    if matrice_traces[row][col][0] not in "↘↓→⤏⇣":
         liste_des_traces.append(trace)
         trace = ''
     # Remonte la matrice de trace en rappelant la fonction apres chaque déplacement
     else:
         for symbole in matrice_traces[row][col]:
-            if symbole == '→':
-                trace += '→'
+            if symbole == '→' or symbole == '⤏':
+                trace += symbole
                 liste_des_traces = traverse_recursive(matrice_traces, col - 1, row, liste_des_traces, trace)
                 trace = trace[:-1]
-            if symbole == '↘':
-                trace += '↘'
-                liste_des_traces = traverse_recursive(matrice_traces, col - 1, row - 1, liste_des_traces, trace)
-                trace = trace[:-1]
-            if symbole == '↓':
-                trace += '↓'
+            if len(trace) >= 1:
+                if symbole == '↘' and trace[-1] in '⤏⇣↘':
+                    trace += symbole
+                    liste_des_traces = traverse_recursive(matrice_traces, col - 1, row - 1, liste_des_traces, trace)
+                    trace = trace[:-1]
+            else:
+                if symbole == '↘':
+                    trace += symbole
+                    liste_des_traces = traverse_recursive(matrice_traces, col - 1, row - 1, liste_des_traces, trace)
+                    trace = trace[:-1]
+            if symbole == '↓' or symbole == '⇣':
+                trace += symbole
                 liste_des_traces = traverse_recursive(matrice_traces, col, row - 1, liste_des_traces, trace)
                 trace = trace[:-1]
     return liste_des_traces
@@ -109,23 +115,32 @@ def symbole_compare(a, b, score_list):
 
 
 # Rempli la matrice de trace avec toute les directions possibles
-def rempli_symbole(row, col, diag, down, right, matrice_score, mat_max, nw):
+def rempli_symbole(row, col, diag, down, right, matrice_score, mat_max, nw, d_o, r_o):
+    if d_o is True:
+        fd = '⇣'
+    else:
+        fd = '↓'
+    if r_o is True:
+        fr = '⤏'
+    else:
+        fr = '→'
     if matrice_score[row][col][0] == right:
-        mat_max[row][col] += '→'
+        mat_max[row][col] += fr
         if right == diag:
             mat_max[row][col] += '↘'
         if right == down:
-            mat_max[row][col] += '↓'
+            mat_max[row][col] += fd
     elif matrice_score[row][col][0] == diag:
         mat_max[row][col] += '↘'
         if diag == down:
-            mat_max[row][col] += '↓'
+            mat_max[row][col] += fd
     elif matrice_score[row][col][0] == down:
-        mat_max[row][col] += '↓'
+        mat_max[row][col] += fd
     else:
         # Normalement on devrai pouvoir enlever ce if (pas testé a verifier 07/04)
         if nw is True:
-            mat_max[row][col] += '↓'
+            mat_max[row][col] += fd
+            print("if besoin")
         else:
             mat_max[row][col] += ' '
     # Si on a crée un gap ou mets 1 comme deuxième indice de liste sinon 0
@@ -150,14 +165,18 @@ def rempli_score(lenA, lenB, seqA, seqB, matrice_score, traceback_mat, liste_sco
             diag = matrice_score[row - 1][col - 1][0] + int(dico_score[AA[0]][AA[1]])
             if matrice_score[row - 1][col][1] == 1:  # Précédent supérieur est un gap
                 down = matrice_score[row - 1][col][0] + liste_score[5]  # Décalage en dessous, extension gap
+                d_o = False
             elif matrice_score[row - 1][col][1] == 0:  # Précédent non gap
                 down = matrice_score[row - 1][col][0] + liste_score[4]  # Décalage en dessous, ouverture gap
+                d_o = True
             else:
                 print("erreur down")
             if matrice_score[row][col - 1][1] == 1:  # Precedent gauche est un gap
                 right = matrice_score[row][col - 1][0] + liste_score[5]  # Décalage a droite extension gap
+                r_o = False
             elif matrice_score[row][col - 1][1] == 0:  # precedent non gap
                 right = matrice_score[row][col - 1][0] + liste_score[4]  # Décalage a droite ouverture gap
+                r_o = True
             else:
                 print("erreur right")
             if nw is True:
@@ -166,7 +185,7 @@ def rempli_score(lenA, lenB, seqA, seqB, matrice_score, traceback_mat, liste_sco
                 max_val = max([diag, down, right, 0])
             matrice_score[row][col][0] = max_val
             matrice_score, traceback_mat = rempli_symbole(row, col, diag, down, right,
-                                                          matrice_score, traceback_mat, nw)
+                                                          matrice_score, traceback_mat, nw, d_o, r_o)
     return matrice_score, traceback_mat
 
 
@@ -186,11 +205,11 @@ def nw_aligne(seqA, seqB, trace):
             align2 += seqB[i - 1]
             i -= 1
             j -= 1
-        elif s_current == '↓':
+        elif s_current == '↓' or s_current == '⇣':
             align1 += '-'
             align2 += seqB[i - 1]
             i -= 1
-        elif s_current == '→':
+        elif s_current == '→' or s_current == '⤏':
             align1 += seqA[j - 1]
             align2 += '-'
             j -= 1
@@ -333,6 +352,7 @@ def matrix(seqA, seqB, liste_score, liste_symbole, type_alignement, type_algorit
                                             traceback_mat, liste_score, type_alignement, type_algorithme)
     if type_algorithme is True:
         liste_traceback = traverse_recursive(traceback_mat, lenA, lenB, liste_des_traces, trace)
+        print(liste_traceback)
         for traceback in liste_traceback:  # Pour chaque trace possible on ajoute un alignement dans le dictionnaire
             dico_x_aligne[str(nb_alignement)] = dico_x_aligne['0'].copy()
             dico_x_aligne[str(nb_alignement)]["liste traceback"] = traceback

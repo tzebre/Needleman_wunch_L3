@@ -44,6 +44,7 @@ def print_final(liste_dico, seqA, seqB, mat_traceback, type_alignement, type_alg
             print("Matrice de score : ")
             print_matrice(dico_x_aligne['0']["matrice score"], seqA, seqB, True)
             print('---------------------------------------------------------------')
+
             print("Matrice de traceback :")
             print_matrice(mat_traceback, seqA, seqB, False)
             print("==============================================================")

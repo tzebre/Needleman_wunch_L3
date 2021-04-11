@@ -178,13 +178,17 @@ Dans la console :
 - Enregistrer les résultats dans un fichier   
 - Ajout de matrice de substitution protéique
 - Meilleur gestion des N comme nucleotide
-- Possibilité de 'Fausse' trace. En effet la gestion des ouvertures de gap depend seulement de la premiere 
-  possibilité de flèche. Idée pour résoudre le 'bug' :
-  - Il faudrait que je crée des indices de gap 0 ou 1 par possibilité d'arrivée dans la case.
+- Possibilité de 'Fausse' trace. Dans le cas ou il y a plusieurs chemins possibles pour arriver a la case si l'un 
+  des chemins est ↓ ou → la case va être considéré comme un gap. Cependant il me semble, que dans le cas ou plusieurs
+  flèches sont dans la case. Si suite à cette case on fait le choix de 'gapper' il sera toujours plus intéressant de 
+  continuer un gap existant que d'ouvrir un gap (si le score d'ouverture de gap est inférieur au l'extention).
+  Idée pour résoudre le 'bug' :
+  - Il faudrait que je différencie les types de fleche d'ouverture de gap et d'extention, pour lors de la 
+    traversé recursive. Pouvoir être sur de ne pas passer d'une extention de gap a un match ou mismatch, 
+    sans passer par l'ouverture de gap.
     
   - Ne pas pénaliser l'ouverture de gap.
     
-  - Ne pas mettre de meme type de fleche si on vient d'un gap ouvert ou non. 
 
 
 
