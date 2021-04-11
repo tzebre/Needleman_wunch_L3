@@ -4,6 +4,7 @@ import module.gestion_matrice as gm  # Fichier qui gere la creation des matrices
 from sys import setrecursionlimit
 setrecursionlimit(2000)
 
+
 # Initialisation des premieres lignes et colonnes des matrices de trace et de score selon le type d'algorithme
 def matrice_initialise(lenA, lenB, liste_score, type_algorithme):
     score_mat = gm.matrix_zero_list(lenA + 1, lenB + 1)
@@ -352,10 +353,11 @@ def matrix(seqA, seqB, liste_score, liste_symbole, type_alignement, type_algorit
             liste_traceback = traverse_recursive(traceback_mat, dep[1], dep[0], liste_des_traces, trace)
             nb_alignement = 0
             for traceback in liste_traceback:
+                print(dico_x_aligne[str(nb_alignement)]["matrice score"])
                 dico_x_aligne[str(nb_alignement)] = dico_x_aligne['0'].copy()
                 dico_x_aligne[str(nb_alignement)]["liste traceback"] = traceback
                 dico_x_aligne[str(nb_alignement)]["score final"] = \
-                    dico_x_aligne[str(nb_alignement)]["matrice score"][dep[1]][dep[0]][0]
+                    dico_x_aligne[str(nb_alignement)]["matrice score"][dep[0]][dep[1]][0]
                 seqA_align, seqB_align = sw_aligne(seqA, seqB, dep[0], dep[1], traceback)
                 dico_x_aligne[str(nb_alignement)]["seqA aligne"] = seqA_align
                 dico_x_aligne[str(nb_alignement)]["seqB aligne"] = seqB_align
