@@ -86,9 +86,13 @@ def custom_symbol(liste_symbole, custom_type):
 
 
 # Retourne les séquences, les listes de score/symbole et le type d'alignement
-def custom_input(seqA, seqB, liste_score, liste_symbole):
+def custom_input(seqA, seqB, liste_score, liste_symbole, save):
     type_alignement, type_algorithme = True, True
     custom_seq_fasta = bool
+    input_ok = False
+    while input_ok is False:  # Temps que l'input n'est pas bon
+        save_input = input("Sauvegarder les resultat dans un fichier texte ? y/n: ").lower().strip()
+        save, input_ok = true_false(save_input)  # True = génomique False = protéique
     input_ok = False
     while input_ok is False:  # Temps que l'input n'est pas bon
         custom_type_input = input("alignement génomique (y) ou protéique (n) ? : ").lower().strip()
@@ -139,4 +143,4 @@ def custom_input(seqA, seqB, liste_score, liste_symbole):
             if type_alignement is False:
                 liste_symbole[1] = liste_symbole[3]
                 liste_symbole[2] = liste_symbole[3]
-    return seqA, seqB, liste_score, liste_symbole, type_alignement, type_algorithme
+    return seqA, seqB, liste_score, liste_symbole, type_alignement, type_algorithme, save

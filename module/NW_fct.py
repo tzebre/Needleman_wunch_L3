@@ -80,6 +80,7 @@ def traverse_recursive(matrice_traces, col, row, liste_des_traces, trace):
                 liste_des_traces = traverse_recursive(matrice_traces, col - 1, row, liste_des_traces, trace)
                 trace = trace[:-1]
             if len(trace) >= 1:
+                #  Le and permet de ne pas quitter un gap sans passer par une case 'ouverture de gap'
                 if symbole == '↘' and trace[-1] in '⤏⇣↘':
                     trace += symbole
                     liste_des_traces = traverse_recursive(matrice_traces, col - 1, row - 1, liste_des_traces, trace)
