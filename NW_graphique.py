@@ -5,6 +5,7 @@ import module.gestion_print as gpt
 
 dico = {'liste_score':[], 'liste_symbole':[],'score_prot': "","seqA" :"", "seqB":"",'algo': bool, 'alignement':bool }
 def total():
+    global fenetre
     fenetre = Tk()
     global value_algo
     global value_ali
@@ -62,6 +63,7 @@ def valid_final():
     seqB = cst.lecture_fasta(dico['seqB'])
     seqB, bool = cst.netoyage_seq(seqB, type_alignement)
     liste_dico, mat_max_traceback = fct.matrix(seqA, seqB, dico['liste_score'], dico['liste_symbole'], type_alignement, type_algorithme)
+    fenetre.destroy()
     gpt.print_final(liste_dico, seqA, seqB, mat_max_traceback, type_alignement, type_algorithme)
 
 def geno():

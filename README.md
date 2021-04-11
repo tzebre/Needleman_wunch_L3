@@ -153,7 +153,7 @@ Cette même case dans le tableau de traceback sera remplie avec une flèche `→
 Pour trouver le ou les alignements optimaux selon l'algorithme de Needleman et Wunch,
 On remonte le tableau de trace depuis la case en bas à droite en suivant le sens des flèches.
 
-**Note** : Afin de trouver tout les alignements optimaux, on remonte les cases du tableau grâce à de 
+**Note** : Afin de trouver tous les alignements optimaux, on remonte les cases du tableau grâce à de 
 la programmation récursive.
 
 ### Smith et Waterman <a id="fSW"></a>
@@ -174,11 +174,17 @@ Dans la console :
 
 
 ## Amélioration <a id="amelioration"></a>
-- Amélioration de l'utilisation graphique (web?)  
-- Alignement en double par moment   
+- Amélioration de l'utilisation graphique (web?)
 - Enregistrer les résultats dans un fichier   
 - Ajout de matrice de substitution protéique
 - Meilleur gestion des N comme nucleotide
+- Possibilité de 'Fausse' trace. En effet la gestion des ouvertures de gap depend seulement de la premiere 
+  possibilité de flèche. Idée pour résoudre le 'bug' :
+  - Il faudrait que je crée des indices de gap 0 ou 1 par possibilité d'arrivée dans la case.
+    
+  - Ne pas pénaliser l'ouverture de gap.
+    
+  - Ne pas mettre de meme type de fleche si on vient d'un gap ouvert ou non. 
 
 
 

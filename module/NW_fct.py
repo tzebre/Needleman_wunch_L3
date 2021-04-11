@@ -11,23 +11,23 @@ def matrice_initialise(lenA, lenB, liste_score, type_algorithme):
     traceback_mat = gm.matrix_str(lenA + 1, lenB + 1)
     traceback_mat[0][0] = ' '
     #  Premieres cases correspondantes au debut des sequences en ligne et en colonne
-    if type_algorithme is True:  # Alignement génomique
+    if type_algorithme is True:  # Needleman
         # La matrice de score prend la valeur d'ouverture de gap et celle de trace la flèche correspondante
         score_mat[0][1][0] = liste_score[4]
         score_mat[0][1][1] = 1
-        traceback_mat[0][1] = '→'
+        traceback_mat[0][1] = '⤏'
         score_mat[1][0][0] = liste_score[4]
         score_mat[1][0][1] = 1
-        traceback_mat[1][0] = '↓'
-    else:  # Alignement protéique
+        traceback_mat[1][0] = '⇣'
+    else:  # Smith
         max_val = max(liste_score[4], 0)  # La matrice de score la valeur maximale entre ouverture de gap et 0
         score_mat[0][1][0] = max_val
         score_mat[0][1][1] = 1
         score_mat[1][0][0] = max_val
         score_mat[1][0][1] = 1
         if max_val == liste_score[4]:  # Si le max est l'ouverture de gap, la matrice de trace reçoit la flèche associée
-            traceback_mat[0][1] = '→'
-            traceback_mat[1][0] = '↓'
+            traceback_mat[0][1] = '⤏'
+            traceback_mat[1][0] = '⇣'
         else:  # Si le max est 0, la matrice de trace est remplie avec un caractère vide
             traceback_mat[0][1] = ' '
             traceback_mat[1][0] = ' '
@@ -70,13 +70,13 @@ def creation_alignement(lenA, lenB, nb_alignement, liste_score, type_algorithme)
 # Remonte la matrice de trace et retourne une liste avec les chemins possibles
 def traverse_recursive(matrice_traces, col, row, liste_des_traces, trace):
     # Si la case ne contient pas de fleche (arrivé au bout), on ajoute la trace a la liste de trace possible
-    if matrice_traces[row][col][0] not in "↘↓→":
+    if matrice_traces[row][col][0] not in "↘↓→⇣⤏":
         liste_des_traces.append(trace)
         trace = ''
     # Remonte la matrice de trace en rappelant la fonction apres chaque déplacement
     else:
         for symbole in matrice_traces[row][col]:
-            if symbole == '→':
+            if symbole == '→' or symbole == '⤏':
                 trace += '→'
                 liste_des_traces = traverse_recursive(matrice_traces, col - 1, row, liste_des_traces, trace)
                 trace = trace[:-1]
@@ -84,7 +84,7 @@ def traverse_recursive(matrice_traces, col, row, liste_des_traces, trace):
                 trace += '↘'
                 liste_des_traces = traverse_recursive(matrice_traces, col - 1, row - 1, liste_des_traces, trace)
                 trace = trace[:-1]
-            if symbole == '↓':
+            if symbole == '↓' or symbole == '⇣':
                 trace += '↓'
                 liste_des_traces = traverse_recursive(matrice_traces, col, row - 1, liste_des_traces, trace)
                 trace = trace[:-1]
@@ -353,7 +353,6 @@ def matrix(seqA, seqB, liste_score, liste_symbole, type_alignement, type_algorit
             liste_traceback = traverse_recursive(traceback_mat, dep[1], dep[0], liste_des_traces, trace)
             nb_alignement = 0
             for traceback in liste_traceback:
-                print(dico_x_aligne[str(nb_alignement)]["matrice score"])
                 dico_x_aligne[str(nb_alignement)] = dico_x_aligne['0'].copy()
                 dico_x_aligne[str(nb_alignement)]["liste traceback"] = traceback
                 dico_x_aligne[str(nb_alignement)]["score final"] = \
