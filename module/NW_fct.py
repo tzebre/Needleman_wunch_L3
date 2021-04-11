@@ -15,10 +15,10 @@ def matrice_initialise(lenA, lenB, liste_score, type_algorithme):
         # La matrice de score prend la valeur d'ouverture de gap et celle de trace la flèche correspondante
         score_mat[0][1][0] = liste_score[4]
         score_mat[0][1][1] = 1
-        traceback_mat[0][1] = '→'
+        traceback_mat[0][1] = '⤏'
         score_mat[1][0][0] = liste_score[4]
         score_mat[1][0][1] = 1
-        traceback_mat[1][0] = '↓'
+        traceback_mat[1][0] = '⇣'
     else:  # Smith
         max_val = max(liste_score[4], 0)  # La matrice de score la valeur maximale entre ouverture de gap et 0
         score_mat[0][1][0] = max_val
@@ -72,7 +72,6 @@ def traverse_recursive(matrice_traces, col, row, liste_des_traces, trace):
     # Si la case ne contient pas de fleche (arrivé au bout), on ajoute la trace a la liste de trace possible
     if matrice_traces[row][col][0] not in "↘↓→⤏⇣":
         liste_des_traces.append(trace)
-        trace = ''
     # Remonte la matrice de trace en rappelant la fonction apres chaque déplacement
     else:
         for symbole in matrice_traces[row][col]:
@@ -246,11 +245,11 @@ def sw_aligne(seqA, seqB, i, j, trace):
             align2 += seqB[i - 1]
             i -= 1
             j -= 1
-        elif s_current == '↓':
+        elif s_current == '↓' or s_current == '⇣':
             align1 += '-'
             align2 += seqB[i - 1]
             i -= 1
-        elif s_current == '→':
+        elif s_current == '→' or s_current == '⤏':
             align1 += seqA[j - 1]
             align2 += '-'
             j -= 1
@@ -352,7 +351,6 @@ def matrix(seqA, seqB, liste_score, liste_symbole, type_alignement, type_algorit
                                             traceback_mat, liste_score, type_alignement, type_algorithme)
     if type_algorithme is True:
         liste_traceback = traverse_recursive(traceback_mat, lenA, lenB, liste_des_traces, trace)
-        print(liste_traceback)
         for traceback in liste_traceback:  # Pour chaque trace possible on ajoute un alignement dans le dictionnaire
             dico_x_aligne[str(nb_alignement)] = dico_x_aligne['0'].copy()
             dico_x_aligne[str(nb_alignement)]["liste traceback"] = traceback
