@@ -64,7 +64,7 @@ def custom_score_fct(score_list, type_alignement):
     input_ok = False
     while input_ok is False:
         penalite = input("Penalité de gap ouvert ? y/n : ").lower().strip()
-        penalite_input , input_ok = true_false(penalite)
+        penalite_input, input_ok = true_false(penalite)
     if penalite_input is True:
         score_list[4] = int(input("score ouverture de gap : "))
         score_list[5] = int(input("score extension de gap : "))

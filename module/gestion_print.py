@@ -1,7 +1,5 @@
 # Gestion des prints
 
-import module.custom as cst
-
 # Print des différents score de l'alignement
 def print_score(score, type_alignement):
     print("Nombre de match :", score[0])
@@ -49,7 +47,8 @@ def print_final(liste_dico, seqA, seqB, mat_traceback, type_alignement, type_alg
             print("Matrice de traceback :")
             print_matrice(mat_traceback, seqA, seqB, False)
             print("==============================================================")
-        for nb_alignement in range(0,len(dico_x_aligne)):  # Dico_x_aligne contient autan d'indice que de trace possible
+        # Dico_x_aligne contient autan d'indice que de trace possible
+        for nb_alignement in range(0, len(dico_x_aligne)):
             dico = str(nb_alignement)
             if int(dico) < 1:  # Si il s'agit du premier alignement
                 if type_algorithme is False:
@@ -70,7 +69,8 @@ def print_final(liste_dico, seqA, seqB, mat_traceback, type_alignement, type_alg
             else:
                 if nb_alignement % 30 == 0 and nb_alignement >= 1:
                     print(" ")
-                    suite_input = input("appuyez sur entrée pour continuer (30 alignements suivant), quitter avec ctrl+C")
+                    suite_input = \
+                        input("appuyez sur entrée pour continuer (30 alignements suivant), quitter avec ctrl+C")
                     suite_input = "  "
                     print("  ")
                 print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')

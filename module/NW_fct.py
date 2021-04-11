@@ -73,7 +73,7 @@ def traverse_recursive(matrice_traces, col, row, liste_des_traces, trace):
     if matrice_traces[row][col][0] not in "↘↓→":
         liste_des_traces.append(trace)
         trace = ''
-    # Remonte la matrice de trace en rapellant la fonction apres chaque déplacement
+    # Remonte la matrice de trace en rappelant la fonction apres chaque déplacement
     else:
         for symbole in matrice_traces[row][col]:
             if symbole == '→':
