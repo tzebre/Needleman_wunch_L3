@@ -2,8 +2,9 @@ from tkinter.filedialog import *
 import module.custom as cst
 import module.NW_fct as fct
 import module.gestion_print as gpt
+import sys
 
-dico = {'liste_score':[], 'liste_symbole':[],'score_prot': "","seqA" :"", "seqB":"",'algo': bool, 'alignement':bool }
+dico = {'liste_score':[], 'liste_symbole':[],'score_prot': "","seqA" :"", "seqB":"",'algo': bool, 'alignement':bool , 'save': bool}
 def total():
     global fenetre
     fenetre = Tk()
@@ -64,7 +65,13 @@ def valid_final():
     seqB, bool = cst.netoyage_seq(seqB, type_alignement)
     liste_dico, mat_max_traceback = fct.matrix(seqA, seqB, dico['liste_score'], dico['liste_symbole'], type_alignement, type_algorithme)
     fenetre.destroy()
-    gpt.print_final(liste_dico, seqA, seqB, mat_max_traceback, type_alignement, type_algorithme)
+    liste_score = dico['liste_score']
+    save =False
+    gpt.print_final(liste_dico, seqA, seqB, mat_max_traceback, type_alignement, type_algorithme, liste_score, save)
+    save = True
+    sys.stdout = open('save.txt', 'w')
+    gpt.print_final(liste_dico, seqA, seqB, mat_max_traceback, type_alignement, type_algorithme, liste_score, save)
+    sys.stdout.close()
 
 def geno():
     global valide_score_geno
