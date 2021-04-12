@@ -317,7 +317,7 @@ def liste_depart_max(mat_score, seqA, seqB):
                 x = len(co_score_max)
                 co_score_max[x - 1].append(row)
                 co_score_max[x - 1].append(col)
-            if int(mat_score[row][col][0]) > score_maximal:
+            if int(mat_score[row][col]) > score_maximal:
                 co_score_max = []
                 score_maximal = int(mat_score[row][col])
                 co_score_max.append([row, col])

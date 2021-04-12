@@ -111,7 +111,7 @@ Et les scores :
 
 **Note** : Les matrices en Python sont codées comme des listes de listes de liste. 
 C'est à dire que chaque ligne est une liste remplie avec une liste par colonne. Chaque colonne 
-est remplie par une liste qui représente la case.  
+est remplie par un entier.  
 ```py 
 # tableau de 6 ligne et 5 colone
 ligne = 6
