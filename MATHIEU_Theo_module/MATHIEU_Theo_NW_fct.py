@@ -1,6 +1,6 @@
 # Import des différents fichiers de fonction
-import module.matrix_prot_dic as mpd  # Fichier ou sont stocké les matrices de score
-import module.gestion_matrice as gm  # Fichier qui gere la creation des matrices
+import MATHIEU_Theo_module.MATHIEU_Theo_matrix_prot_dic as mpd  # Fichier ou sont stocké les matrices de score
+import MATHIEU_Theo_module.MATHIEU_Theo_gestion_matrice as gm  # Fichier qui gere la creation des matrices
 from sys import setrecursionlimit
 setrecursionlimit(2000)
 

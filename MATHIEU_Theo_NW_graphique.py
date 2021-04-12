@@ -1,7 +1,7 @@
 from tkinter.filedialog import *
-import module.custom as cst
-import module.NW_fct as fct
-import module.gestion_print as gpt
+import MATHIEU_Theo_module.MATHIEU_Theo_custom as cst
+import MATHIEU_Theo_module.MATHIEU_Theo_NW_fct as fct
+import MATHIEU_Theo_module.MATHIEU_Theo_gestion_print as gpt
 import sys
 
 dico = {'liste_score':[], 'liste_symbole':[],'score_prot': "","seqA" :"", "seqB":"",'algo': bool, 'alignement':bool , 'save': bool}
