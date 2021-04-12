@@ -54,11 +54,14 @@ $ git clone https://github.com/tzebre/Needleman_wunch_L3.git
 $ cd Needleman_wunch_l3
 ``` 
 - Utilisation du programme en ligne de commande 
+    - Customisation via des réponses dans la console. Si enregistrement choisi les résultats seront 
+      sauvegardé dans le fichier save.txt
 ```
 # Lancer le programme d'alignement avec 
 $ python3 MATHIEU_Theo_NW_main.py
 ```
 - Utilisation du programme avec des fenêtres graphiques
+    - Customisation via la fenêtre graphique, enregistrement automatique des résultats dans save.txt
 ```
 # Instaler la librarie tkinter pour python3
 $ sudo apt-get install python3-tk
@@ -75,7 +78,7 @@ L'algorithme prend en entrée :
   - 2 séquences génomiques ou protéiques.
     - Entrée à la main (seulement en utilisation ligne de commande) ou depuis un fichier Fasta
   - Alignement génomique   
-      - Des scores (match, mismatch purine/putine, mismatch pyrimidine/pyrimidine, autre mismatch, 
+      - Des scores (match, mismatch purine/purine, mismatch pyrimidine/pyrimidine, autre mismatch, 
         ouverture de gap, extention de gap), par défaut (2, 1, 1, -1, -10, -1)
       - Des symboles associés, par défaut ('|',':',':','!','')   
         
@@ -148,7 +151,8 @@ Cette même case dans le tableau de traceback sera remplie avec une flèche `→
 à gauche apporte le meilleur score. 
 
 **Note** : Dans le cas où deux chemins sont égaux, les deux flèches sont ajoutées. 
-(avec `.append()` dans la liste qui correspond à la case) 
+(avec `.append()` dans la liste qui correspond à la case). Les fleches '⤏' et '⇣' représente des ouvertures de gap, 
+et les fleches '↓' et '→' représente des extension de gap.
 
 Pour trouver le ou les alignements optimaux selon l'algorithme de Needleman et Wunch,
 On remonte le tableau de trace depuis la case en bas à droite en suivant le sens des flèches.
@@ -178,11 +182,8 @@ Dans la console :
 - Enregistrer les résultats dans un fichier   
 - Ajout de matrice de substitution protéique
 - Meilleur gestion des N comme nucleotide
-- Possibilité de 'Fausse' trace. Dans le cas ou il y a plusieurs chemins possibles pour arriver a la case si l'un 
-  des chemins est ↓ ou → la case va être considéré comme un gap. Cependant il me semble, que dans le cas ou plusieurs
-  flèches sont dans la case. Si suite à cette case on fait le choix de 'gapper' il sera toujours plus intéressant de 
-  continuer un gap existant que d'ouvrir un gap (si le score d'ouverture de gap est inférieur au l'extention). 
-  J'ai donc ici fait l'hypothèse, que le score d'ouverture de gap est égal ou inférieur a celui d'extension. 
+- Ici j'ai fait le choix de compter comme une extension de gap le passage d'un gap d'un brin a l'autre. Il serait 
+  peut-être plus juste de le compter comme une ouverture.
     
 
 
