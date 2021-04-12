@@ -65,10 +65,11 @@ def print_final(liste_dico, seqA, seqB, mat_traceback, type_alignement, type_alg
                     if type_algorithme is False:
                         if d % 1 == 0 and d >= 1:
                             print(" ")
-                            suite_input = input("appuyez sur entrée pour continuer (depart suivant), quitter avec ctrl+C")
+                            suite_input = \
+                                input("appuyez sur entrée pour continuer (depart suivant), quitter avec ctrl+C")
                             suite_input = "  "
                             print("  ")
-                    print("Depart possible n°", d + 1)
+                print("Depart possible n°", d + 1)
                 print("alignement possible n°", int(dico) + 1, sep='')
                 print("Score total de l'alignement : ", dico_x_aligne[dico]["score final"], sep='')
                 print("Chemin de traceback : ")
