@@ -1,5 +1,5 @@
 # Fichier pour la creation de matrices
-# Creation d'une matrice de liste de 2 indice = 0 pour la matrice de score
+# Creation d'une matrice avec des valeurs = 0 pour la matrice de score
 def matrix_zero_list(col, row):
     matrice = []
     for x in range(row):
@@ -9,7 +9,7 @@ def matrix_zero_list(col, row):
     return matrice
 
 
-# Creation d'une matrice de chaine de caractère vide
+# Creation d'une matrice de chaine de caractère vide pour la matrice de traceback
 def matrix_str(col, row):
     matrice = []
     for x in range(row):

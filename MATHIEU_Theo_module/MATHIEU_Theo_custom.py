@@ -30,7 +30,7 @@ def lecture_fasta(seq):
 # Retourne la séquence protéique ou génomique en majuscule et True si elle n'a pas d'erreurs
 def netoyage_seq(seq, type_alignement):
     seq = seq.upper()
-    if type_alignement is True:  # cas alignement genomique
+    if type_alignement is True:  # cas alignement génomique
         ok = "AaCcGgTtUuNn"
     else:  # cas alignement protéique
         ok = "AaRrNnDdCcQqEeGgHhIiLlKkMmFfPpSsTtWwYyVv"
@@ -92,7 +92,7 @@ def custom_input(seqA, seqB, liste_score, liste_symbole, save):
     input_ok = False
     while input_ok is False:  # Temps que l'input n'est pas bon
         save_input = input("Sauvegarder les resultat dans un fichier texte ? y/n: ").lower().strip()
-        save, input_ok = true_false(save_input)  # True = génomique False = protéique
+        save, input_ok = true_false(save_input)  # True = sauvegarder, False = non
     input_ok = False
     while input_ok is False:  # Temps que l'input n'est pas bon
         custom_type_input = input("alignement génomique (y) ou protéique (n) ? : ").lower().strip()
@@ -106,7 +106,7 @@ def custom_input(seqA, seqB, liste_score, liste_symbole, save):
         custom_seq_input = input("Custom séquences ? y/n : ").lower().strip()
         custom_seq, input_ok = true_false(custom_seq_input)
     input_ok = False
-    if custom_seq is True:  # Si customisation des séquence True on demande si on importe depuis un fichier Fasta
+    if custom_seq is True:  # Si customisation des séquences True on demande si on importe depuis un fichier Fasta
         while input_ok is False:  # Temps que l'input n'est pas bon
             custom_seq_fasta_input = input("Depuis un fichier Fasta ? y/n : ").lower().strip()
             custom_seq_fasta, input_ok = true_false(custom_seq_fasta_input)

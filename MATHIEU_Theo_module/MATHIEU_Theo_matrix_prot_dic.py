@@ -1,5 +1,5 @@
 # Dictionnaire de score génomique
-def custom_dic_genomique(liste_score):
+def custom_dic_genomique(liste_score):  # Dictionnaire pour les scores génomique
     liste_char = ['A', 'T', 'G', 'C', 'U', 'N']
     genodic = dict(
         A={'A': liste_score[0], 'T': liste_score[3], 'G': liste_score[1], 'C': liste_score[3], 'U': liste_score[3],
@@ -12,8 +12,7 @@ def custom_dic_genomique(liste_score):
     return genodic, liste_char
 
 
-# Dictionnaire de score protéique
-def blosum62():
+def blosum62():  # Dictionnaire de score protéique
     list_char = ['A', 'R', 'N', 'D', 'C', 'Q', 'E', 'G', 'H', 'I', 'L', 'K', 'M', 'F', 'P', 'S', 'T', 'W', 'Y', 'V']
     blo62 = dict(
         A={'A': '4', 'R': '-1', 'N': '-2', 'D': '-2', 'C': '0', 'Q': '-1', 'E': '-1', 'G': '0', 'H': '-2', 'I': '-1',

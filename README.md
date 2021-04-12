@@ -174,6 +174,52 @@ Dans la console :
 - Alignement ex-aequo
     - 30 alignement par 30 alignement (appuyer sur entrée pour voir les suivant)
     - Dans le cas de Smith et Waterman depart par depart (appuyer sur entrée pour voir le depart possible susivant)
+    
+Resultat d'alignement génomique dans le fichier save.txt :
+```
+match    purine    pyrimidine    autre   gap_ouvert    gap_étendu
+2	1	1	-1	-10	-1
+###############################################################
+Matrice de score : 
+	 A | T | G | G | C | G | T |
+   | 0 |-10|-11|-12|-13|-14|-15|-16|
+ A |-10| 2 | -8| -9|-10|-11|-12|-13|
+ T |-11| -8| 4 | -6| -7| -8| -9|-10|
+ G |-12| -9| -6| 6 | -4| -5| -6| -7|
+ A |-13|-10| -7| -4| 7 | -3| -4| -5|
+ G |-14|-11| -8| -5| -2| 6 | -1| -5|
+ T |-15|-12| -9| -6| -6| -1| 5 | 1 |
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Matrice de traceback :
+	 A | T | G | G | C | G | T |
+   |   | ⤏ | → | → | → | → | → | → |
+ A | ⇣ | ↘ | ⤏ | → | → | → | → | → |
+ T | ↓ | ⇣ | ↘ | ⤏ | → | → | → | →↘|
+ G | ↓ | ↓ | ⇣ | ↘ | ⤏↘| → | →↘| → |
+ A | ↓ | ↘↓| ↓ | ⇣ | ↘ | ⤏ | →↘| → |
+ G | ↓ | ↓ | ↓ | ↘↓| ↘ | ↘ | ↘ | ↘ |
+ T | ↓ | ↓ | ↘↓| ↓ | ↘ | ↘ | ↘ | ↘ |
+==============================================================
+Depart possible n° 1
+Alignement possible n°1
+Score total de l'alignement : 1
+Chemin de traceback : 
+↘↘↘↘⤏↘↘
+ATGGCGT
+|||: ||
+ATGA-GT
+Nombre de match : 5
+Nombre de mismatch purine : 1
+Nombre de mismatch pyrimidine : 0
+Nombre de mismatch autre : 0
+Nombre de mismatch total : 1
+Nombre de gap ouvert : 1
+Nombre de gap étendu : 0
+Nombre de gap total : 1
+-------------------------------------------------------------------------
+```
+
+
 ### Utilisation en ligne de commande <a id="cmd"></a>
 Même qu'en ligne de commande, mais sauvegarde automatique dans save.txt.
 

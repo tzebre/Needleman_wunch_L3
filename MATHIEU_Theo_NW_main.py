@@ -1,7 +1,9 @@
+# Gestion des import
 import MATHIEU_Theo_module.MATHIEU_Theo_NW_fct as fct
 import MATHIEU_Theo_module.MATHIEU_Theo_custom as cst
 import MATHIEU_Theo_module.MATHIEU_Theo_gestion_print as gpt
 import sys
+
 # Paramètres par défaut
 seqA = "atggcgt"
 seqB = "atgagt"

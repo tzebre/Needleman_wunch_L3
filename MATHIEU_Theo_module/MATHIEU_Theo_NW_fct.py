@@ -1,7 +1,7 @@
 # Import des différents fichiers de fonction
 import MATHIEU_Theo_module.MATHIEU_Theo_matrix_prot_dic as mpd  # Fichier ou sont stocké les matrices de score
 import MATHIEU_Theo_module.MATHIEU_Theo_gestion_matrice as gm  # Fichier qui gere la creation des matrices
-from sys import setrecursionlimit
+from sys import setrecursionlimit  # Permet de gérer la limite de récursivité
 setrecursionlimit(2000)
 
 
@@ -14,11 +14,11 @@ def matrice_initialise(lenA, lenB, liste_score, type_algorithme):
     if type_algorithme is True:  # Needleman
         # La matrice de score prend la valeur d'ouverture de gap et celle de trace la flèche correspondante
         score_mat[0][1] = liste_score[4]
-        traceback_mat[0][1] = '⤏'
+        traceback_mat[0][1] = '⤏'  # Flèche en pointillé pour signifier qu'il s'agit d'une ouverture de gap
         score_mat[1][0] = liste_score[4]
         traceback_mat[1][0] = '⇣'
     else:  # Smith
-        max_val = max(liste_score[4], 0)  # La matrice de score la valeur maximale entre ouverture de gap et 0
+        max_val = max(liste_score[4], 0)  # La matrice de score prend la valeur maximale entre ouverture de gap et 0
         score_mat[0][1] = max_val
         score_mat[1][0] = max_val
         if max_val == liste_score[4]:  # Si le max est l'ouverture de gap, la matrice de trace reçoit la flèche associée
@@ -50,7 +50,7 @@ def matrice_initialise(lenA, lenB, liste_score, type_algorithme):
     return score_mat, traceback_mat
 
 
-# Creation d'un indice dans un dictionnaire qui regroupe les alignements
+# Creation d'un indice dans un dictionnaire qui regroupe les dictionnaire d'alignements
 def creation_alignement(lenA, lenB, nb_alignement, liste_score, type_algorithme):
     dico_x_aligne = {}
     dico_aligne = {"seqA aligne": "", "seqB aligne": "", "score final": 0, "score": list, "seq symbole": "",
@@ -118,6 +118,7 @@ def symbole_compare(a, b, score_list):
 
 # Rempli la matrice de trace avec toute les directions possibles
 def rempli_symbole(row, col, diag, down, right, matrice_score, mat_max, nw, d_o, r_o):
+    # d_o et r_o sont True si le déplacement induit une ouverture de gap
     if d_o is True:
         fd = '⇣'
     else:
@@ -126,32 +127,31 @@ def rempli_symbole(row, col, diag, down, right, matrice_score, mat_max, nw, d_o,
         fr = '⤏'
     else:
         fr = '→'
-    if matrice_score[row][col] == right:
+    if matrice_score[row][col] == right:  # Si le score maximal est possible depuis la case de gauche
         mat_max[row][col] += fr
-        if right == diag:
+        if right == diag:  # Si le score maximal est possible depuis la case en diagonale et gauche
             mat_max[row][col] += '↘'
         if right == down:
-            mat_max[row][col] += fd
-    elif matrice_score[row][col] == diag:
+            mat_max[row][col] += fd  # Si le score maximal est possible depuis la case en haut en diagonale et a gauche
+    elif matrice_score[row][col] == diag:  # Si le score maximal est possible depuis la case en diagonale
         mat_max[row][col] += '↘'
-        if diag == down:
+        if diag == down:  # Si le score maximal est possible depuis la case en haut en diagonale
             mat_max[row][col] += fd
-    elif matrice_score[row][col] == down:
+    elif matrice_score[row][col] == down:  # Si le score maximal est possible depuis la case en haut
         mat_max[row][col] += fd
     else:
-        # Normalement on devrai pouvoir enlever ce if (pas testé a verifier 07/04)
-        if nw is False:
+        if nw is False:  # Si aucune des direction correspond alors on ne mets aucune flèches
             mat_max[row][col] += ' '
     return matrice_score, mat_max
 
 
 # Rempli la matrice de score et appelle la fonction de remplissage de la matrice de trace
 def rempli_score(lenA, lenB, seqA, seqB, matrice_score, traceback_mat, liste_score, alignement, nw):
-    if alignement is True:
+    if alignement is True:  # Alignement génomique on récupère la matrice de score correspondnate
         dico_score, liste_char = mpd.custom_dic_genomique(liste_score)
-    else:
+    else:  # Alignement protéique
         dico_score, liste_char = mpd.blosum62()
-    for row in range(1, lenB + 1):
+    for row in range(1, lenB + 1):  # Parcour de la matrice pour remplir les score
         for col in range(1, lenA + 1):
             AA = mpd.sort_char(seqA[col - 1], seqB[row - 1], liste_char)
             down = int
@@ -173,9 +173,9 @@ def rempli_score(lenA, lenB, seqA, seqB, matrice_score, traceback_mat, liste_sco
             else:
                 r_o = True
                 right = matrice_score[row][col - 1] + liste_score[4]  # Décalage a droite ouverture gap
-            if nw is True:
+            if nw is True:  # Algorithme de Needleman max de score entre les 3 cases possibles
                 max_val = max([diag, down, right])
-            else:
+            else:  # Algorithme de Smith max de score entre les 3 cases possibles et 0
                 max_val = max([diag, down, right, 0])
             matrice_score[row][col] = max_val
             matrice_score, traceback_mat = rempli_symbole(row, col, diag, down, right,
@@ -344,7 +344,7 @@ def matrix(seqA, seqB, liste_score, liste_symbole, type_alignement, type_algorit
     score_mat = dico_x_aligne[str(nb_alignement)]["matrice score"]
     score_mat, traceback_mat = rempli_score(lenA, lenB, seqA, seqB, score_mat,
                                             traceback_mat, liste_score, type_alignement, type_algorithme)
-    if type_algorithme is True:
+    if type_algorithme is True:  # Algorithme de Needleman
         liste_traceback = traverse_recursive(traceback_mat, lenA, lenB, liste_des_traces, trace)
         for traceback in liste_traceback:  # Pour chaque trace possible on ajoute un alignement dans le dictionnaire
             dico_x_aligne[str(nb_alignement)] = dico_x_aligne['0'].copy()
@@ -359,13 +359,13 @@ def matrix(seqA, seqB, liste_score, liste_symbole, type_alignement, type_algorit
             dico_x_aligne[str(nb_alignement)]["score"] = calcul_score_match_gap_mismatch(liste_symbole, seq_symbole)
             nb_alignement += 1
         liste_dico.append(dico_x_aligne)
-    else:
+    else:  # Algorithme de Smith et Waterman
         depart_max, score_max = liste_depart_max(score_mat, seqA, seqB)
         for i, dep in enumerate(depart_max):  # On ajoute a une liste un dictionnaire par depart possible
             liste_des_traces = []
             liste_traceback = traverse_recursive(traceback_mat, dep[1], dep[0], liste_des_traces, trace)
             nb_alignement = 0
-            for traceback in liste_traceback:
+            for traceback in liste_traceback:  # Pour chaque trace possible on ajoute un alignement dans le dictionnaire
                 dico_x_aligne[str(nb_alignement)] = dico_x_aligne['0'].copy()
                 dico_x_aligne[str(nb_alignement)]["liste traceback"] = traceback
                 dico_x_aligne[str(nb_alignement)]["score final"] = \
