@@ -22,7 +22,7 @@ Programme réalisé en Python dans le cadre de la L3 B.I.S.M. pour l'U.E. bio-in
     - Depuis un fichier Fasta ou une entrée manuelle de la séquence 
     - Choix des scores et des symboles d'alignement possible
     
- - [x] Utilisation en fenêtre graphique grâce à tkinter (peut lisible pour les longues sequences) ou en 
+ - [x] Utilisation en fenêtre graphique grâce à tkinter (Plus pratique pour naviguer dans les fichiers) ou en 
    commande console 
 
 ## Principe d'alignement <a id="principe"></a>
@@ -56,7 +56,7 @@ $ cd Needleman_wunch_l3
 - Utilisation du programme en ligne de commande 
 ```
 # Lancer le programme d'alignement avec 
-$ python3 NW_main.py
+$ python3 MATHIEU_Theo_NW_main.py
 ```
 - Utilisation du programme avec des fenêtres graphiques
 ```
@@ -64,7 +64,7 @@ $ python3 NW_main.py
 $ sudo apt-get install python3-tk
 
 # Lancer le programme d'alignement avec 
-$ python3 NW_graphique.py
+$ python3 MATHIEU_Theo_NW_graphique.py
 ```
 **Note** : Si vous décidez de prendre des séquences stockées dans des fichiers Fasta, les fichiers doivent se trouver dans le
 même dossier que le programme. Ou donner leur PATH.
