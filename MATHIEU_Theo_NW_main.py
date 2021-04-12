@@ -3,8 +3,8 @@ import MATHIEU_Theo_module.MATHIEU_Theo_custom as cst
 import MATHIEU_Theo_module.MATHIEU_Theo_gestion_print as gpt
 import sys
 # Paramètres par défaut
-seqA = "tgttacgg"
-seqB = "ggttgacta"
+seqA = "atggcgt"
+seqB = "atgagt"
 liste_symbole = ['|', ':', ':', '!', ' ']
 liste_score = [2, 1, 1, -1, -10, -1]
 save = False

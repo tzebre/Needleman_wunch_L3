@@ -182,8 +182,8 @@ Dans la console :
 - Enregistrer les résultats dans un fichier   
 - Ajout de matrice de substitution protéique
 - Meilleur gestion des N comme nucleotide
-- Ici j'ai fait le choix de compter comme une extension de gap le passage d'un gap d'un brin a l'autre. Il serait 
-  peut-être plus juste de le compter comme une ouverture.
+- Ici j'ai fait le choix de compter comme une ouverture de gap le passage d'un gap d'un brin a l'autre. 
+  Il faudrait peut-être laisser le choix a l'utilisateur entre ouverture et extension.
     
 
 

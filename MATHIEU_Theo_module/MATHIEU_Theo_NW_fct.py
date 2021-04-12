@@ -75,25 +75,33 @@ def traverse_recursive(matrice_traces, col, row, liste_des_traces, trace):
     # Remonte la matrice de trace en rappelant la fonction apres chaque déplacement
     else:
         for symbole in matrice_traces[row][col]:
-            if symbole == '→' or symbole == '⤏':
-                trace += symbole
-                liste_des_traces = traverse_recursive(matrice_traces, col - 1, row, liste_des_traces, trace)
-                trace = trace[:-1]
             if len(trace) >= 1:
                 #  Le and permet de ne pas quitter un gap sans passer par une case 'ouverture de gap'
                 if symbole == '↘' and trace[-1] in '⤏⇣↘':
                     trace += symbole
                     liste_des_traces = traverse_recursive(matrice_traces, col - 1, row - 1, liste_des_traces, trace)
                     trace = trace[:-1]
+                if symbole in '→⤏' and trace[-1] in '⤏⇣→↘':
+                    trace += symbole
+                    liste_des_traces = traverse_recursive(matrice_traces, col - 1, row, liste_des_traces, trace)
+                    trace = trace[:-1]
+                if symbole in '↓⇣' and trace[-1] in '⤏⇣↓↘':
+                    trace += symbole
+                    liste_des_traces = traverse_recursive(matrice_traces, col, row - 1, liste_des_traces, trace)
+                    trace = trace[:-1]
             else:
                 if symbole == '↘':
                     trace += symbole
                     liste_des_traces = traverse_recursive(matrice_traces, col - 1, row - 1, liste_des_traces, trace)
                     trace = trace[:-1]
-            if symbole == '↓' or symbole == '⇣':
-                trace += symbole
-                liste_des_traces = traverse_recursive(matrice_traces, col, row - 1, liste_des_traces, trace)
-                trace = trace[:-1]
+                if symbole == '↓' or symbole == '⇣':
+                    trace += symbole
+                    liste_des_traces = traverse_recursive(matrice_traces, col, row - 1, liste_des_traces, trace)
+                    trace = trace[:-1]
+                if symbole == '→' or symbole == '⤏':
+                    trace += symbole
+                    liste_des_traces = traverse_recursive(matrice_traces, col - 1, row, liste_des_traces, trace)
+                    trace = trace[:-1]
     return liste_des_traces
 
 
@@ -164,16 +172,22 @@ def rempli_score(lenA, lenB, seqA, seqB, matrice_score, traceback_mat, liste_sco
             right = int
             diag = matrice_score[row - 1][col - 1][0] + int(dico_score[AA[0]][AA[1]])
             if matrice_score[row - 1][col][1] == 1:  # Précédent supérieur est un gap
+                if '⇣' in traceback_mat[row - 1][col] or '↓' in traceback_mat[row - 1][col]:
+                    d_o = False
+                else:
+                    d_o = True
                 down = matrice_score[row - 1][col][0] + liste_score[5]  # Décalage en dessous, extension gap
-                d_o = False
             elif matrice_score[row - 1][col][1] == 0:  # Précédent non gap
                 down = matrice_score[row - 1][col][0] + liste_score[4]  # Décalage en dessous, ouverture gap
                 d_o = True
             else:
                 print("erreur down")
             if matrice_score[row][col - 1][1] == 1:  # Precedent gauche est un gap
+                if '⤏' in traceback_mat[row][col - 1] or '→' in traceback_mat[row][col - 1]:
+                    r_o = False
+                else:
+                    r_o = True
                 right = matrice_score[row][col - 1][0] + liste_score[5]  # Décalage a droite extension gap
-                r_o = False
             elif matrice_score[row][col - 1][1] == 0:  # precedent non gap
                 right = matrice_score[row][col - 1][0] + liste_score[4]  # Décalage a droite ouverture gap
                 r_o = True
@@ -352,6 +366,7 @@ def matrix(seqA, seqB, liste_score, liste_symbole, type_alignement, type_algorit
                                             traceback_mat, liste_score, type_alignement, type_algorithme)
     if type_algorithme is True:
         liste_traceback = traverse_recursive(traceback_mat, lenA, lenB, liste_des_traces, trace)
+        print(liste_traceback)
         for traceback in liste_traceback:  # Pour chaque trace possible on ajoute un alignement dans le dictionnaire
             dico_x_aligne[str(nb_alignement)] = dico_x_aligne['0'].copy()
             dico_x_aligne[str(nb_alignement)]["liste traceback"] = traceback

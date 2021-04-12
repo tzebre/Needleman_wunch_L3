@@ -50,7 +50,6 @@ def print_final(liste_dico, seqA, seqB, mat_traceback, type_alignement, type_alg
                 print('matrice    gap ouvert    gap étendu')
                 print('BLOSUM62\t{0}\t{1}'.format(str(liste_score[4]), str(liste_score[5])))
             print("###############################################################")
-            print("###############################################################")
             print("Matrice de score : ")
             print_matrice(dico_x_aligne['0']["matrice score"], seqA, seqB, True)
             print('"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""')
@@ -65,9 +64,7 @@ def print_final(liste_dico, seqA, seqB, mat_traceback, type_alignement, type_alg
                     if type_algorithme is False:
                         if d % 1 == 0 and d >= 1:
                             print(" ")
-                            suite_input = \
-                                input("appuyez sur entrée pour continuer (depart suivant), quitter avec ctrl+C")
-                            suite_input = "  "
+                            input("appuyez sur entrée pour continuer (depart suivant), quitter avec ctrl+C")
                             print("  ")
                 print("Depart possible n°", d + 1)
                 print("alignement possible n°", int(dico) + 1, sep='')
