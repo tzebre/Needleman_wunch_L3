@@ -15,7 +15,7 @@ def print_score(score, type_alignement):
 
 
 # Print des matrices de score et de traceback. Type matrice True = score False = traceback
-def print_matrice(mat, seqA, seqB, type_matrice):
+def print_matrice(mat, seqA, seqB):
     i = 0
     print('\t', end='')
     while i < len(seqA):
@@ -28,10 +28,7 @@ def print_matrice(mat, seqA, seqB, type_matrice):
         else:
             print(''.center(3), '|', sep='', end='')
         for col in range(len(mat[row])):
-            if type_matrice is True:  # Matrice de score
-                print(str(mat[row][col][0]).center(3), '|', sep='', end='')
-            else:  # Matrice de trace
-                print(mat[row][col].center(3), '|', sep='', end='')
+            print(str(mat[row][col]).center(3), '|', sep='', end='')
         print('')
 
 
@@ -51,10 +48,10 @@ def print_final(liste_dico, seqA, seqB, mat_traceback, type_alignement, type_alg
                 print('BLOSUM62\t{0}\t{1}'.format(str(liste_score[4]), str(liste_score[5])))
             print("###############################################################")
             print("Matrice de score : ")
-            print_matrice(dico_x_aligne['0']["matrice score"], seqA, seqB, True)
+            print_matrice(dico_x_aligne['0']["matrice score"], seqA, seqB)
             print('"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""')
             print("Matrice de traceback :")
-            print_matrice(mat_traceback, seqA, seqB, False)
+            print_matrice(mat_traceback, seqA, seqB)
             print("==============================================================")
         # Dico_x_aligne contient autan d'indice que de trace possible
         for nb_alignement in range(0, len(dico_x_aligne)):

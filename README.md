@@ -172,17 +172,18 @@ On arrête l'alignement quand on trouve un score de 0 (il n'y aura donc pas de f
 Dans la console : 
 - Matrices de score et de trace 
 - Alignement ex-aequo
+    - 30 alignement par 30 alignement (appuyer sur entrée pour voir les suivant)
+    - Dans le cas de Smith et Waterman depart par depart (appuyer sur entrée pour voir le depart possible susivant)
 ### Utilisation en ligne de commande <a id="cmd"></a>
-- Matrices de score et de trace 
-- Alignement ex-aequo
+Même qu'en ligne de commande, mais sauvegarde automatique dans save.txt.
 
 
 ## Amélioration <a id="amelioration"></a>
 - Amélioration de l'utilisation graphique (web?)
 - Enregistrer les résultats dans un fichier   
 - Ajout de matrice de substitution protéique
-- Meilleur gestion des N comme nucleotide
-- Ici j'ai fait le choix de compter comme une ouverture de gap le passage d'un gap d'un brin a l'autre. 
+- Meilleur gestion des N comme nucleotide ici compté comme un mismatch.
+- Ici j'ai fait le choix de compter comme une ouverture de gap le passage du gap d'un brin a l'autre. 
   Il faudrait peut-être laisser le choix a l'utilisateur entre ouverture et extension.
     
 

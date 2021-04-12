@@ -16,7 +16,7 @@ seqA, seqB, liste_score, liste_symbole, type_alignement, type_algorithme, save =
 liste_dico, mat_max_traceback = fct.matrix(seqA, seqB, liste_score, liste_symbole, type_alignement, type_algorithme)
 # Print des résultats
 gpt.print_final(liste_dico, seqA, seqB, mat_max_traceback, type_alignement, type_algorithme, liste_score, False)
-if save is True:
+if save is True:  # Enregistrement des résultats de la console dans le fichier 'save.txt'
     sys.stdout = open(file_name, 'w')
     gpt.print_final(liste_dico, seqA, seqB, mat_max_traceback, type_alignement, type_algorithme, liste_score, save)
     sys.stdout.close()

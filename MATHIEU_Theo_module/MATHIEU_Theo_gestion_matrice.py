@@ -5,7 +5,7 @@ def matrix_zero_list(col, row):
     for x in range(row):
         matrice.append([])
         for y in range(col):
-            matrice[x].append([0 for _ in range(2)])
+            matrice[x].append(0)
     return matrice
 
 
